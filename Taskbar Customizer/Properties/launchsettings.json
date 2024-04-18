@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "Taskbar Customizer (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "Taskbar Customizer (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
