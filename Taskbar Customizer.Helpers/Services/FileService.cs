@@ -1,25 +1,28 @@
-﻿using System.Text;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
+
+namespace Taskbar_Customizer.Helpers.Services;
+
+using System.Text;
 
 using Newtonsoft.Json;
+using Taskbar_Customizer.Helpers.Contracts.Services;
 
-using Taskbar_Customizer.Core.Contracts.Services;
-
-namespace Taskbar_Customizer.Core.Services;
-
+/// <summary>
+/// Service for operation with files.
+/// </summary>
 public class FileService : IFileService
 {
+    /// <inheritdoc />
     public T Read<T>(string folderPath, string fileName)
     {
         var path = Path.Combine(folderPath, fileName);
-        if (File.Exists(path))
-        {
-            var json = File.ReadAllText(path);
-            return JsonConvert.DeserializeObject<T>(json);
-        }
 
-        return default;
+        var json = File.ReadAllText(path);
+
+        return JsonConvert.DeserializeObject<T>(json);
     }
 
+    /// <inheritdoc />
     public void Save<T>(string folderPath, string fileName, T content)
     {
         if (!Directory.Exists(folderPath))
@@ -31,6 +34,7 @@ public class FileService : IFileService
         File.WriteAllText(Path.Combine(folderPath, fileName), fileContent, Encoding.UTF8);
     }
 
+    /// <inheritdoc />
     public void Delete(string folderPath, string fileName)
     {
         if (fileName != null && File.Exists(Path.Combine(folderPath, fileName)))

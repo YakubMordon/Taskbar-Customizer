@@ -1,35 +1,50 @@
-﻿using Taskbar_Customizer.Helpers;
-
-using Windows.UI.ViewManagement;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
 namespace Taskbar_Customizer;
 
+using Taskbar_Customizer.Helpers;
+using Microsoft.UI.Dispatching;
+using Windows.UI.ViewManagement;
+
+/// <summary>
+/// Code-Behind for MainWindow.xaml.
+/// </summary>
 public sealed partial class MainWindow : WindowEx
 {
-    private Microsoft.UI.Dispatching.DispatcherQueue dispatcherQueue;
+    /// <summary>
+    /// Dispatcher queue for handling UI updates.
+    /// </summary>
+    private DispatcherQueue dispatcherQueue;
 
+    /// <summary>
+    /// Windows UI settings for system theme changes.
+    /// </summary>
     private UISettings settings;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// </summary>
     public MainWindow()
     {
-        InitializeComponent();
+        this.InitializeComponent();
 
-        AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/WindowIcon.ico"));
-        Content = null;
-        Title = "AppDisplayName".GetLocalized();
+        this.AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/WindowIcon.ico"));
+        this.Content = null;
+        this.Title = "AppDisplayName".GetLocalized();
 
         // Theme change code picked from https://github.com/microsoft/WinUI-Gallery/pull/1239
-        dispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread();
-        settings = new UISettings();
-        settings.ColorValuesChanged += Settings_ColorValuesChanged; // cannot use FrameworkElement.ActualThemeChanged event
+        this.dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+        this.settings = new UISettings();
+        this.settings.ColorValuesChanged += this.Settings_ColorValuesChanged; // cannot use FrameworkElement.ActualThemeChanged event
     }
 
-    // this handles updating the caption button colors correctly when indows system theme is changed
-    // while the app is open
+    /// <summary>
+    /// Event Handler for update of the caption button colors, when windows system theme is changed, while app is open.
+    /// </summary>
     private void Settings_ColorValuesChanged(UISettings sender, object args)
     {
         // This calls comes off-thread, hence we will need to dispatch it to current app's thread
-        dispatcherQueue.TryEnqueue(() =>
+        this.dispatcherQueue.TryEnqueue(() =>
         {
             TitleBarHelper.ApplySystemThemeToCaptionButtons();
         });

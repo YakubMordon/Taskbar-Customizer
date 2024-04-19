@@ -1,17 +1,36 @@
-﻿namespace Taskbar_Customizer.Activation;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-// Extend this class to implement new ActivationHandlers. See DefaultActivationHandler for an example.
-// https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/activation.md
+namespace Taskbar_Customizer.Activation;
+
+/// <summary>
+/// Base class for implementing custom activation handlers.
+/// </summary>
+/// <typeparam name="T">The type of activation arguments this handler can process.</typeparam>
+/// <remarks>
+/// Extend this class to implement new activation handlers. See <see cref="DefaultActivationHandler"/> for an example.
+/// For more information about activation handlers in WinUI, visit:
+/// https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/activation.md
+/// </remarks>
 public abstract class ActivationHandler<T> : IActivationHandler
     where T : class
 {
-    // Override this method to add the logic for whether to handle the activation.
+    /// <inheritdoc />
+    public bool CanHandle(object args) => args is T && this.CanHandleInternal((args as T) !);
+
+    /// <inheritdoc />
+    public async Task HandleAsync(object args) => await this.HandleInternalAsync((args as T) !);
+
+    /// <summary>
+    /// Method, which determines whether this activation handler can handle the specified activation arguments.
+    /// </summary>
+    /// <param name="args">The activation arguments.</param>
+    /// <returns>True if this handler can handle the activation; otherwise, false.</returns>
     protected virtual bool CanHandleInternal(T args) => true;
 
-    // Override this method to add the logic for your activation handler.
+    /// <summary>
+    /// Method, which handles the activation asynchronously based on the specified arguments.
+    /// </summary>
+    /// <param name="args">The activation arguments.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     protected abstract Task HandleInternalAsync(T args);
-
-    public bool CanHandle(object args) => args is T && CanHandleInternal((args as T)!);
-
-    public async Task HandleAsync(object args) => await HandleInternalAsync((args as T)!);
 }

@@ -1,4 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
+
+namespace Taskbar_Customizer.Services;
+
+using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -7,69 +11,77 @@ using Taskbar_Customizer.Contracts.Services;
 using Taskbar_Customizer.Contracts.ViewModels;
 using Taskbar_Customizer.Helpers;
 
-namespace Taskbar_Customizer.Services;
-
-// For more information on navigation between pages see
-// https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/navigation.md
+/// <summary>
+/// Service, which provides navigation functionality between pages in a WinUI application.
+/// </summary>
 public class NavigationService : INavigationService
 {
-    private readonly IPageService _pageService;
-    private object? _lastParameterUsed;
-    private Frame? _frame;
+    /// <summary>
+    /// Service for retrieving page type, based on key.
+    /// </summary>
+    private readonly IPageService pageService;
 
+    /// <summary>
+    /// Last parameter used to navigate.
+    /// </summary>
+    private object? lastParameterUsed;
+
+    /// <summary>
+    /// Frame control used for navigation.
+    /// </summary>
+    private Frame? frame;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NavigationService"/> class.
+    /// </summary>
+    /// <param name="pageService">Service for retrieving page type, based on key.</param>
+    public NavigationService(IPageService pageService)
+    {
+        this.pageService = pageService;
+    }
+
+    /// <summary>
+    /// Occurs when a navigation operation has completed.
+    /// </summary>
     public event NavigatedEventHandler? Navigated;
 
+    /// <summary>
+    /// Gets or sets the Frame control used for navigation.
+    /// </summary>
     public Frame? Frame
     {
         get
         {
-            if (_frame == null)
+            if (this.frame == null)
             {
-                _frame = App.MainWindow.Content as Frame;
-                RegisterFrameEvents();
+                this.frame = App.MainWindow.Content as Frame;
+                this.RegisterFrameEvents();
             }
 
-            return _frame;
+            return this.frame;
         }
 
         set
         {
-            UnregisterFrameEvents();
-            _frame = value;
-            RegisterFrameEvents();
+            this.UnregisterFrameEvents();
+            this.frame = value;
+            this.RegisterFrameEvents();
         }
     }
 
-    [MemberNotNullWhen(true, nameof(Frame), nameof(_frame))]
-    public bool CanGoBack => Frame != null && Frame.CanGoBack;
+    /// <summary>
+    /// Gets a value indicating whether it's possible to navigate back to the previous page.
+    /// </summary>
+    [MemberNotNullWhen(true, nameof(Frame), nameof(frame))]
+    public bool CanGoBack => this.Frame != null && this.Frame.CanGoBack;
 
-    public NavigationService(IPageService pageService)
-    {
-        _pageService = pageService;
-    }
-
-    private void RegisterFrameEvents()
-    {
-        if (_frame != null)
-        {
-            _frame.Navigated += OnNavigated;
-        }
-    }
-
-    private void UnregisterFrameEvents()
-    {
-        if (_frame != null)
-        {
-            _frame.Navigated -= OnNavigated;
-        }
-    }
-
+    /// <inheritdoc />
     public bool GoBack()
     {
-        if (CanGoBack)
+        if (this.CanGoBack)
         {
-            var vmBeforeNavigation = _frame.GetPageViewModel();
-            _frame.GoBack();
+            var vmBeforeNavigation = this.frame.GetPageViewModel();
+            this.frame.GoBack();
             if (vmBeforeNavigation is INavigationAware navigationAware)
             {
                 navigationAware.OnNavigatedFrom();
@@ -81,18 +93,19 @@ public class NavigationService : INavigationService
         return false;
     }
 
+    /// <inheritdoc />
     public bool NavigateTo(string pageKey, object? parameter = null, bool clearNavigation = false)
     {
-        var pageType = _pageService.GetPageType(pageKey);
+        var pageType = this.pageService.GetPageType(pageKey);
 
-        if (_frame != null && (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed))))
+        if (this.frame != null && (this.frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(this.lastParameterUsed))))
         {
-            _frame.Tag = clearNavigation;
-            var vmBeforeNavigation = _frame.GetPageViewModel();
-            var navigated = _frame.Navigate(pageType, parameter);
+            this.frame.Tag = clearNavigation;
+            var vmBeforeNavigation = this.frame.GetPageViewModel();
+            var navigated = this.frame.Navigate(pageType, parameter);
             if (navigated)
             {
-                _lastParameterUsed = parameter;
+                this.lastParameterUsed = parameter;
                 if (vmBeforeNavigation is INavigationAware navigationAware)
                 {
                     navigationAware.OnNavigatedFrom();
@@ -105,6 +118,31 @@ public class NavigationService : INavigationService
         return false;
     }
 
+    /// <summary>
+    /// Method for registering event handlers for the navigation events of the associated frame.
+    /// </summary>
+    private void RegisterFrameEvents()
+    {
+        if (this.frame != null)
+        {
+            this.frame.Navigated += this.OnNavigated;
+        }
+    }
+
+    /// <summary>
+    /// Method for unregistering event handlers for the navigation events of the associated frame.
+    /// </summary>
+    private void UnregisterFrameEvents()
+    {
+        if (this.frame != null)
+        {
+            this.frame.Navigated -= this.OnNavigated;
+        }
+    }
+
+    /// <summary>
+    /// Event Handler for the Navigated event of the frame.
+    /// </summary>
     private void OnNavigated(object sender, NavigationEventArgs e)
     {
         if (sender is Frame frame)
@@ -120,7 +158,7 @@ public class NavigationService : INavigationService
                 navigationAware.OnNavigatedTo(e.Parameter);
             }
 
-            Navigated?.Invoke(sender, e);
+            this.Navigated?.Invoke(sender, e);
         }
     }
 }

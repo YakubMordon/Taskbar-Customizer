@@ -1,53 +1,81 @@
-﻿using Microsoft.Extensions.Options;
-
-using Taskbar_Customizer.Contracts.Services;
-using Taskbar_Customizer.Core.Contracts.Services;
-using Taskbar_Customizer.Core.Helpers;
-using Taskbar_Customizer.Helpers;
-using Taskbar_Customizer.Models;
-
-using Windows.ApplicationModel;
-using Windows.Storage;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
 namespace Taskbar_Customizer.Services;
 
+using Microsoft.Extensions.Options;
+
+using Taskbar_Customizer.Contracts.Services;
+using Helpers.Contracts.Services;
+using Helpers.Helpers;
+using Taskbar_Customizer.Helpers;
+using Taskbar_Customizer.Models;
+
+using Windows.Storage;
+
 public class LocalSettingsService : ILocalSettingsService
 {
-    private const string _defaultApplicationDataFolder = "Taskbar Customizer/ApplicationData";
-    private const string _defaultLocalSettingsFile = "LocalSettings.json";
+    /// <summary>
+    /// The default folder path where application data is stored.
+    /// </summary>
+    private const string defaultApplicationDataFolder = "Taskbar Customizer/ApplicationData";
 
-    private readonly IFileService _fileService;
-    private readonly LocalSettingsOptions _options;
+    /// <summary>
+    /// The default filename for local settings storage.
+    /// </summary>
+    private const string defaultLocalSettingsFile = "LocalSettings.json";
 
-    private readonly string _localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-    private readonly string _applicationDataFolder;
-    private readonly string _localsettingsFile;
+    /// <summary>
+    /// The file service used for file operations.
+    /// </summary>
+    private readonly IFileService fileService;
 
-    private IDictionary<string, object> _settings;
+    /// <summary>
+    /// The options for local settings management.
+    /// </summary>
+    private readonly LocalSettingsOptions options;
 
-    private bool _isInitialized;
+    /// <summary>
+    /// The path to the local application data folder.
+    /// </summary>
+    private readonly string localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
+    /// <summary>
+    /// The full path to the application data folder.
+    /// </summary>
+    private readonly string applicationDataFolder;
+
+    /// <summary>
+    /// The full path to the local settings file.
+    /// </summary>
+    private readonly string localsettingsFile;
+
+    /// <summary>
+    /// The dictionary to store local settings key-value pairs.
+    /// </summary>
+    private IDictionary<string, object> settings;
+
+    /// <summary>
+    /// Indicates whether the local settings service has been initialized.
+    /// </summary>
+    private bool isInitialized;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LocalSettingsService"/> class.
+    /// </summary>
+    /// <param name="fileService">The file service to use for file operations.</param>
+    /// <param name="options">The local settings options.</param>
     public LocalSettingsService(IFileService fileService, IOptions<LocalSettingsOptions> options)
     {
-        _fileService = fileService;
-        _options = options.Value;
+        this.fileService = fileService;
+        this.options = options.Value;
 
-        _applicationDataFolder = Path.Combine(_localApplicationData, _options.ApplicationDataFolder ?? _defaultApplicationDataFolder);
-        _localsettingsFile = _options.LocalSettingsFile ?? _defaultLocalSettingsFile;
+        this.applicationDataFolder = Path.Combine(this.localApplicationData, this.options.ApplicationDataFolder ?? defaultApplicationDataFolder);
+        this.localsettingsFile = this.options.LocalSettingsFile ?? defaultLocalSettingsFile;
 
-        _settings = new Dictionary<string, object>();
+        this.settings = new Dictionary<string, object>();
     }
 
-    private async Task InitializeAsync()
-    {
-        if (!_isInitialized)
-        {
-            _settings = await Task.Run(() => _fileService.Read<IDictionary<string, object>>(_applicationDataFolder, _localsettingsFile)) ?? new Dictionary<string, object>();
-
-            _isInitialized = true;
-        }
-    }
-
+    /// <inheritdoc />
     public async Task<T?> ReadSettingAsync<T>(string key)
     {
         if (RuntimeHelper.IsMSIX)
@@ -59,9 +87,9 @@ public class LocalSettingsService : ILocalSettingsService
         }
         else
         {
-            await InitializeAsync();
+            await this.InitializeAsync();
 
-            if (_settings != null && _settings.TryGetValue(key, out var obj))
+            if (this.settings != null && this.settings.TryGetValue(key, out var obj))
             {
                 return await Json.ToObjectAsync<T>((string)obj);
             }
@@ -70,6 +98,7 @@ public class LocalSettingsService : ILocalSettingsService
         return default;
     }
 
+    /// <inheritdoc />
     public async Task SaveSettingAsync<T>(string key, T value)
     {
         if (RuntimeHelper.IsMSIX)
@@ -78,11 +107,24 @@ public class LocalSettingsService : ILocalSettingsService
         }
         else
         {
-            await InitializeAsync();
+            await this.InitializeAsync();
 
-            _settings[key] = await Json.StringifyAsync(value);
+            this.settings[key] = await Json.StringifyAsync(value);
 
-            await Task.Run(() => _fileService.Save(_applicationDataFolder, _localsettingsFile, _settings));
+            await Task.Run(() => this.fileService.Save(this.applicationDataFolder, this.localsettingsFile, this.settings));
+        }
+    }
+
+    /// <summary>
+    /// Method, which initializes the local settings service by reading settings from a file if not already initialized.
+    /// </summary>
+    private async Task InitializeAsync()
+    {
+        if (!this.isInitialized)
+        {
+            this.settings = await Task.Run(() => this.fileService.Read<IDictionary<string, object>>(this.applicationDataFolder, this.localsettingsFile)) ?? new Dictionary<string, object>();
+
+            this.isInitialized = true;
         }
     }
 }

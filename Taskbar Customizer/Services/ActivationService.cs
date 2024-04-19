@@ -1,72 +1,112 @@
-﻿using Microsoft.UI.Xaml;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
+
+namespace Taskbar_Customizer.Services;
+
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 using Taskbar_Customizer.Activation;
 using Taskbar_Customizer.Contracts.Services;
 using Taskbar_Customizer.Views;
 
-namespace Taskbar_Customizer.Services;
-
+/// <summary>
+/// Service responsible for handling application activation and startup tasks.
+/// </summary>
 public class ActivationService : IActivationService
 {
-    private readonly ActivationHandler<LaunchActivatedEventArgs> _defaultHandler;
-    private readonly IEnumerable<IActivationHandler> _activationHandlers;
-    private readonly IThemeSelectorService _themeSelectorService;
-    private UIElement? _shell = null;
+    /// <summary>
+    /// The default activation handler.
+    /// </summary>
+    private readonly ActivationHandler<LaunchActivatedEventArgs> defaultHandler;
 
+    /// <summary>
+    /// The collection of activation handlers.
+    /// </summary>
+    private readonly IEnumerable<IActivationHandler> activationHandlers;
+
+    /// <summary>
+    /// The theme selector service.
+    /// </summary>
+    private readonly IThemeSelectorService themeSelectorService;
+
+    /// <summary>
+    /// The UI element representing the application shell.
+    /// </summary>
+    private UIElement? shell = null;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActivationService"/> class.
+    /// </summary>
+    /// <param name="defaultHandler">The default activation handler.</param>
+    /// <param name="activationHandlers">The collection of activation handlers.</param>
+    /// <param name="themeSelectorService">The theme selector service.</param>
     public ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService)
     {
-        _defaultHandler = defaultHandler;
-        _activationHandlers = activationHandlers;
-        _themeSelectorService = themeSelectorService;
+        this.defaultHandler = defaultHandler;
+        this.activationHandlers = activationHandlers;
+        this.themeSelectorService = themeSelectorService;
     }
 
+    /// <inheritdoc />
     public async Task ActivateAsync(object activationArgs)
     {
         // Execute tasks before activation.
-        await InitializeAsync();
+        await this.InitializeAsync();
 
         // Set the MainWindow Content.
         if (App.MainWindow.Content == null)
         {
-            _shell = App.GetService<ShellPage>();
-            App.MainWindow.Content = _shell ?? new Frame();
+            this.shell = App.GetService<ShellPage>();
+            App.MainWindow.Content = this.shell ?? new Frame();
         }
 
         // Handle activation via ActivationHandlers.
-        await HandleActivationAsync(activationArgs);
+        await this.HandleActivationAsync(activationArgs);
 
         // Activate the MainWindow.
         App.MainWindow.Activate();
 
         // Execute tasks after activation.
-        await StartupAsync();
+        await this.StartupAsync();
     }
 
+    /// <summary>
+    /// Method for handling activation asynchronously.
+    /// </summary>
+    /// <param name="activationArgs">Activation arguments.</param>
+    /// <returns>Completed Task.</returns>
     private async Task HandleActivationAsync(object activationArgs)
     {
-        var activationHandler = _activationHandlers.FirstOrDefault(h => h.CanHandle(activationArgs));
+        var activationHandler = this.activationHandlers.FirstOrDefault(h => h.CanHandle(activationArgs));
 
         if (activationHandler != null)
         {
             await activationHandler.HandleAsync(activationArgs);
         }
 
-        if (_defaultHandler.CanHandle(activationArgs))
+        if (this.defaultHandler.CanHandle(activationArgs))
         {
-            await _defaultHandler.HandleAsync(activationArgs);
+            await this.defaultHandler.HandleAsync(activationArgs);
         }
     }
 
+    /// <summary>
+    /// Method, which initializes the theme selector service.
+    /// </summary>
+    /// <returns>Completed Task.</returns>
     private async Task InitializeAsync()
     {
-        await _themeSelectorService.InitializeAsync().ConfigureAwait(false);
+        await this.themeSelectorService.InitializeAsync().ConfigureAwait(false);
         await Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Method for setting the requested application theme after activation.
+    /// </summary>
+    /// <returns>Completed Task.</returns>
     private async Task StartupAsync()
     {
-        await _themeSelectorService.SetRequestedThemeAsync();
+        await this.themeSelectorService.SetRequestedThemeAsync();
         await Task.CompletedTask;
     }
 }

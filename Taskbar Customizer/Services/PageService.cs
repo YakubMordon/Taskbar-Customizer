@@ -1,4 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
+
+namespace Taskbar_Customizer.Services;
+
+using CommunityToolkit.Mvvm.ComponentModel;
 
 using Microsoft.UI.Xaml.Controls;
 
@@ -6,24 +10,32 @@ using Taskbar_Customizer.Contracts.Services;
 using Taskbar_Customizer.ViewModels;
 using Taskbar_Customizer.Views;
 
-namespace Taskbar_Customizer.Services;
-
+/// <summary>
+/// Service responsible for managing page navigation within the application.
+/// </summary>
 public class PageService : IPageService
 {
-    private readonly Dictionary<string, Type> _pages = new();
+    /// <summary>
+    /// Represents the mapping between ViewModel types (keys) and corresponding Page types (values) for page navigation.
+    /// </summary>
+    private readonly Dictionary<string, Type> pages = new Dictionary<string, Type>();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PageService"/> class.
+    /// </summary>
     public PageService()
     {
-        Configure<MainViewModel, MainPage>();
-        Configure<SettingsViewModel, SettingsPage>();
+        this.Configure<MainViewModel, MainPage>();
+        this.Configure<SettingsViewModel, SettingsPage>();
     }
 
+    /// <inheritdoc />
     public Type GetPageType(string key)
     {
         Type? pageType;
-        lock (_pages)
+        lock (this.pages)
         {
-            if (!_pages.TryGetValue(key, out pageType))
+            if (!this.pages.TryGetValue(key, out pageType))
             {
                 throw new ArgumentException($"Page not found: {key}. Did you forget to call PageService.Configure?");
             }
@@ -32,25 +44,31 @@ public class PageService : IPageService
         return pageType;
     }
 
-    private void Configure<VM, V>()
-        where VM : ObservableObject
-        where V : Page
+    /// <summary>
+    /// Configures a ViewModel to Page mapping for navigation.
+    /// </summary>
+    /// <typeparam name="TVM">The type of the ViewModel.</typeparam>
+    /// <typeparam name="TV">The type of the corresponding Page.</typeparam>
+    /// <exception cref="ArgumentException">Thrown if the mapping is already configured.</exception>
+    private void Configure<TVM, TV>()
+        where TVM : ObservableObject
+        where TV : Page
     {
-        lock (_pages)
+        lock (this.pages)
         {
-            var key = typeof(VM).FullName!;
-            if (_pages.ContainsKey(key))
+            var key = typeof(TVM).FullName!;
+            if (this.pages.ContainsKey(key))
             {
                 throw new ArgumentException($"The key {key} is already configured in PageService");
             }
 
-            var type = typeof(V);
-            if (_pages.ContainsValue(type))
+            var type = typeof(TV);
+            if (this.pages.ContainsValue(type))
             {
-                throw new ArgumentException($"This type is already configured with key {_pages.First(p => p.Value == type).Key}");
+                throw new ArgumentException($"This type is already configured with key {pages.First(p => p.Value == type).Key}");
             }
 
-            _pages.Add(key, type);
+            this.pages.Add(key, type);
         }
     }
 }

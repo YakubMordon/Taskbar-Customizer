@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
+
+namespace Taskbar_Customizer.ViewModels;
+
+using System.Reflection;
 using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,40 +15,61 @@ using Taskbar_Customizer.Helpers;
 
 using Windows.ApplicationModel;
 
-namespace Taskbar_Customizer.ViewModels;
-
+/// <summary>
+/// ViewModel for Settings Page.
+/// </summary>
 public partial class SettingsViewModel : ObservableRecipient
 {
-    private readonly IThemeSelectorService _themeSelectorService;
+    /// <summary>
+    /// Service for theme selection handling.
+    /// </summary>
+    private readonly IThemeSelectorService themeSelectorService;
 
+    /// <summary>
+    /// Current element theme.
+    /// </summary>
     [ObservableProperty]
-    private ElementTheme _elementTheme;
+    private ElementTheme elementTheme;
 
+    /// <summary>
+    /// Version description of the app.
+    /// </summary>
     [ObservableProperty]
-    private string _versionDescription;
+    private string versionDescription;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
+    /// </summary>
+    /// <param name="themeSelectorService">The theme selector service used to manage app themes.</param>
+    public SettingsViewModel(IThemeSelectorService themeSelectorService)
+    {
+        this.themeSelectorService = themeSelectorService;
+        this.elementTheme = this.themeSelectorService.Theme;
+        this.versionDescription = GetVersionDescription();
+
+        this.SwitchThemeCommand = new RelayCommand<ElementTheme>(
+            async (param) =>
+            {
+                if (this.ElementTheme != param)
+                {
+                    this.ElementTheme = param;
+                    await this.themeSelectorService.SetThemeAsync(param);
+                }
+            });
+    }
+
+    /// <summary>
+    /// Gets the command to switch the app theme.
+    /// </summary>
     public ICommand SwitchThemeCommand
     {
         get;
     }
 
-    public SettingsViewModel(IThemeSelectorService themeSelectorService)
-    {
-        _themeSelectorService = themeSelectorService;
-        _elementTheme = _themeSelectorService.Theme;
-        _versionDescription = GetVersionDescription();
-
-        SwitchThemeCommand = new RelayCommand<ElementTheme>(
-            async (param) =>
-            {
-                if (ElementTheme != param)
-                {
-                    ElementTheme = param;
-                    await _themeSelectorService.SetThemeAsync(param);
-                }
-            });
-    }
-
+    /// <summary>
+    /// Method for retrieving the version description of the app.
+    /// </summary>
+    /// <returns>The version description string.</returns>
     private static string GetVersionDescription()
     {
         Version version;
@@ -53,7 +78,7 @@ public partial class SettingsViewModel : ObservableRecipient
         {
             var packageVersion = Package.Current.Id.Version;
 
-            version = new(packageVersion.Major, packageVersion.Minor, packageVersion.Build, packageVersion.Revision);
+            version = new Version(packageVersion.Major, packageVersion.Minor, packageVersion.Build, packageVersion.Revision);
         }
         else
         {

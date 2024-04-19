@@ -1,7 +1,10 @@
-﻿using Microsoft.UI.Xaml;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
+
+namespace Taskbar_Customizer.Views;
+
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 
 using Taskbar_Customizer.Contracts.Services;
 using Taskbar_Customizer.Helpers;
@@ -9,57 +12,46 @@ using Taskbar_Customizer.ViewModels;
 
 using Windows.System;
 
-namespace Taskbar_Customizer.Views;
-
-// TODO: Update NavigationViewItem titles and icons in ShellPage.xaml.
+/// <summary>
+/// Code-Behind for ShellPage.xaml.
+/// </summary>
 public sealed partial class ShellPage : Page
 {
-    public ShellViewModel ViewModel
-    {
-        get;
-    }
-
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ShellPage"/> class.
+    /// </summary>
+    /// <param name="viewModel">View Model.</param>
     public ShellPage(ShellViewModel viewModel)
     {
-        ViewModel = viewModel;
-        InitializeComponent();
+        this.ViewModel = viewModel;
+        this.InitializeComponent();
 
-        ViewModel.NavigationService.Frame = NavigationFrame;
-        ViewModel.NavigationViewService.Initialize(NavigationViewControl);
+        this.ViewModel.NavigationService.Frame = this.NavigationFrame;
+        this.ViewModel.NavigationViewService.Initialize(this.NavigationViewControl);
 
         // TODO: Set the title bar icon by updating /Assets/WindowIcon.ico.
         // A custom title bar is required for full window theme and Mica support.
         // https://docs.microsoft.com/windows/apps/develop/title-bar?tabs=winui3#full-customization
         App.MainWindow.ExtendsContentIntoTitleBar = true;
-        App.MainWindow.SetTitleBar(AppTitleBar);
-        App.MainWindow.Activated += MainWindow_Activated;
-        AppTitleBarText.Text = "AppDisplayName".GetLocalized();
+        App.MainWindow.SetTitleBar(this.AppTitleBar);
+        App.MainWindow.Activated += this.MainWindow_Activated;
+        this.AppTitleBarText.Text = "AppDisplayName".GetLocalized();
     }
 
-    private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    /// <summary>
+    /// Gets current ViewModel.
+    /// </summary>
+    public ShellViewModel ViewModel
     {
-        TitleBarHelper.UpdateTitleBar(RequestedTheme);
-
-        KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
-        KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
+        get;
     }
 
-    private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
-    {
-        App.AppTitlebar = AppTitleBarText as UIElement;
-    }
-
-    private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
-    {
-        AppTitleBar.Margin = new Thickness()
-        {
-            Left = sender.CompactPaneLength * (sender.DisplayMode == NavigationViewDisplayMode.Minimal ? 2 : 1),
-            Top = AppTitleBar.Margin.Top,
-            Right = AppTitleBar.Margin.Right,
-            Bottom = AppTitleBar.Margin.Bottom
-        };
-    }
-
+    /// <summary>
+    /// Method for building a keyboard accelerator with the specified key and optional modifiers.
+    /// </summary>
+    /// <param name="key">The virtual key to use for the keyboard accelerator.</param>
+    /// <param name="modifiers">Optional modifiers for the keyboard accelerator.</param>
+    /// <returns>The constructed <see cref="KeyboardAccelerator"/>.</returns>
     private static KeyboardAccelerator BuildKeyboardAccelerator(VirtualKey key, VirtualKeyModifiers? modifiers = null)
     {
         var keyboardAccelerator = new KeyboardAccelerator() { Key = key };
@@ -74,6 +66,9 @@ public sealed partial class ShellPage : Page
         return keyboardAccelerator;
     }
 
+    /// <summary>
+    /// Event handler for keyboard accelerator invocation.
+    /// </summary>
     private static void OnKeyboardAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
     {
         var navigationService = App.GetService<INavigationService>();
@@ -81,5 +76,38 @@ public sealed partial class ShellPage : Page
         var result = navigationService.GoBack();
 
         args.Handled = result;
+    }
+
+    /// <summary>
+    /// Event Handler for Loading event for the ShellPage.
+    /// </summary>
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        TitleBarHelper.UpdateTitleBar(this.RequestedTheme);
+
+        this.KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
+        this.KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
+    }
+
+    /// <summary>
+    /// Event Handler for Window Activation event.
+    /// </summary>
+    private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
+    {
+        App.AppTitlebar = this.AppTitleBarText as UIElement;
+    }
+
+    /// <summary>
+    /// Event Handler for DisplayModeChanged event of the NavigationViewControl.
+    /// </summary>
+    private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
+    {
+        this.AppTitleBar.Margin = new Thickness()
+        {
+            Left = sender.CompactPaneLength * (sender.DisplayMode == NavigationViewDisplayMode.Minimal ? 2 : 1),
+            Top = this.AppTitleBar.Margin.Top,
+            Right = this.AppTitleBar.Margin.Right,
+            Bottom = this.AppTitleBar.Margin.Bottom,
+        };
     }
 }

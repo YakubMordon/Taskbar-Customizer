@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Taskbar Customizer.Core\Taskbar Customizer.Core.csproj" />
+    <ProjectReference Include="..\Taskbar Customizer.Helpers\Taskbar Customizer.Helpers.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

@@ -1,52 +1,33 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
+
+namespace Taskbar_Customizer;
+
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 
 using Taskbar_Customizer.Activation;
 using Taskbar_Customizer.Contracts.Services;
-using Taskbar_Customizer.Core.Contracts.Services;
-using Taskbar_Customizer.Core.Services;
-using Taskbar_Customizer.Helpers;
+using Helpers.Contracts.Services;
+using Helpers.Services;
 using Taskbar_Customizer.Models;
 using Taskbar_Customizer.Services;
 using Taskbar_Customizer.ViewModels;
 using Taskbar_Customizer.Views;
 
-namespace Taskbar_Customizer;
-
-// To learn more about WinUI 3, see https://docs.microsoft.com/windows/apps/winui/winui3/.
+/// <summary>
+/// Code-Behind for App.xaml.
+/// </summary>
 public partial class App : Application
 {
-    // The .NET Generic Host provides dependency injection, configuration, logging, and other services.
-    // https://docs.microsoft.com/dotnet/core/extensions/generic-host
-    // https://docs.microsoft.com/dotnet/core/extensions/dependency-injection
-    // https://docs.microsoft.com/dotnet/core/extensions/configuration
-    // https://docs.microsoft.com/dotnet/core/extensions/logging
-    public IHost Host
-    {
-        get;
-    }
-
-    public static T GetService<T>()
-        where T : class
-    {
-        if ((App.Current as App)!.Host.Services.GetService(typeof(T)) is not T service)
-        {
-            throw new ArgumentException($"{typeof(T)} needs to be registered in ConfigureServices within App.xaml.cs.");
-        }
-
-        return service;
-    }
-
-    public static WindowEx MainWindow { get; } = new MainWindow();
-
-    public static UIElement? AppTitlebar { get; set; }
-
+    /// <summary>
+    /// Initializes a new instance of the <see cref="App"/> class.
+    /// </summary>
     public App()
     {
-        InitializeComponent();
+        this.InitializeComponent();
 
-        Host = Microsoft.Extensions.Hosting.Host.
+        this.Host = Microsoft.Extensions.Hosting.Host.
         CreateDefaultBuilder().
         UseContentRoot(AppContext.BaseDirectory).
         ConfigureServices((context, services) =>
@@ -81,19 +62,62 @@ public partial class App : Application
         }).
         Build();
 
-        UnhandledException += App_UnhandledException;
+        this.UnhandledException += this.App_UnhandledException;
     }
 
-    private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    /// <summary>
+    /// Gets the main application window.
+    /// </summary>
+    public static WindowEx MainWindow { get; } = new MainWindow();
+
+    /// <summary>
+    /// Gets or sets the custom application title bar element.
+    /// </summary>
+    public static UIElement? AppTitlebar
     {
-        // TODO: Log and handle exceptions as appropriate.
-        // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
+        get; set;
     }
 
+    /// <summary>
+    /// Gets the host builder instance for the application.
+    /// </summary>
+    public IHost Host
+    {
+        get;
+    }
+
+    /// <summary>
+    /// Method for retrieving a registered service of type <typeparamref name="T"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of service to retrieve.</typeparam>
+    /// <returns>The registered service instance.</returns>
+    public static T GetService<T>()
+        where T : class
+    {
+        if ((App.Current as App)!.Host.Services.GetService(typeof(T)) is not T service)
+        {
+            throw new ArgumentException($"{typeof(T)} needs to be registered in ConfigureServices within App.xaml.cs.");
+        }
+
+        return service;
+    }
+
+    /// <inheritdoc />
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);
 
         await App.GetService<IActivationService>().ActivateAsync(args);
+    }
+
+    /// <summary>
+    /// Method for handling unhandled exceptions raised by the application.
+    /// </summary>
+    /// <param name="sender">Sender of an exception.</param>
+    /// <param name="e">Arguments of exception.</param>
+    private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    {
+        // TODO: Log and handle exceptions as appropriate.
+        // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
     }
 }

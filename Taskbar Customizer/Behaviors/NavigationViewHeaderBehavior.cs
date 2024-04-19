@@ -1,122 +1,181 @@
-﻿using Microsoft.UI.Xaml;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
+
+namespace Taskbar_Customizer.Behaviors;
+
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Xaml.Interactivity;
 
 using Taskbar_Customizer.Contracts.Services;
 
-namespace Taskbar_Customizer.Behaviors;
-
+/// <summary>
+/// Behavior that enhances a <see cref="NavigationView"/> by managing the header based on attached properties of <see cref="Page"/> elements.
+/// </summary>
 public class NavigationViewHeaderBehavior : Behavior<NavigationView>
 {
-    private static NavigationViewHeaderBehavior? _current;
+    /// <summary>
+    /// Current Header behavior.
+    /// </summary>
+    private static NavigationViewHeaderBehavior? current;
 
-    private Page? _currentPage;
+    /// <summary>
+    /// Current Page.
+    /// </summary>
+    private Page? currentPage;
 
+    /// <summary>
+    /// Gets or sets the default data template for the header.
+    /// </summary>
     public DataTemplate? DefaultHeaderTemplate
     {
         get; set;
     }
 
+    /// <summary>
+    /// Gets or sets the default header object.
+    /// </summary>
     public object DefaultHeader
     {
-        get => GetValue(DefaultHeaderProperty);
-        set => SetValue(DefaultHeaderProperty, value);
+        get => this.GetValue(DefaultHeaderProperty);
+        set => this.SetValue(DefaultHeaderProperty, value);
     }
 
+    /// <summary>
+    /// Default Header Property.
+    /// </summary>
     public static readonly DependencyProperty DefaultHeaderProperty =
-        DependencyProperty.Register("DefaultHeader", typeof(object), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => _current!.UpdateHeader()));
+        DependencyProperty.Register("DefaultHeader", typeof(object), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => current!.UpdateHeader()));
 
+    /// <summary>
+    /// Gets the header mode from the attached property of a <see cref="Page"/>.
+    /// </summary>
+    /// <param name="item">Page.</param>
+    /// <returns>Header Mode.</returns>
     public static NavigationViewHeaderMode GetHeaderMode(Page item) => (NavigationViewHeaderMode)item.GetValue(HeaderModeProperty);
 
+    /// <summary>
+    /// Sets the header mode to the attached property of a <see cref="Page"/>.
+    /// </summary>
+    /// <param name="item">Page.</param>
+    /// <param name="value">Header Mode.</param>
     public static void SetHeaderMode(Page item, NavigationViewHeaderMode value) => item.SetValue(HeaderModeProperty, value);
 
+    /// <summary>
+    /// Header Mode Property.
+    /// </summary>
     public static readonly DependencyProperty HeaderModeProperty =
-        DependencyProperty.RegisterAttached("HeaderMode", typeof(bool), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(NavigationViewHeaderMode.Always, (d, e) => _current!.UpdateHeader()));
+        DependencyProperty.RegisterAttached("HeaderMode", typeof(bool), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(NavigationViewHeaderMode.Always, (d, e) => current!.UpdateHeader()));
 
+    /// <summary>
+    /// Gets the header context from the attached property of a <see cref="Page"/>.
+    /// </summary>
+    /// <param name="item">Page.</param>
+    /// <returns>Header context.</returns>
     public static object GetHeaderContext(Page item) => item.GetValue(HeaderContextProperty);
 
+    /// <summary>
+    /// Sets the header context to the attached property of a <see cref="Page"/>.
+    /// </summary>
+    /// <param name="item">Page.</param>
+    /// <param name="value">Header context.</param>
     public static void SetHeaderContext(Page item, object value) => item.SetValue(HeaderContextProperty, value);
 
+    /// <summary>
+    /// Header Context Property.
+    /// </summary>
     public static readonly DependencyProperty HeaderContextProperty =
-        DependencyProperty.RegisterAttached("HeaderContext", typeof(object), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => _current!.UpdateHeader()));
+        DependencyProperty.RegisterAttached("HeaderContext", typeof(object), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => current!.UpdateHeader()));
 
+    /// <summary>
+    /// Gets the header template from the attached property of a <see cref="Page"/>.
+    /// </summary>
+    /// <param name="item">Page.</param>
+    /// <returns>Header template.</returns>
     public static DataTemplate GetHeaderTemplate(Page item) => (DataTemplate)item.GetValue(HeaderTemplateProperty);
 
+    /// <summary>
+    /// Sets the header template to the attached property of a <see cref="Page"/>.
+    /// </summary>
+    /// <param name="item">Page.</param>
+    /// <param name="value">Header template.</param>
     public static void SetHeaderTemplate(Page item, DataTemplate value) => item.SetValue(HeaderTemplateProperty, value);
 
+    /// <summary>
+    /// Header Template Property.
+    /// </summary>
     public static readonly DependencyProperty HeaderTemplateProperty =
-        DependencyProperty.RegisterAttached("HeaderTemplate", typeof(DataTemplate), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => _current!.UpdateHeaderTemplate()));
+        DependencyProperty.RegisterAttached("HeaderTemplate", typeof(DataTemplate), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => current!.UpdateHeaderTemplate()));
 
+    /// <summary>
+    /// Event Handler for event when the behavior is attached to a <see cref="NavigationView"/>.
+    /// </summary>
     protected override void OnAttached()
     {
         base.OnAttached();
 
         var navigationService = App.GetService<INavigationService>();
-        navigationService.Navigated += OnNavigated;
+        navigationService.Navigated += this.OnNavigated;
 
-        _current = this;
+        current = this;
     }
 
+    /// <summary>
+    /// Event Handler for event when the behavior is detached from a <see cref="NavigationView"/>.
+    /// </summary>
     protected override void OnDetaching()
     {
         base.OnDetaching();
 
         var navigationService = App.GetService<INavigationService>();
-        navigationService.Navigated -= OnNavigated;
+        navigationService.Navigated -= this.OnNavigated;
     }
 
+    /// <summary>
+    /// Event Handler for the navigation event and updates the header accordingly.
+    /// </summary>
     private void OnNavigated(object sender, NavigationEventArgs e)
     {
         if (sender is Frame frame && frame.Content is Page page)
         {
-            _currentPage = page;
-
-            UpdateHeader();
-            UpdateHeaderTemplate();
+            this.currentPage = page;
+            this.UpdateHeader();
+            this.UpdateHeaderTemplate();
         }
     }
 
+    /// <summary>
+    /// Method for updating the header of the associated <see cref="NavigationView"/> based on the current page's settings.
+    /// </summary>
     private void UpdateHeader()
     {
-        if (_currentPage != null)
+        if (this.currentPage != null)
         {
-            var headerMode = GetHeaderMode(_currentPage);
+            var headerMode = GetHeaderMode(this.currentPage);
             if (headerMode == NavigationViewHeaderMode.Never)
             {
-                AssociatedObject.Header = null;
-                AssociatedObject.AlwaysShowHeader = false;
+                this.AssociatedObject.Header = null;
+                this.AssociatedObject.AlwaysShowHeader = false;
             }
             else
             {
-                var headerFromPage = GetHeaderContext(_currentPage);
-                if (headerFromPage != null)
-                {
-                    AssociatedObject.Header = headerFromPage;
-                }
-                else
-                {
-                    AssociatedObject.Header = DefaultHeader;
-                }
+                var headerFromPage = GetHeaderContext(this.currentPage);
+                this.AssociatedObject.Header = headerFromPage ?? DefaultHeader;
 
-                if (headerMode == NavigationViewHeaderMode.Always)
-                {
-                    AssociatedObject.AlwaysShowHeader = true;
-                }
-                else
-                {
-                    AssociatedObject.AlwaysShowHeader = false;
-                }
+                this.AssociatedObject.AlwaysShowHeader = headerMode == NavigationViewHeaderMode.Always;
             }
         }
     }
 
+    /// <summary>
+    /// Method for updating the header template of the associated <see cref="NavigationView"/> based on the current page's settings.
+    /// </summary>
     private void UpdateHeaderTemplate()
     {
-        if (_currentPage != null)
+        if (this.currentPage != null)
         {
-            var headerTemplate = GetHeaderTemplate(_currentPage);
-            AssociatedObject.HeaderTemplate = headerTemplate ?? DefaultHeaderTemplate;
+            var headerTemplate = GetHeaderTemplate(this.currentPage);
+            this.AssociatedObject.HeaderTemplate = headerTemplate ?? DefaultHeaderTemplate;
         }
     }
 }
