@@ -5,8 +5,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <StackPanel Margin="20">
 
-    <Grid x:Name="ContentArea">
-        
-    </Grid>
+        <StackPanel Margin="{StaticResource SmallTopBottomMargin}" HorizontalAlignment="Left">
+            <TextBlock x:Uid="Main_ColorPicker" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+            <ColorPicker Width="200" Height="30" Color="{x:Bind ViewModel.TaskbarColor, Mode=TwoWay}" Margin="0,10,0,0" />
+        </StackPanel>
+
+        <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+            <TextBlock x:Uid="Main_Transparent" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+            <ToggleSwitch x:Uid="Main_Transparent_Switch" IsOn="{x:Bind ViewModel.IsTaskbarTransparent, Mode=TwoWay}" Margin="0,10,0,0" />
+        </StackPanel>
+
+        <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+            <TextBlock x:Uid="Main_Start" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <RadioButton x:Uid="Main_Start_Left" GroupName="StartButtonPosition" IsChecked="{x:Bind ViewModel.IsStartButtonLeft, Mode=TwoWay}" />
+                <RadioButton x:Uid="Main_Start_Center" GroupName="StartButtonPosition" IsChecked="{x:Bind ViewModel.IsStartButtonCenter, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Page>

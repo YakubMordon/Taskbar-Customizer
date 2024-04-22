@@ -118,69 +118,68 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppDisplayName" xml:space="preserve">
-    <value>Taskbar Customizer</value>
+    <value>Налаштовувач панелі завдань</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>Taskbar Customizer</value>
+    <value>Налаштовувач панелі завдань</value>
   </data>
   <data name="Main_ColorPicker.Text" xml:space="preserve">
-    <value>Color of Taskbar</value>
+    <value>Колір панелі задач</value>
   </data>
   <data name="Main_Start.Text" xml:space="preserve">
-    <value>Position of Windows Button</value>
+    <value>Положення кнопки 'Пуск'</value>
   </data>
   <data name="Main_Start_Center.Content" xml:space="preserve">
-    <value>Center</value>
+    <value>Центр</value>
   </data>
   <data name="Main_Start_Left.Content" xml:space="preserve">
-    <value>Left</value>
+    <value>Ліворуч</value>
   </data>
   <data name="Main_Transparent.Text" xml:space="preserve">
-    <value>Transparency of Taskbar</value>
+    <value>Прозорість панелі завдань</value>
   </data>
   <data name="Main_Transparent_Switch.OffContent" xml:space="preserve">
-    <value>Opaque</value>
+    <value>Непрозорий</value>
   </data>
   <data name="Main_Transparent_Switch.OnContent" xml:space="preserve">
-    <value>Transparent</value>
+    <value>Прозорий</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Privacy Statement</value>
+    <value>Заява про конфіденційність</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
   </data>
   <data name="Settings_About.Text" xml:space="preserve">
-    <value>About this application</value>
+    <value>Про аплікацію</value>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>The application was made to customize taskbar.
+    <value>Програма призначена для налаштування панелі завдань.
 
-This program can:
-
-- Change color of taskbar.
-- Make it transparent/non-transparent.
-- Change position of windows button.</value>
+Ця програма може:
+- Змінювати колір панелі завдань.
+- Зробити її прозорою/непрозорою.
+- Змінити положення кнопок вікон.</value>
   </data>
   <data name="Settings_Language.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Мова</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
-    <value>Personalization</value>
+    <value>Персоналізація</value>
   </data>
   <data name="Settings_Theme.Text" xml:space="preserve">
-    <value>Theme</value>
+    <value>Тема</value>
   </data>
   <data name="Settings_Theme_Dark.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>Темна</value>
   </data>
   <data name="Settings_Theme_Default.Content" xml:space="preserve">
-    <value>Default</value>
+    <value>Стандартна</value>
   </data>
   <data name="Settings_Theme_Light.Content" xml:space="preserve">
-    <value>Light</value>
+    <value>Світла</value>
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
+    <value>Головна</value>
   </data>
 </root>

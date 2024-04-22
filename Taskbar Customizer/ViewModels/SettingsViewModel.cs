@@ -2,6 +2,7 @@
 
 namespace Taskbar_Customizer.ViewModels;
 
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows.Input;
 
@@ -38,6 +39,11 @@ public partial class SettingsViewModel : ObservableRecipient
     private string versionDescription;
 
     /// <summary>
+    /// Selected language of the app.
+    /// </summary>
+    private string selectedLanguage;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
     /// </summary>
     /// <param name="themeSelectorService">The theme selector service used to manage app themes.</param>
@@ -46,6 +52,10 @@ public partial class SettingsViewModel : ObservableRecipient
         this.themeSelectorService = themeSelectorService;
         this.elementTheme = this.themeSelectorService.Theme;
         this.versionDescription = GetVersionDescription();
+
+        this.Languages = new ObservableCollection<string>(LanguageHelper.AvailableLanguages);
+
+        this.selectedLanguage = LanguageHelper.GetCurrentLanguage();
 
         this.SwitchThemeCommand = new RelayCommand<ElementTheme>(
             async (param) =>
@@ -59,11 +69,39 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     /// <summary>
+    /// Gets collection of available languages in app.
+    /// </summary>
+    public ObservableCollection<string> Languages { get; }
+
+    /// <summary>
+    /// Gets or sets selected language of the app.
+    /// </summary>
+    public string SelectedLanguage
+    {
+        get => this.selectedLanguage;
+        set
+        {
+            if (SetProperty(ref this.selectedLanguage, value))
+            {
+                this.UpdateLanguage();
+            }
+        }
+    }
+
+    /// <summary>
     /// Gets the command to switch the app theme.
     /// </summary>
     public ICommand SwitchThemeCommand
     {
         get;
+    }
+
+    /// <summary>
+    /// Method for updating language in application.
+    /// </summary>
+    public void UpdateLanguage()
+    {
+        LanguageHelper.SetCurrentLanguage(this.selectedLanguage);
     }
 
     /// <summary>
