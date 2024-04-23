@@ -144,12 +144,6 @@
   <data name="Main_Transparent_Switch.OnContent" xml:space="preserve">
     <value>Прозорий</value>
   </data>
-  <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Заява про конфіденційність</value>
-  </data>
-  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>https://YourPrivacyUrlGoesHere/</value>
-  </data>
   <data name="Settings_About.Text" xml:space="preserve">
     <value>Про аплікацію</value>
   </data>
@@ -163,6 +157,15 @@
   </data>
   <data name="Settings_Language.Text" xml:space="preserve">
     <value>Мова</value>
+  </data>
+  <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
+    <value>Заява про конфіденційність</value>
+  </data>
+  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
+    <value>https://YourPrivacyUrlGoesHere/</value>
+  </data>
+  <data name="Settings_Language_Warning.Text" xml:space="preserve">
+    <value>Перезапустіть програму, щоб оновити мову інтерфейсу</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>Персоналізація</value>

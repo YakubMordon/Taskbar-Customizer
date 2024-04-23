@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using Windows.ApplicationModel.Resources.Core;
+
 namespace Taskbar_Customizer.ViewModels;
 
 using System.Collections.ObjectModel;

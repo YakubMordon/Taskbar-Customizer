@@ -30,6 +30,11 @@ public class ActivationService : IActivationService
     private readonly IThemeSelectorService themeSelectorService;
 
     /// <summary>
+    /// The taskbar customizer service.
+    /// </summary>
+    private readonly ITaskbarCustomizerService taskbarCustomizerService;
+
+    /// <summary>
     /// The UI element representing the application shell.
     /// </summary>
     private UIElement? shell = null;
@@ -40,11 +45,14 @@ public class ActivationService : IActivationService
     /// <param name="defaultHandler">The default activation handler.</param>
     /// <param name="activationHandlers">The collection of activation handlers.</param>
     /// <param name="themeSelectorService">The theme selector service.</param>
-    public ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService)
+    /// <param name="taskbarCustomizerService">The taskbar customizer service.</param>
+    public ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, 
+        IThemeSelectorService themeSelectorService, ITaskbarCustomizerService taskbarCustomizerService)
     {
         this.defaultHandler = defaultHandler;
         this.activationHandlers = activationHandlers;
         this.themeSelectorService = themeSelectorService;
+        this.taskbarCustomizerService = taskbarCustomizerService;
     }
 
     /// <inheritdoc />
@@ -91,12 +99,13 @@ public class ActivationService : IActivationService
     }
 
     /// <summary>
-    /// Method, which initializes the theme selector service.
+    /// Method, which initializes the singleton services.
     /// </summary>
     /// <returns>Completed Task.</returns>
     private async Task InitializeAsync()
     {
         await this.themeSelectorService.InitializeAsync().ConfigureAwait(false);
+        await this.taskbarCustomizerService.InitializeAsync().ConfigureAwait(false);
         await Task.CompletedTask;
     }
 

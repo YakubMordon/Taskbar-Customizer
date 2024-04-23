@@ -51,9 +51,12 @@
             </StackPanel>
 
             <TextBlock x:Uid="Settings_Language" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+            <StackPanel Orientation="Horizontal" Margin="{StaticResource SmallTopBottomMargin}">
                 <ComboBox Width="200" ItemsSource="{x:Bind ViewModel.Languages}"
                           SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}" />
+
+                <TextBlock x:Uid="Settings_Language_Warning"
+                           Style="{ThemeResource ErrorTextBlockStyle}" />
             </StackPanel>
 
             <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />

@@ -1,4 +1,6 @@
-﻿namespace Taskbar_Customizer.Helpers;
+﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
+
+namespace Taskbar_Customizer.Helpers;
 
 using Windows.Globalization;
 
@@ -29,7 +31,7 @@ public class LanguageHelper
 
         cultureAbbreviations = new List<string>
         {
-            "en-us", "uk",
+            "en", "uk",
         };
     }
 
@@ -51,5 +53,6 @@ public class LanguageHelper
     {
         var index = AvailableLanguages.IndexOf(language);
         ApplicationLanguages.PrimaryLanguageOverride = cultureAbbreviations[index];
+        Windows.ApplicationModel.Resources.Core.ResourceContext.SetGlobalQualifierValue("Language", cultureAbbreviations[index]);
     }
 }
