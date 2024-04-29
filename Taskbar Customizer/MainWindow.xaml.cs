@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using Taskbar_Customizer.Event_Handlers;
+
 namespace Taskbar_Customizer;
 
 using Taskbar_Customizer.Helpers;
@@ -22,15 +24,23 @@ public sealed partial class MainWindow : WindowEx
     private UISettings settings;
 
     /// <summary>
+    /// Language change event handler.
+    /// </summary>
+    public LanguageChangeEventHandler EventHandler = new LanguageChangeEventHandler();
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
     /// </summary>
     public MainWindow()
     {
         this.InitializeComponent();
-
+        
         this.AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/WindowIcon.ico"));
         this.Content = null;
-        this.Title = "AppDisplayName".GetLocalized();
+
+        this.EventHandler.EventHandler += (sender, args) => this.UpdateUI();
+
+        this.UpdateUI();
 
         // Theme change code picked from https://github.com/microsoft/WinUI-Gallery/pull/1239
         this.dispatcherQueue = DispatcherQueue.GetForCurrentThread();
@@ -48,5 +58,13 @@ public sealed partial class MainWindow : WindowEx
         {
             TitleBarHelper.ApplySystemThemeToCaptionButtons();
         });
+    }
+
+    /// <summary>
+    /// Method for updating UI.
+    /// </summary>
+    private void UpdateUI()
+    {
+        this.Title = "AppDisplayName".GetLocalized();
     }
 }

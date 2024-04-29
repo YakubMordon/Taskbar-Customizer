@@ -2,10 +2,10 @@
 
 namespace Taskbar_Customizer.Services;
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.UI;
 using Taskbar_Customizer.Contracts.Services;
+using Taskbar_Customizer.Helpers;
 using Taskbar_Customizer.Helpers.Helpers;
 using Windows.UI;
 
@@ -88,7 +88,7 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     {
         this.IsTaskbarTransparent = transparent;
 
-        //TODO: Implement Taskbar Transparency change.
+        TransparencyHelper.SetTaskbarTransparency(this.IsTaskbarTransparent);
 
         await this.SaveIndicatorInSettingsAsync(TaskbarTransparentKey, this.IsTaskbarTransparent);
     }

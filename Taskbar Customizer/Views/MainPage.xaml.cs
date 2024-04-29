@@ -4,6 +4,7 @@ namespace Taskbar_Customizer.Views;
 
 using Microsoft.UI.Xaml.Controls;
 
+using Taskbar_Customizer.Helpers;
 using Taskbar_Customizer.ViewModels;
 
 /// <summary>
@@ -16,8 +17,12 @@ public sealed partial class MainPage : Page
     /// </summary>
     public MainPage()
     {
+        ((MainWindow)App.MainWindow).EventHandler.EventHandler += (sender, e) => this.UpdateUI();
+
         this.ViewModel = App.GetService<MainViewModel>();
         this.InitializeComponent();
+
+        this.UpdateUI();
     }
 
     /// <summary>
@@ -26,5 +31,24 @@ public sealed partial class MainPage : Page
     public MainViewModel ViewModel
     {
         get;
+    }
+
+    /// <summary>
+    /// Method for updating UI.
+    /// </summary>
+    private void UpdateUI()
+    {
+        this.ColorPickerTextBlock.Text = "ColorPicker".GetLocalized();
+
+        this.TransparentTextBlock.Text = "Transparent".GetLocalized();
+        this.TransparentSwitch.OffContent = "TransparentSwitchOff".GetLocalized();
+        this.TransparentSwitch.OnContent = "TransparentSwitchOn".GetLocalized();
+
+        this.StartTextBlock.Text = "Start".GetLocalized();
+        this.StartLeftRadio.Content = "StartLeft".GetLocalized();
+        this.StartCenterRadio.Content = "StartCenter".GetLocalized();
+
+        this.ResetTextBlock.Text = "Reset".GetLocalized();
+        this.ResetButton.Content = "ResetButton".GetLocalized();
     }
 }

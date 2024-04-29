@@ -2,8 +2,9 @@
 
 namespace Taskbar_Customizer.ViewModels;
 
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.UI;
+using CommunityToolkit.Mvvm.Input;
 using Taskbar_Customizer.Contracts.Services;
 using Windows.UI;
 
@@ -49,6 +50,8 @@ public partial class MainViewModel : ObservableRecipient
         this.isTaskbarTransparent = this.taskbarCustomizerService.IsTaskbarTransparent;
         this.isStartButtonLeft = this.taskbarCustomizerService.IsStartButtonLeft;
         this.isStartButtonCenter = !this.taskbarCustomizerService.IsStartButtonLeft;
+
+        this.ResetToDefaultCommand = new RelayCommand(ResetToDefault);
     }
 
     /// <summary>
@@ -109,5 +112,18 @@ public partial class MainViewModel : ObservableRecipient
                 this.taskbarCustomizerService.SetStartButtonPosition(!this.isStartButtonCenter);
             }
         }
+    }
+
+    /// <summary>
+    /// Gets command for reseting taskbar settings to default.
+    /// </summary>
+    public ICommand ResetToDefaultCommand { get; }
+
+    /// <summary>
+    /// Method for reseting taskbar settings to default.
+    /// </summary>
+    private void ResetToDefault()
+    {
+        this.IsTaskbarTransparent = false;
     }
 }

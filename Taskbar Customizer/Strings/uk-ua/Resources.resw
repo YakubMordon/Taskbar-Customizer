@@ -123,31 +123,13 @@
   <data name="AppDescription" xml:space="preserve">
     <value>Налаштовувач панелі завдань</value>
   </data>
-  <data name="Main_ColorPicker.Text" xml:space="preserve">
-    <value>Колір панелі задач</value>
+  <data name="Main" xml:space="preserve">
+    <value>Головна</value>
   </data>
-  <data name="Main_Start.Text" xml:space="preserve">
-    <value>Положення кнопки 'Пуск'</value>
-  </data>
-  <data name="Main_Start_Center.Content" xml:space="preserve">
-    <value>Центр</value>
-  </data>
-  <data name="Main_Start_Left.Content" xml:space="preserve">
-    <value>Ліворуч</value>
-  </data>
-  <data name="Main_Transparent.Text" xml:space="preserve">
-    <value>Прозорість панелі завдань</value>
-  </data>
-  <data name="Main_Transparent_Switch.OffContent" xml:space="preserve">
-    <value>Непрозорий</value>
-  </data>
-  <data name="Main_Transparent_Switch.OnContent" xml:space="preserve">
-    <value>Прозорий</value>
-  </data>
-  <data name="Settings_About.Text" xml:space="preserve">
+  <data name="About" xml:space="preserve">
     <value>Про аплікацію</value>
   </data>
-  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+  <data name="AboutDescription" xml:space="preserve">
     <value>Програма призначена для налаштування панелі завдань.
 
 Ця програма може:
@@ -155,32 +137,59 @@
 - Зробити її прозорою/непрозорою.
 - Змінити положення кнопок вікон.</value>
   </data>
-  <data name="Settings_Language.Text" xml:space="preserve">
+  <data name="ColorPicker" xml:space="preserve">
+    <value>Колір панелі задач</value>
+  </data>
+  <data name="Language" xml:space="preserve">
     <value>Мова</value>
   </data>
-  <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
+  <data name="LanguageWarning" xml:space="preserve">
+    <value>Перезапустіть програму, щоб оновити мову інтерфейсу</value>
+  </data>
+  <data name="Personalization" xml:space="preserve">
+    <value>Персоналізація</value>
+  </data>
+  <data name="PrivacyTerms" xml:space="preserve">
     <value>Заява про конфіденційність</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Скинути параметри панелі задач до фабричних</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>Скинути</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Положення кнопки 'Пуск'</value>
+  </data>
+  <data name="StartCenter" xml:space="preserve">
+    <value>Центр</value>
+  </data>
+  <data name="StartLeft" xml:space="preserve">
+    <value>Ліворуч</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Темна</value>
+  </data>
+  <data name="ThemeDefault" xml:space="preserve">
+    <value>Стандартна</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Світла</value>
+  </data>
+  <data name="Transparent" xml:space="preserve">
+    <value>Прозорість панелі завдань</value>
+  </data>
+  <data name="TransparentSwitchOff" xml:space="preserve">
+    <value>Непрозорий</value>
+  </data>
+  <data name="TransparentSwitchOn" xml:space="preserve">
+    <value>Прозорий</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
-  </data>
-  <data name="Settings_Language_Warning.Text" xml:space="preserve">
-    <value>Перезапустіть програму, щоб оновити мову інтерфейсу</value>
-  </data>
-  <data name="Settings_Personalization.Text" xml:space="preserve">
-    <value>Персоналізація</value>
-  </data>
-  <data name="Settings_Theme.Text" xml:space="preserve">
-    <value>Тема</value>
-  </data>
-  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
-    <value>Темна</value>
-  </data>
-  <data name="Settings_Theme_Default.Content" xml:space="preserve">
-    <value>Стандартна</value>
-  </data>
-  <data name="Settings_Theme_Light.Content" xml:space="preserve">
-    <value>Світла</value>
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
     <value>Головна</value>

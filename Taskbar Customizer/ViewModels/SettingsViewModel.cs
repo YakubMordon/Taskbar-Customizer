@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-using Windows.ApplicationModel.Resources.Core;
+using System.Runtime.CompilerServices;
 
 namespace Taskbar_Customizer.ViewModels;
 
@@ -104,6 +104,16 @@ public partial class SettingsViewModel : ObservableRecipient
     public void UpdateLanguage()
     {
         LanguageHelper.SetCurrentLanguage(this.selectedLanguage);
+
+        ((MainWindow)App.MainWindow).EventHandler.OnLanguageChanged();
+    }
+
+    /// <summary>
+    /// Method for updating version description.
+    /// </summary>
+    public void UpdateVersionDescription()
+    {
+        this.VersionDescription = GetVersionDescription();
     }
 
     /// <summary>

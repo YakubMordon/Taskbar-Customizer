@@ -52,7 +52,8 @@ public class LanguageHelper
     public static void SetCurrentLanguage(string language)
     {
         var index = AvailableLanguages.IndexOf(language);
-        ApplicationLanguages.PrimaryLanguageOverride = cultureAbbreviations[index];
-        Windows.ApplicationModel.Resources.Core.ResourceContext.SetGlobalQualifierValue("Language", cultureAbbreviations[index]);
+        var culture = cultureAbbreviations[index];
+
+        ApplicationLanguages.PrimaryLanguageOverride = culture;
     }
 }

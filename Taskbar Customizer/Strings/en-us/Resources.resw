@@ -123,31 +123,13 @@
   <data name="AppDescription" xml:space="preserve">
     <value>Taskbar Customizer</value>
   </data>
-  <data name="Main_ColorPicker.Text" xml:space="preserve">
-    <value>Color of Taskbar</value>
+  <data name="Main" xml:space="preserve">
+    <value>Main</value>
   </data>
-  <data name="Main_Start.Text" xml:space="preserve">
-    <value>Position of Windows Button</value>
-  </data>
-  <data name="Main_Start_Center.Content" xml:space="preserve">
-    <value>Center</value>
-  </data>
-  <data name="Main_Start_Left.Content" xml:space="preserve">
-    <value>Left</value>
-  </data>
-  <data name="Main_Transparent.Text" xml:space="preserve">
-    <value>Transparency of Taskbar</value>
-  </data>
-  <data name="Main_Transparent_Switch.OffContent" xml:space="preserve">
-    <value>Opaque</value>
-  </data>
-  <data name="Main_Transparent_Switch.OnContent" xml:space="preserve">
-    <value>Transparent</value>
-  </data>
-  <data name="Settings_About.Text" xml:space="preserve">
+  <data name="About" xml:space="preserve">
     <value>About this application</value>
   </data>
-  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+  <data name="AboutDescription" xml:space="preserve">
     <value>The application was made to customize taskbar.
 
 This program can:
@@ -156,34 +138,58 @@ This program can:
 - Make it transparent/non-transparent.
 - Change position of windows button.</value>
   </data>
-  <data name="Settings_Language.Text" xml:space="preserve">
+  <data name="ColorPicker" xml:space="preserve">
+    <value>Color of Taskbar</value>
+  </data>
+  <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
+  <data name="LanguageWarning" xml:space="preserve">
+    <value>Restart application to update interface</value>
+  </data>
+  <data name="Personalization" xml:space="preserve">
+    <value>Personalization</value>
+  </data>
+  <data name="PrivacyTerms" xml:space="preserve">
     <value>Privacy Statement</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset Taskbar settings to default</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Position of Windows Button</value>
+  </data>
+  <data name="StartCenter" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="StartLeft" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ThemeDefault" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Transparent" xml:space="preserve">
+    <value>Transparency of Taskbar</value>
+  </data>
+  <data name="TransparentSwitchOff" xml:space="preserve">
+    <value>Opaque</value>
+  </data>
+  <data name="TransparentSwitchOn" xml:space="preserve">
+    <value>Transparent</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
-  </data>
-  <data name="Settings_Language_Warning.Text" xml:space="preserve">
-    <value>Restart application to update interface</value>
-  </data>
-  <data name="Settings_Personalization.Text" xml:space="preserve">
-    <value>Personalization</value>
-  </data>
-  <data name="Settings_Theme.Text" xml:space="preserve">
-    <value>Theme</value>
-  </data>
-  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
-    <value>Dark</value>
-  </data>
-  <data name="Settings_Theme_Default.Content" xml:space="preserve">
-    <value>Default</value>
-  </data>
-  <data name="Settings_Theme_Light.Content" xml:space="preserve">
-    <value>Light</value>
-  </data>
-  <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
   </data>
 </root>

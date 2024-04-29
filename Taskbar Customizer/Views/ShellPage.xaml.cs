@@ -23,8 +23,12 @@ public sealed partial class ShellPage : Page
     /// <param name="viewModel">View Model.</param>
     public ShellPage(ShellViewModel viewModel)
     {
+        ((MainWindow)App.MainWindow).EventHandler.EventHandler += (sender, e) => this.UpdateUI();
+
         this.ViewModel = viewModel;
         this.InitializeComponent();
+
+        this.UpdateUI();
 
         this.ViewModel.NavigationService.Frame = this.NavigationFrame;
         this.ViewModel.NavigationViewService.Initialize(this.NavigationViewControl);
@@ -34,7 +38,6 @@ public sealed partial class ShellPage : Page
         App.MainWindow.ExtendsContentIntoTitleBar = true;
         App.MainWindow.SetTitleBar(this.AppTitleBar);
         App.MainWindow.Activated += this.MainWindow_Activated;
-        this.AppTitleBarText.Text = "AppDisplayName".GetLocalized();
     }
 
     /// <summary>
@@ -108,5 +111,15 @@ public sealed partial class ShellPage : Page
             Right = this.AppTitleBar.Margin.Right,
             Bottom = this.AppTitleBar.Margin.Bottom,
         };
+    }
+
+    /// <summary>
+    /// Method for updating UI.
+    /// </summary>
+    private void UpdateUI()
+    {
+        this.MainItem.Content = "Main".GetLocalized();
+
+        this.AppTitleBarText.Text = "AppDisplayName".GetLocalized();
     }
 }
