@@ -68,7 +68,7 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     {
         this.TaskbarColor = color;
 
-        //TODO: Implement Taskbar color change.
+        TaskbarColorHelper.SetTaskbarColor(this.TaskbarColor);
 
         await this.SaveColorInSettingsAsync(this.TaskbarColor);
     }
@@ -78,7 +78,7 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     {
         this.IsStartButtonLeft = isLeft;
 
-        //TODO: Implement Start Button Position change.
+        TaskbarPositionHelper.SetStartButtonPosition(!this.IsStartButtonLeft);
 
         await this.SaveIndicatorInSettingsAsync(TaskbarStartButtonKey, this.IsStartButtonLeft);
     }

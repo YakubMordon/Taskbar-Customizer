@@ -17,19 +17,13 @@ public static class TransparencyHelper
 
     private static readonly uint transparencyColor = 0x000000;
 
-    [DllImport("user32.dll", SetLastError = true)]
-    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-    [DllImport("user32.dll", SetLastError = true)]
-    private static extern int SetLayeredWindowAttributes(IntPtr hWnd, uint crKey, byte bAlpha, uint dwFlags);
-
     /// <summary>
     /// Method to make taskbar transparent.
     /// </summary>
     /// <param name="isTransparent">Indicator of transparency.</param>
     public static void SetTaskbarTransparency(bool isTransparent)
     {
-        IntPtr taskbarHandle = FindWindow("Shell_TrayWnd", null);
+        var taskbarHandle = FindWindow("Shell_TrayWnd", null);
 
         if (taskbarHandle != IntPtr.Zero)
         {
@@ -61,6 +55,12 @@ public static class TransparencyHelper
 
         return false;
     }
+
+        [DllImport("user32.dll", SetLastError = true)]
+    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    private static extern int SetLayeredWindowAttributes(IntPtr hWnd, uint crKey, byte bAlpha, uint dwFlags);
 
     [DllImport("user32.dll", SetLastError = true)]
     private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);

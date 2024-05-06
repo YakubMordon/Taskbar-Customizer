@@ -2,11 +2,14 @@
 
 namespace Taskbar_Customizer.ViewModels;
 
+using System.Drawing;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Taskbar_Customizer.Contracts.Services;
-using Windows.UI;
+using Taskbar_Customizer.Services;
+using Color = Windows.UI.Color;
+using ColorConverter = Taskbar_Customizer.Services.ColorConverter;
 
 /// <summary>
 /// ViewModel for Main Page.
@@ -124,6 +127,13 @@ public partial class MainViewModel : ObservableRecipient
     /// </summary>
     private void ResetToDefault()
     {
-        this.IsTaskbarTransparent = false;
+        this.TaskbarColor = ColorConverter.ToUIColor(SystemColors.MenuBar);
+
+        this.IsTaskbarTransparent = SystemColors.MenuBar.A != 255;
+
+        var startButtonPosition = OperationSystemChecker.IsWindows11();
+
+        this.IsStartButtonCenter = startButtonPosition;
+        this.IsStartButtonLeft = !startButtonPosition;
     }
 }
