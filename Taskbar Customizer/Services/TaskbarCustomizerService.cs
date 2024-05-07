@@ -78,7 +78,10 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     {
         this.IsStartButtonLeft = isLeft;
 
-        TaskbarPositionHelper.SetStartButtonPosition(!this.IsStartButtonLeft);
+        if (OperationSystemChecker.IsWindows11OrGreater())
+        {
+            TaskbarPositionHelper.SetStartButtonPosition(!this.IsStartButtonLeft);
+        }
 
         await this.SaveIndicatorInSettingsAsync(TaskbarStartButtonKey, this.IsStartButtonLeft);
     }

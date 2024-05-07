@@ -67,6 +67,7 @@ public partial class MainViewModel : ObservableRecipient
         {
             if (SetProperty(ref this.taskbarColor, value))
             {
+                this.taskbarColor.A = (byte)(this.IsTaskbarTransparent ? 128 : 255);
                 this.taskbarCustomizerService.SetTaskbarColor(this.taskbarColor);
             }
         }
@@ -131,7 +132,7 @@ public partial class MainViewModel : ObservableRecipient
 
         this.IsTaskbarTransparent = SystemColors.MenuBar.A != 255;
 
-        var startButtonPosition = OperationSystemChecker.IsWindows11();
+        var startButtonPosition = OperationSystemChecker.IsWindows11OrGreater();
 
         this.IsStartButtonCenter = startButtonPosition;
         this.IsStartButtonLeft = !startButtonPosition;

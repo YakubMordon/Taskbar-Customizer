@@ -2,7 +2,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace Taskbar_Customizer.Services;
+namespace Taskbar_Customizer.Helpers;
 
 public class TaskbarPositionHelper
 {
@@ -11,20 +11,20 @@ public class TaskbarPositionHelper
     private const int ABE_CENTER = 1;
 
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    private static extern IntPtr FindWindow(string strClassName, string strWindowName);
+    private static extern nint FindWindow(string strClassName, string strWindowName);
 
     [DllImport("shell32.dll")]
-    private static extern IntPtr SHAppBarMessage(int msg, ref APPBARDATA data);
+    private static extern nint SHAppBarMessage(int msg, ref APPBARDATA data);
 
     [StructLayout(LayoutKind.Sequential)]
     private struct APPBARDATA
     {
         public int cbSize;
-        public IntPtr hWnd;
+        public nint hWnd;
         public int uCallbackMessage;
         public int uEdge;
         public RECT rc;
-        public IntPtr lParam;
+        public nint lParam;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -40,7 +40,7 @@ public class TaskbarPositionHelper
     {
         var taskbarHandle = FindWindow("Shell_TrayWnd", null);
 
-        if (taskbarHandle != IntPtr.Zero)
+        if (taskbarHandle != nint.Zero)
         {
             var appBarData = new APPBARDATA
             {

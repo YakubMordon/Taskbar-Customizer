@@ -12,7 +12,6 @@ public static class TransparencyHelper
     // Constants for window styles
     private const int GWL_EXSTYLE = -20;
     private const int WS_EX_LAYERED = 0x80000;
-    private const int WS_EX_TRANSPARENT = 0x20;
     private const int LWA_ALPHA = 0x2;
 
     private static readonly uint transparencyColor = 0x000000;
@@ -39,24 +38,7 @@ public static class TransparencyHelper
         }
     }
 
-    /// <summary>
-    /// Method to get if taskbar is transparent (Currently not in use).
-    /// </summary>
-    /// <returns>True if taskbar is transparent, False if not.</returns>
-    public static bool GetTaskbarTransparency()
-    {
-        var taskbarHandle = FindWindow("Shell_TrayWnd", null);
-
-        if (taskbarHandle != IntPtr.Zero)
-        {
-            var currentStyle = GetWindowLong(taskbarHandle, GWL_EXSTYLE);
-            return (currentStyle & WS_EX_LAYERED) != 0 && (currentStyle & WS_EX_TRANSPARENT) != 0;
-        }
-
-        return false;
-    }
-
-        [DllImport("user32.dll", SetLastError = true)]
+    [DllImport("user32.dll", SetLastError = true)]
     private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
     [DllImport("user32.dll", SetLastError = true)]
