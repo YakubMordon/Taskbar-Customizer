@@ -55,10 +55,10 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     /// <inheritdoc />
     public async Task InitializeAsync()
     {
-        this.TaskbarColor = await LoadColorFromSettingsAsync();
+        this.TaskbarColor = await this.LoadColorFromSettingsAsync();
 
-        this.IsTaskbarTransparent = await LoadIndicatorFromSettingsAsync(TaskbarTransparentKey);
-        this.IsStartButtonLeft = await LoadIndicatorFromSettingsAsync(TaskbarStartButtonKey);
+        this.IsTaskbarTransparent = await this.LoadIndicatorFromSettingsAsync(TaskbarTransparentKey);
+        this.IsStartButtonLeft = await this.LoadIndicatorFromSettingsAsync(TaskbarStartButtonKey);
 
         await Task.CompletedTask;
     }

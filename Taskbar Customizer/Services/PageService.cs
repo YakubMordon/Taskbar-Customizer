@@ -65,7 +65,7 @@ public class PageService : IPageService
             var type = typeof(TV);
             if (this.pages.ContainsValue(type))
             {
-                throw new ArgumentException($"This type is already configured with key {pages.First(p => p.Value == type).Key}");
+                throw new ArgumentException($"This type is already configured with key {this.pages.First(p => p.Value == type).Key}");
             }
 
             this.pages.Add(key, type);

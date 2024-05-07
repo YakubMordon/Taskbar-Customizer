@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-using Taskbar_Customizer.Event_Handlers;
-
 namespace Taskbar_Customizer;
 
+using Taskbar_Customizer.Event_Handlers;
 using Taskbar_Customizer.Helpers;
 using Microsoft.UI.Dispatching;
 using Windows.UI.ViewManagement;
@@ -13,6 +12,11 @@ using Windows.UI.ViewManagement;
 /// </summary>
 public sealed partial class MainWindow : WindowEx
 {
+    /// <summary>
+    /// Language change event handler.
+    /// </summary>
+    public LanguageChangeEventHandler EventHandler = new LanguageChangeEventHandler();
+
     /// <summary>
     /// Dispatcher queue for handling UI updates.
     /// </summary>
@@ -24,17 +28,12 @@ public sealed partial class MainWindow : WindowEx
     private UISettings settings;
 
     /// <summary>
-    /// Language change event handler.
-    /// </summary>
-    public LanguageChangeEventHandler EventHandler = new LanguageChangeEventHandler();
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
     /// </summary>
     public MainWindow()
     {
         this.InitializeComponent();
-        
+
         this.AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/WindowIcon.ico"));
         this.Content = null;
 

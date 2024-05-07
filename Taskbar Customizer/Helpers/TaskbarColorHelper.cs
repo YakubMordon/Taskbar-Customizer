@@ -10,27 +10,9 @@ using Windows.UI;
 /// </summary>
 public static class TaskbarColorHelper
 {
-    [StructLayout(LayoutKind.Sequential)]
-    private struct WINDOWCOMPOSITIONATTRIBDATA
-    {
-        public WindowCompositionAttribute Attribute;
-        public IntPtr Data;
-        public int SizeOfData;
-    }
-
     public enum WindowCompositionAttribute
     {
-        WCA_ACCENT_POLICY = 19
-    }
-
-    // Define the ACCENT_POLICY struct
-    [StructLayout(LayoutKind.Sequential)]
-    private struct ACCENT_POLICY
-    {
-        public int nAccentState;
-        public int nFlags;
-        public int nColor;
-        public int nAnimationId;
+        WCA_ACCENT_POLICY = 19,
     }
 
     /// <summary>
@@ -43,9 +25,10 @@ public static class TaskbarColorHelper
 
         accentPolicy.nColor = (color.A << 24) | (color.R << 16) | (color.G << 8) | color.B;
         accentPolicy.nAccentState = 2;
-        accentPolicy.nFlags = 2; 
+        accentPolicy.nFlags = 2;
 
         var data = new WINDOWCOMPOSITIONATTRIBDATA();
+
         data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
         data.SizeOfData = Marshal.SizeOf(typeof(ACCENT_POLICY));
         data.Data = Marshal.AllocHGlobal(data.SizeOfData);
@@ -67,4 +50,22 @@ public static class TaskbarColorHelper
 
     [DllImport("user32.dll", SetLastError = true)]
     private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+    // Define the ACCENT_POLICY struct
+    [StructLayout(LayoutKind.Sequential)]
+    private struct ACCENT_POLICY
+    {
+        public int nAccentState;
+        public int nFlags;
+        public int nColor;
+        public int nAnimationId;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct WINDOWCOMPOSITIONATTRIBDATA
+    {
+        public WindowCompositionAttribute Attribute;
+        public IntPtr Data;
+        public int SizeOfData;
+    }
 }

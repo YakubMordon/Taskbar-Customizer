@@ -160,7 +160,7 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
             else
             {
                 var headerFromPage = GetHeaderContext(this.currentPage);
-                this.AssociatedObject.Header = headerFromPage ?? DefaultHeader;
+                this.AssociatedObject.Header = headerFromPage ?? this.DefaultHeader;
 
                 this.AssociatedObject.AlwaysShowHeader = headerMode == NavigationViewHeaderMode.Always;
             }
@@ -175,7 +175,7 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
         if (this.currentPage != null)
         {
             var headerTemplate = GetHeaderTemplate(this.currentPage);
-            this.AssociatedObject.HeaderTemplate = headerTemplate ?? DefaultHeaderTemplate;
+            this.AssociatedObject.HeaderTemplate = headerTemplate ?? this.DefaultHeaderTemplate;
         }
     }
 }

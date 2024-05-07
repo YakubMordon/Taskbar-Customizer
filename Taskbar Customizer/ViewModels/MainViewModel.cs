@@ -24,22 +24,22 @@ public partial class MainViewModel : ObservableRecipient
     /// <summary>
     /// The color of the taskbar.
     /// </summary>
-    public Color taskbarColor;
+    private Color taskbarColor;
 
     /// <summary>
     /// Indicates whether the taskbar is transparent.
     /// </summary>
-    public bool isTaskbarTransparent;
+    private bool isTaskbarTransparent;
 
     /// <summary>
     /// Indicates whether the Start button is positioned on the left.
     /// </summary>
-    public bool isStartButtonLeft;
+    private bool isStartButtonLeft;
 
     /// <summary>
     /// Indicates whether the Start button is positioned in the center.
     /// </summary>
-    public bool isStartButtonCenter;
+    private bool isStartButtonCenter;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MainViewModel"/> class.
@@ -54,7 +54,7 @@ public partial class MainViewModel : ObservableRecipient
         this.isStartButtonLeft = this.taskbarCustomizerService.IsStartButtonLeft;
         this.isStartButtonCenter = !this.taskbarCustomizerService.IsStartButtonLeft;
 
-        this.ResetToDefaultCommand = new RelayCommand(ResetToDefault);
+        this.ResetToDefaultCommand = new RelayCommand(this.ResetToDefault);
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public partial class MainViewModel : ObservableRecipient
         get => this.taskbarColor;
         set
         {
-            if (SetProperty(ref this.taskbarColor, value))
+            if (this.SetProperty(ref this.taskbarColor, value))
             {
                 this.taskbarColor.A = (byte)(this.IsTaskbarTransparent ? 128 : 255);
                 this.taskbarCustomizerService.SetTaskbarColor(this.taskbarColor);
@@ -74,14 +74,14 @@ public partial class MainViewModel : ObservableRecipient
     }
 
     /// <summary>
-    /// Gets or sets indicator whether the taskbar is transparent.
+    /// Gets or sets a value indicating whether the taskbar is transparent.
     /// </summary>
     public bool IsTaskbarTransparent
     {
         get => this.isTaskbarTransparent;
         set
         {
-            if (SetProperty(ref this.isTaskbarTransparent, value))
+            if (this.SetProperty(ref this.isTaskbarTransparent, value))
             {
                 this.taskbarCustomizerService.SetTaskbarTransparent(this.isTaskbarTransparent);
             }
@@ -89,14 +89,14 @@ public partial class MainViewModel : ObservableRecipient
     }
 
     /// <summary>
-    /// Gets or sets indicator whether the Start button is positioned on the left.
+    /// Gets or sets a value indicating whether the Start button is positioned on the left.
     /// </summary>
     public bool IsStartButtonLeft
     {
         get => this.isStartButtonLeft;
         set
         {
-            if (SetProperty(ref this.isStartButtonLeft, value))
+            if (this.SetProperty(ref this.isStartButtonLeft, value))
             {
                 this.taskbarCustomizerService.SetStartButtonPosition(this.isStartButtonLeft);
             }
@@ -104,14 +104,14 @@ public partial class MainViewModel : ObservableRecipient
     }
 
     /// <summary>
-    /// Gets or sets indicator whether the Start button is positioned in the center.
+    /// Gets or sets a value indicating whether the Start button is positioned in the center.
     /// </summary>
     public bool IsStartButtonCenter
     {
         get => this.isStartButtonCenter;
         set
         {
-            if (SetProperty(ref this.isStartButtonCenter, value))
+            if (this.SetProperty(ref this.isStartButtonCenter, value))
             {
                 this.taskbarCustomizerService.SetStartButtonPosition(!this.isStartButtonCenter);
             }

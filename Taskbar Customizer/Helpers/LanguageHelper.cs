@@ -10,17 +10,12 @@ using Windows.Globalization;
 public class LanguageHelper
 {
     /// <summary>
-    /// Gets available languages in application.
-    /// </summary>
-    public static List<string> AvailableLanguages { get; }
-
-    /// <summary>
     /// Abbreviations for languages. Index of language is the same as abbreviation language.
     /// </summary>
-    private static List<string> cultureAbbreviations;
+    private static readonly List<string> CultureAbbreviations;
 
     /// <summary>
-    /// Initializes static members of <see cref="LanguageHelper"/> class.
+    /// Initializes static members of the <see cref="LanguageHelper"/> class.
     /// </summary>
     static LanguageHelper()
     {
@@ -29,10 +24,18 @@ public class LanguageHelper
             "English", "Українська",
         };
 
-        cultureAbbreviations = new List<string>
+        CultureAbbreviations = new List<string>
         {
             "en", "uk",
         };
+    }
+
+    /// <summary>
+    /// Gets available languages in application.
+    /// </summary>
+    public static List<string> AvailableLanguages
+    {
+        get;
     }
 
     /// <summary>
@@ -41,7 +44,7 @@ public class LanguageHelper
     /// <returns>Language analogue to abbreviation.</returns>
     public static string GetCurrentLanguage()
     {
-        var index = cultureAbbreviations.IndexOf(ApplicationLanguages.PrimaryLanguageOverride.ToLower());
+        var index = CultureAbbreviations.IndexOf(ApplicationLanguages.PrimaryLanguageOverride.ToLower());
         return AvailableLanguages[index];
     }
 
@@ -52,7 +55,7 @@ public class LanguageHelper
     public static void SetCurrentLanguage(string language)
     {
         var index = AvailableLanguages.IndexOf(language);
-        var culture = cultureAbbreviations[index];
+        var culture = CultureAbbreviations[index];
 
         ApplicationLanguages.PrimaryLanguageOverride = culture;
     }

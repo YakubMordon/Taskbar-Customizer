@@ -12,17 +12,20 @@ using Taskbar_Customizer.Models;
 
 using Windows.Storage;
 
+/// <summary>
+/// Service for reading and saving local settings asynchronously.
+/// </summary>
 public class LocalSettingsService : ILocalSettingsService
 {
     /// <summary>
     /// The default folder path where application data is stored.
     /// </summary>
-    private const string defaultApplicationDataFolder = "Taskbar Customizer/ApplicationData";
+    private const string DefaultApplicationDataFolder = "Taskbar Customizer/ApplicationData";
 
     /// <summary>
     /// The default filename for local settings storage.
     /// </summary>
-    private const string defaultLocalSettingsFile = "LocalSettings.json";
+    private const string DefaultLocalSettingsFile = "LocalSettings.json";
 
     /// <summary>
     /// The file service used for file operations.
@@ -69,8 +72,8 @@ public class LocalSettingsService : ILocalSettingsService
         this.fileService = fileService;
         this.options = options.Value;
 
-        this.applicationDataFolder = Path.Combine(this.localApplicationData, this.options.ApplicationDataFolder ?? defaultApplicationDataFolder);
-        this.localsettingsFile = this.options.LocalSettingsFile ?? defaultLocalSettingsFile;
+        this.applicationDataFolder = Path.Combine(this.localApplicationData, this.options.ApplicationDataFolder ?? DefaultApplicationDataFolder);
+        this.localsettingsFile = this.options.LocalSettingsFile ?? DefaultLocalSettingsFile;
 
         this.settings = new Dictionary<string, object>();
     }

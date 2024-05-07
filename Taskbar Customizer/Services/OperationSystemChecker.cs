@@ -10,7 +10,7 @@ public static class OperationSystemChecker
     /// <summary>
     /// Method for checking, if operating system is windows 11.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>True if OS is Windows 11 first version or greater. False if it's older.</returns>
     public static bool IsWindows11OrGreater()
     {
         var os = Environment.OSVersion;

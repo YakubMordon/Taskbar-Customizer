@@ -46,8 +46,8 @@ public sealed partial class SettingsPage : Page
         this.ThemeLight.Content = "ThemeLight".GetLocalized();
 
         this.Language.Text = "Language".GetLocalized();
-        this.LanguageWarning.Text = "LanguageWarning".GetLocalized();        
-        
+        this.LanguageWarning.Text = "LanguageWarning".GetLocalized();
+
         this.About.Text = "About".GetLocalized();
         this.AboutDescription.Text = "AboutDescription".GetLocalized();
 

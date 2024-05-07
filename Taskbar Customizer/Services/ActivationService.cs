@@ -46,8 +46,11 @@ public class ActivationService : IActivationService
     /// <param name="activationHandlers">The collection of activation handlers.</param>
     /// <param name="themeSelectorService">The theme selector service.</param>
     /// <param name="taskbarCustomizerService">The taskbar customizer service.</param>
-    public ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, 
-        IThemeSelectorService themeSelectorService, ITaskbarCustomizerService taskbarCustomizerService)
+    public ActivationService(
+        ActivationHandler<LaunchActivatedEventArgs> defaultHandler,
+        IEnumerable<IActivationHandler> activationHandlers,
+        IThemeSelectorService themeSelectorService,
+        ITaskbarCustomizerService taskbarCustomizerService)
     {
         this.defaultHandler = defaultHandler;
         this.activationHandlers = activationHandlers;

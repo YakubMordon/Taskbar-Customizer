@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+namespace Taskbar_Customizer.Services;
+
 using Windows.UI;
 using DrawingColor = System.Drawing.Color;
-
-namespace Taskbar_Customizer.Services;
 
 /// <summary>
 /// Provides methods for converting colors between different formats.

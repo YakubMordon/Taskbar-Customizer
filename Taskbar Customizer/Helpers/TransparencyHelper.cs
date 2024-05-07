@@ -14,7 +14,7 @@ public static class TransparencyHelper
     private const int WS_EX_LAYERED = 0x80000;
     private const int LWA_ALPHA = 0x2;
 
-    private static readonly uint transparencyColor = 0x000000;
+    private static readonly uint TransparencyColor = 0x000000;
 
     /// <summary>
     /// Method to make taskbar transparent.
@@ -29,7 +29,7 @@ public static class TransparencyHelper
             if (isTransparent)
             {
                 SetWindowLong(taskbarHandle, GWL_EXSTYLE, GetWindowLong(taskbarHandle, GWL_EXSTYLE) | WS_EX_LAYERED);
-                SetLayeredWindowAttributes(taskbarHandle, transparencyColor, 128, LWA_ALPHA);
+                SetLayeredWindowAttributes(taskbarHandle, TransparencyColor, 128, LWA_ALPHA);
             }
             else
             {

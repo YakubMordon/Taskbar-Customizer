@@ -83,7 +83,7 @@ public partial class SettingsViewModel : ObservableRecipient
         get => this.selectedLanguage;
         set
         {
-            if (SetProperty(ref this.selectedLanguage, value))
+            if (this.SetProperty(ref this.selectedLanguage, value))
             {
                 this.UpdateLanguage();
             }

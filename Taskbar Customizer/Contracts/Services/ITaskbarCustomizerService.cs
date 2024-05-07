@@ -10,17 +10,17 @@ using Windows.UI;
 public interface ITaskbarCustomizerService
 {
     /// <summary>
-    /// The color of the taskbar.
+    /// Gets the color of the taskbar.
     /// </summary>
     public Color TaskbarColor { get; }
 
     /// <summary>
-    /// Indicates whether the taskbar is transparent.
+    /// Gets a value indicating whether the taskbar is transparent.
     /// </summary>
     public bool IsTaskbarTransparent { get; }
 
     /// <summary>
-    /// Indicates whether the Start button is positioned on the left.
+    /// Gets a value indicating whether the Start button is positioned on the left.
     /// </summary>
     public bool IsStartButtonLeft { get; }
 
@@ -33,7 +33,7 @@ public interface ITaskbarCustomizerService
     /// <summary>
     /// Method for setting Taskbar color.
     /// </summary>
-    /// <param name="color">Color of taskbar</param>
+    /// <param name="color">Color of taskbar.</param>
     /// <returns>Completed Task.</returns>
     Task SetTaskbarColor(Color color);
 
