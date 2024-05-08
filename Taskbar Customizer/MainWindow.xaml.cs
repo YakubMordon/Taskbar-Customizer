@@ -3,9 +3,11 @@
 namespace Taskbar_Customizer;
 
 using Taskbar_Customizer.Event_Handlers;
-using Taskbar_Customizer.Helpers;
+using Helpers;
 using Microsoft.UI.Dispatching;
 using Windows.UI.ViewManagement;
+using Helpers.Helpers;
+using Taskbar_Customizer.Helpers.Extensions;
 
 /// <summary>
 /// Code-Behind for MainWindow.xaml.

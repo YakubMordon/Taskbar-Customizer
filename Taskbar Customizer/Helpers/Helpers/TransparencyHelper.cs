@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Helpers;
+namespace Taskbar_Customizer.Helpers.Helpers;
 
 using System.Runtime.InteropServices;
 
@@ -24,7 +24,7 @@ public static class TransparencyHelper
     {
         var taskbarHandle = FindWindow("Shell_TrayWnd", null);
 
-        if (taskbarHandle != IntPtr.Zero)
+        if (taskbarHandle != nint.Zero)
         {
             if (isTransparent)
             {
@@ -39,14 +39,14 @@ public static class TransparencyHelper
     }
 
     [DllImport("user32.dll", SetLastError = true)]
-    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+    private static extern int GetWindowLong(nint hWnd, int nIndex);
 
     [DllImport("user32.dll", SetLastError = true)]
-    private static extern int SetLayeredWindowAttributes(IntPtr hWnd, uint crKey, byte bAlpha, uint dwFlags);
+    private static extern int SetLayeredWindowAttributes(nint hWnd, uint crKey, byte bAlpha, uint dwFlags);
 
     [DllImport("user32.dll", SetLastError = true)]
-    private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+    private static extern nint FindWindow(string lpClassName, string lpWindowName);
 
     [DllImport("user32.dll")]
-    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+    private static extern int SetWindowLong(nint hWnd, int nIndex, int dwNewLong);
 }

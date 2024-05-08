@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Helpers;
+namespace Taskbar_Customizer.Helpers.Helpers;
 
 using Windows.Globalization;
 
@@ -44,7 +44,10 @@ public class LanguageHelper
     /// <returns>Language analogue to abbreviation.</returns>
     public static string GetCurrentLanguage()
     {
+        ApplicationLanguages.PrimaryLanguageOverride ??= CultureAbbreviations.First();
+
         var index = CultureAbbreviations.IndexOf(ApplicationLanguages.PrimaryLanguageOverride.ToLower());
+
         return AvailableLanguages[index];
     }
 
@@ -55,6 +58,7 @@ public class LanguageHelper
     public static void SetCurrentLanguage(string language)
     {
         var index = AvailableLanguages.IndexOf(language);
+
         var culture = CultureAbbreviations[index];
 
         ApplicationLanguages.PrimaryLanguageOverride = culture;

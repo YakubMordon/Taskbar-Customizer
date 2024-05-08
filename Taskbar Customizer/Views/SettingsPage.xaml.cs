@@ -3,9 +3,8 @@
 namespace Taskbar_Customizer.Views;
 
 using Microsoft.UI.Xaml.Controls;
-
-using Taskbar_Customizer.Helpers;
 using Taskbar_Customizer.ViewModels;
+using Taskbar_Customizer.Helpers.Extensions;
 
 /// <summary>
 /// Code-Behind for SettingsPage.xaml.

@@ -9,7 +9,7 @@ using Microsoft.UI.Xaml.Navigation;
 
 using Taskbar_Customizer.Contracts.Services;
 using Taskbar_Customizer.Contracts.ViewModels;
-using Taskbar_Customizer.Helpers;
+using Taskbar_Customizer.Helpers.Extensions;
 
 /// <summary>
 /// Service, which provides navigation functionality between pages in a WinUI application.

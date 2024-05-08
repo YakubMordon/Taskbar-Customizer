@@ -65,7 +65,7 @@ public class ActivationService : IActivationService
         await this.InitializeAsync();
 
         // Set the MainWindow Content.
-        if (App.MainWindow.Content == null)
+        if (App.MainWindow.Content is null)
         {
             this.shell = App.GetService<ShellPage>();
             App.MainWindow.Content = this.shell ?? new Frame();
@@ -90,7 +90,7 @@ public class ActivationService : IActivationService
     {
         var activationHandler = this.activationHandlers.FirstOrDefault(h => h.CanHandle(activationArgs));
 
-        if (activationHandler != null)
+        if (activationHandler is not null)
         {
             await activationHandler.HandleAsync(activationArgs);
         }
@@ -108,7 +108,9 @@ public class ActivationService : IActivationService
     private async Task InitializeAsync()
     {
         await this.themeSelectorService.InitializeAsync().ConfigureAwait(false);
+
         await this.taskbarCustomizerService.InitializeAsync().ConfigureAwait(false);
+
         await Task.CompletedTask;
     }
 
@@ -119,6 +121,7 @@ public class ActivationService : IActivationService
     private async Task StartupAsync()
     {
         await this.themeSelectorService.SetRequestedThemeAsync();
+
         await Task.CompletedTask;
     }
 }

@@ -149,7 +149,7 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
     /// </summary>
     private void UpdateHeader()
     {
-        if (this.currentPage != null)
+        if (this.currentPage is not null)
         {
             var headerMode = GetHeaderMode(this.currentPage);
             if (headerMode == NavigationViewHeaderMode.Never)
@@ -172,7 +172,7 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
     /// </summary>
     private void UpdateHeaderTemplate()
     {
-        if (this.currentPage != null)
+        if (this.currentPage is not null)
         {
             var headerTemplate = GetHeaderTemplate(this.currentPage);
             this.AssociatedObject.HeaderTemplate = headerTemplate ?? this.DefaultHeaderTemplate;

@@ -5,12 +5,12 @@ namespace Taskbar_Customizer.Services;
 using Microsoft.Extensions.Options;
 
 using Taskbar_Customizer.Contracts.Services;
-using Helpers.Contracts.Services;
-using Helpers.Helpers;
-using Taskbar_Customizer.Helpers;
 using Taskbar_Customizer.Models;
 
+using Taskbar_Customizer.Helpers.Contracts.Services;
+
 using Windows.Storage;
+using Taskbar_Customizer.Helpers.Helpers;
 
 /// <summary>
 /// Service for reading and saving local settings asynchronously.
@@ -92,7 +92,7 @@ public class LocalSettingsService : ILocalSettingsService
         {
             await this.InitializeAsync();
 
-            if (this.settings != null && this.settings.TryGetValue(key, out var obj))
+            if (this.settings is not null && this.settings.TryGetValue(key, out var obj))
             {
                 return await Json.ToObjectAsync<T>((string)obj);
             }

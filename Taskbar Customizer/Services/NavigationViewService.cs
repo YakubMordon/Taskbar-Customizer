@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.UI.Xaml.Controls;
 
 using Taskbar_Customizer.Contracts.Services;
-using Taskbar_Customizer.Helpers;
+using Helpers.Helpers;
 using Taskbar_Customizer.ViewModels;
 
 /// <summary>

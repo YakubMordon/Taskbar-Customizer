@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-using System.Runtime.CompilerServices;
-
 namespace Taskbar_Customizer.ViewModels;
 
 using System.Collections.ObjectModel;
@@ -14,7 +12,9 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 
 using Taskbar_Customizer.Contracts.Services;
-using Taskbar_Customizer.Helpers;
+
+using Taskbar_Customizer.Helpers.Helpers;
+using Taskbar_Customizer.Helpers.Extensions;
 
 using Windows.ApplicationModel;
 

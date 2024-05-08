@@ -7,8 +7,10 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 
 using Taskbar_Customizer.Contracts.Services;
-using Taskbar_Customizer.Helpers;
 using Taskbar_Customizer.ViewModels;
+
+using Taskbar_Customizer.Helpers.Helpers;
+using Taskbar_Customizer.Helpers.Extensions;
 
 using Windows.System;
 

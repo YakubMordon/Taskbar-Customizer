@@ -4,10 +4,13 @@ namespace Taskbar_Customizer.ViewModels;
 
 using System.Drawing;
 using System.Windows.Input;
+
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
 using Taskbar_Customizer.Contracts.Services;
-using Taskbar_Customizer.Services;
+using Taskbar_Customizer.Helpers.Helpers;
+
 using Color = Windows.UI.Color;
 using ColorConverter = Taskbar_Customizer.Services.ColorConverter;
 

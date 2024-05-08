@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Helpers;
+namespace Taskbar_Customizer.Helpers.Converters;
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;

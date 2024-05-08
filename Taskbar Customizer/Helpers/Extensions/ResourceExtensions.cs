@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Helpers;
+namespace Taskbar_Customizer.Helpers.Extensions;
 
 using Windows.ApplicationModel.Resources;
 
 /// <summary>
-/// Class with extension methods for retrieving localized strings using a <see cref="Windows.ApplicationModel.Resources.ResourceLoader"/>.
+/// Class with extension methods for retrieving localized strings using a <see cref="ResourceLoader"/>.
 /// </summary>
 public static class ResourceExtensions
 {

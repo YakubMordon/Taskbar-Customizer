@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Services;
+namespace Taskbar_Customizer.Helpers.Helpers;
 
 /// <summary>
 /// Class for checking operating system.

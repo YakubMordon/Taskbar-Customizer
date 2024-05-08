@@ -27,6 +27,6 @@ public static class Json
     /// <returns>Serialized value.</returns>
     public static async Task<string> StringifyAsync(object value)
     {
-        return await Task.Run<string>(() => JsonConvert.SerializeObject(value));
+        return await Task.Run(() => JsonConvert.SerializeObject(value));
     }
 }

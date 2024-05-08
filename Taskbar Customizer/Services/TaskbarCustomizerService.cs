@@ -4,9 +4,11 @@ namespace Taskbar_Customizer.Services;
 
 using System.Threading.Tasks;
 using Microsoft.UI;
+
 using Taskbar_Customizer.Contracts.Services;
-using Taskbar_Customizer.Helpers;
+
 using Taskbar_Customizer.Helpers.Helpers;
+
 using Windows.UI;
 
 /// <summary>
@@ -80,7 +82,7 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
 
         if (OperationSystemChecker.IsWindows11OrGreater())
         {
-            TaskbarPositionHelper.SetStartButtonPosition(!this.IsStartButtonLeft);
+            TaskbarAlignmentHelper.SetTaskbarAlignment(!this.IsStartButtonLeft);
         }
 
         await this.SaveIndicatorInSettingsAsync(TaskbarStartButtonKey, this.IsStartButtonLeft);

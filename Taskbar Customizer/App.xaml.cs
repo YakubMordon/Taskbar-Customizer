@@ -8,12 +8,13 @@ using Microsoft.UI.Xaml;
 
 using Taskbar_Customizer.Activation;
 using Taskbar_Customizer.Contracts.Services;
-using Helpers.Contracts.Services;
-using Helpers.Services;
 using Taskbar_Customizer.Models;
 using Taskbar_Customizer.Services;
 using Taskbar_Customizer.ViewModels;
 using Taskbar_Customizer.Views;
+
+using Taskbar_Customizer.Helpers.Contracts.Services;
+using Taskbar_Customizer.Helpers.Services;
 
 /// <summary>
 /// Code-Behind for App.xaml.

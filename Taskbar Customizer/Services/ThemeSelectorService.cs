@@ -5,7 +5,8 @@ namespace Taskbar_Customizer.Services;
 using Microsoft.UI.Xaml;
 
 using Taskbar_Customizer.Contracts.Services;
-using Taskbar_Customizer.Helpers;
+
+using Taskbar_Customizer.Helpers.Helpers;
 
 /// <summary>
 /// Service responsible for managing and applying the application theme.
@@ -40,6 +41,7 @@ public class ThemeSelectorService : IThemeSelectorService
     public async Task InitializeAsync()
     {
         this.Theme = await this.LoadThemeFromSettingsAsync();
+
         await Task.CompletedTask;
     }
 

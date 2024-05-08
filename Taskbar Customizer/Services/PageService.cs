@@ -47,16 +47,16 @@ public class PageService : IPageService
     /// <summary>
     /// Configures a ViewModel to Page mapping for navigation.
     /// </summary>
-    /// <typeparam name="TVM">The type of the ViewModel.</typeparam>
+    /// <typeparam name="TVm">The type of the ViewModel.</typeparam>
     /// <typeparam name="TV">The type of the corresponding Page.</typeparam>
     /// <exception cref="ArgumentException">Thrown if the mapping is already configured.</exception>
-    private void Configure<TVM, TV>()
-        where TVM : ObservableObject
+    private void Configure<TVm, TV>()
+        where TVm : ObservableObject
         where TV : Page
     {
         lock (this.pages)
         {
-            var key = typeof(TVM).FullName!;
+            var key = typeof(TVm).FullName!;
             if (this.pages.ContainsKey(key))
             {
                 throw new ArgumentException($"The key {key} is already configured in PageService");
