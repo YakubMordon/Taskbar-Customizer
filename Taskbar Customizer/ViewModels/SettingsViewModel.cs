@@ -17,6 +17,7 @@ using Taskbar_Customizer.Helpers.Helpers;
 using Taskbar_Customizer.Helpers.Extensions;
 
 using Windows.ApplicationModel;
+using Taskbar_Customizer.Services;
 
 /// <summary>
 /// ViewModel for Settings Page.
@@ -66,6 +67,7 @@ public partial class SettingsViewModel : ObservableRecipient
                 {
                     this.ElementTheme = param;
                     await this.themeSelectorService.SetThemeAsync(param);
+                    NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationThemeChanged".GetLocalized());
                 }
             });
     }
@@ -86,6 +88,7 @@ public partial class SettingsViewModel : ObservableRecipient
             if (this.SetProperty(ref this.selectedLanguage, value))
             {
                 this.UpdateLanguage();
+                NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationLanguageChanged".GetLocalized());
             }
         }
     }

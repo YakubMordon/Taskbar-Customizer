@@ -30,7 +30,7 @@ public static class TaskbarColorHelper
     {
         var accentPolicy = new ACCENT_POLICY();
 
-        accentPolicy.nColor = color.A << 24 | color.R << 16 | color.G << 8 | color.B;
+        accentPolicy.nColor = color.A << 24 | color.B << 16 | color.G << 8 | color.R;
         accentPolicy.nAccentState = 2;
         accentPolicy.nFlags = 2;
 

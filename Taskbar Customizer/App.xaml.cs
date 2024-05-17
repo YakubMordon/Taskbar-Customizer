@@ -28,6 +28,8 @@ public partial class App : Application
     {
         this.InitializeComponent();
 
+        NotificationManager.Initialize();
+
         this.Host = Microsoft.Extensions.Hosting.Host.
         CreateDefaultBuilder().
         UseContentRoot(AppContext.BaseDirectory).

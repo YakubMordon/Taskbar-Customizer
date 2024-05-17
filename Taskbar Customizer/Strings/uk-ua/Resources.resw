@@ -194,4 +194,19 @@
   <data name="Shell_Main.Content" xml:space="preserve">
     <value>Головна</value>
   </data>
+  <data name="NotificationAlignmentChanged" xml:space="preserve">
+    <value>Розташування кнопки пуск було змінено</value>
+  </data>
+  <data name="NotificationColorChanged" xml:space="preserve">
+    <value>Колір панелі завдань було змінено</value>
+  </data>
+  <data name="NotificationLanguageChanged" xml:space="preserve">
+    <value>Мова програми була змінена</value>
+  </data>
+  <data name="NotificationThemeChanged" xml:space="preserve">
+    <value>Тема програми була змінена</value>
+  </data>
+  <data name="NotificationTransparencyChanged" xml:space="preserve">
+    <value>Прозорість панелі завдань було змінено</value>
+  </data>
 </root>

@@ -9,8 +9,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Taskbar_Customizer.Contracts.Services;
+using Taskbar_Customizer.Helpers.Extensions;
 using Taskbar_Customizer.Helpers.Helpers;
-
+using Taskbar_Customizer.Services;
 using Color = Windows.UI.Color;
 using ColorConverter = Taskbar_Customizer.Services.ColorConverter;
 
@@ -72,6 +73,7 @@ public partial class MainViewModel : ObservableRecipient
             {
                 this.taskbarColor.A = (byte)(this.IsTaskbarTransparent ? 128 : 255);
                 this.taskbarCustomizerService.SetTaskbarColor(this.taskbarColor);
+                NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationColorChanged".GetLocalized());
             }
         }
     }
@@ -87,6 +89,7 @@ public partial class MainViewModel : ObservableRecipient
             if (this.SetProperty(ref this.isTaskbarTransparent, value))
             {
                 this.taskbarCustomizerService.SetTaskbarTransparent(this.isTaskbarTransparent);
+                NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationTransparencyChanged".GetLocalized());
             }
         }
     }
@@ -117,6 +120,7 @@ public partial class MainViewModel : ObservableRecipient
             if (this.SetProperty(ref this.isStartButtonCenter, value))
             {
                 this.taskbarCustomizerService.SetStartButtonPosition(!this.isStartButtonCenter);
+                NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationAlignmentChanged".GetLocalized());
             }
         }
     }

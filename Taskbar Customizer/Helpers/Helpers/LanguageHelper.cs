@@ -44,7 +44,10 @@ public class LanguageHelper
     /// <returns>Language analogue to abbreviation.</returns>
     public static string GetCurrentLanguage()
     {
-        ApplicationLanguages.PrimaryLanguageOverride ??= CultureAbbreviations.First();
+        if (string.IsNullOrWhiteSpace(ApplicationLanguages.PrimaryLanguageOverride))
+        {
+            ApplicationLanguages.PrimaryLanguageOverride = CultureAbbreviations.First();
+        }
 
         var index = CultureAbbreviations.IndexOf(ApplicationLanguages.PrimaryLanguageOverride.ToLower());
 

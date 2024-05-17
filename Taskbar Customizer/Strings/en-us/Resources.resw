@@ -192,4 +192,19 @@ This program can:
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
   </data>
+  <data name="NotificationAlignmentChanged" xml:space="preserve">
+    <value>Alignment of the Windows button was changed</value>
+  </data>
+  <data name="NotificationColorChanged" xml:space="preserve">
+    <value>Color of the taskbar was changed</value>
+  </data>
+  <data name="NotificationLanguageChanged" xml:space="preserve">
+    <value>Language of application was changed</value>
+  </data>
+  <data name="NotificationThemeChanged" xml:space="preserve">
+    <value>Theme of application was changed</value>
+  </data>
+  <data name="NotificationTransparencyChanged" xml:space="preserve">
+    <value>Transparency of the taskbar was changed</value>
+  </data>
 </root>
