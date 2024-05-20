@@ -35,6 +35,9 @@ public partial class App : Application
         UseContentRoot(AppContext.BaseDirectory).
         ConfigureServices((context, services) =>
         {
+            // Hosted Services and background tasks
+            services.AddHostedService<SynchronizationBackgroundTask>();
+
             // Default Activation Handler
             services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
 
@@ -120,7 +123,7 @@ public partial class App : Application
     /// </summary>
     /// <param name="sender">Sender of an exception.</param>
     /// <param name="e">Arguments of exception.</param>
-    private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
         // TODO: Log and handle exceptions as appropriate.
         // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
