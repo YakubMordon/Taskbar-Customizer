@@ -38,7 +38,9 @@ public static class SettingsStorageExtensions
     public static async Task SaveAsync<T>(this StorageFolder folder, string name, T content)
     {
         var file = await folder.CreateFileAsync(GetFileName(name), CreationCollisionOption.ReplaceExisting);
+
         var fileContent = await Json.StringifyAsync(content);
+
         await FileIO.WriteTextAsync(file, fileContent);
     }
 

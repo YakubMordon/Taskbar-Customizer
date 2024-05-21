@@ -139,9 +139,7 @@ public partial class MainViewModel : ObservableRecipient
 
         this.IsTaskbarTransparent = SystemColors.MenuBar.A != 255;
 
-        var startButtonPosition = OperationSystemChecker.IsWindows11OrGreater();
-
-        this.IsStartButtonCenter = startButtonPosition;
-        this.IsStartButtonLeft = !startButtonPosition;
+        this.IsStartButtonCenter = OperationSystemChecker.IsWindows11OrGreater();
+        this.IsStartButtonLeft = !this.IsStartButtonCenter;
     }
 }

@@ -45,7 +45,16 @@ public sealed partial class MainWindow : WindowEx
 
         // Theme change code picked from https://github.com/microsoft/WinUI-Gallery/pull/1239
         this.dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+        ConfigureUISettings();
+    }
+
+    /// <summary>
+    /// Method for configuration of UI Settings.
+    /// </summary>
+    private void ConfigureUISettings()
+    {
         this.settings = new UISettings();
+
         this.settings.ColorValuesChanged += this.Settings_ColorValuesChanged; // cannot use FrameworkElement.ActualThemeChanged event
     }
 

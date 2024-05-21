@@ -81,7 +81,9 @@ public class NavigationService : INavigationService
         if (this.CanGoBack)
         {
             var vmBeforeNavigation = this.frame.GetPageViewModel();
+
             this.frame.GoBack();
+
             if (vmBeforeNavigation is INavigationAware navigationAware)
             {
                 navigationAware.OnNavigatedFrom();

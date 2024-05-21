@@ -34,7 +34,7 @@
 		<Extension Category="windows.activatableClass.inProcessServer">
 			<InProcessServer>
 				<Path>CLRHost.dll</Path>
-				<ActivatableClass ActivatableClassId="Taskbar_Customizer.Services.SynchronizationBackgroundTask" ThreadingModel="both" />
+				<ActivatableClass ActivatableClassId="Taskbar_Customizer.Services.Tasks.SynchronizationBackgroundTask" ThreadingModel="both" />
 			</InProcessServer>
 		</Extension>
 	</Extensions>
@@ -69,11 +69,12 @@
                   </com:ExeServer>
               </com:ComServer>
           </com:Extension>
-          <Extension Category="windows.backgroundTasks" EntryPoint="Taskbar_Customizer.Services.SynchronizationBackgroundTask">
+          <Extension Category="windows.backgroundTasks" EntryPoint="Taskbar_Customizer.Services.Tasks.SynchronizationBackgroundTask">
               <BackgroundTasks>
                   <Task Type="pushNotification"/>
                   <Task Type="timer"/>
                   <Task Type="systemEvent"/>
+                  <Task Type="deviceUse"/>
               </BackgroundTasks>
           </Extension>
       </Extensions>

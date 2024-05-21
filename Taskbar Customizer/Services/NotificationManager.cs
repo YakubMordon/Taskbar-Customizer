@@ -23,7 +23,7 @@ public static class NotificationManager
             .GetToastContent();
 
         var xmlDoc = toastContent.GetXml();
-        string xmlString = xmlDoc.GetXml();
+        var xmlString = xmlDoc.GetXml();
 
         var toastNotification = new AppNotification(xmlString);
 

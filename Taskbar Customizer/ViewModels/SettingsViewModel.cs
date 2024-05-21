@@ -60,16 +60,7 @@ public partial class SettingsViewModel : ObservableRecipient
 
         this.selectedLanguage = LanguageHelper.GetCurrentLanguage();
 
-        this.SwitchThemeCommand = new RelayCommand<ElementTheme>(
-            async (param) =>
-            {
-                if (this.ElementTheme != param)
-                {
-                    this.ElementTheme = param;
-                    await this.themeSelectorService.SetThemeAsync(param);
-                    NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationThemeChanged".GetLocalized());
-                }
-            });
+        this.SwitchThemeCommand = new RelayCommand<ElementTheme>(this.SwitchTheme);
     }
 
     /// <summary>
@@ -125,19 +116,28 @@ public partial class SettingsViewModel : ObservableRecipient
     /// <returns>The version description string.</returns>
     private static string GetVersionDescription()
     {
-        Version version;
+        var packageVersion = Package.Current.Id.Version;
 
-        if (RuntimeHelper.IsMSIX)
-        {
-            var packageVersion = Package.Current.Id.Version;
-
-            version = new Version(packageVersion.Major, packageVersion.Minor, packageVersion.Build, packageVersion.Revision);
-        }
-        else
-        {
-            version = Assembly.GetExecutingAssembly().GetName().Version!;
-        }
+        var version = RuntimeHelper.IsMSIX
+            ? new Version(packageVersion.Major, packageVersion.Minor, packageVersion.Build, packageVersion.Revision)
+            : Assembly.GetExecutingAssembly().GetName().Version!;
 
         return $"{"AppDisplayName".GetLocalized()} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+    }
+
+    /// <summary>
+    /// Method for switching theme of application theme.
+    /// </summary>
+    /// <param name="theme">Theme of application.</param>
+    private async void SwitchTheme(ElementTheme theme)
+    {
+        if (this.ElementTheme != theme)
+        {
+            this.ElementTheme = theme;
+
+            await this.themeSelectorService.SetThemeAsync(theme);
+
+            NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationThemeChanged".GetLocalized());
+        }
     }
 }

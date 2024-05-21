@@ -126,7 +126,8 @@ public class NavigationViewService : INavigationViewService
             }
 
             var selectedChild = this.GetSelectedItem(item.MenuItems, pageType);
-            if (selectedChild != null)
+
+            if (selectedChild is not null)
             {
                 return selectedChild;
             }
