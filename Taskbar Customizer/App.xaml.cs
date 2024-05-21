@@ -15,6 +15,8 @@ using Taskbar_Customizer.Views;
 
 using Taskbar_Customizer.Helpers.Contracts.Services;
 using Taskbar_Customizer.Helpers.Services;
+using System.Diagnostics;
+using Windows.ApplicationModel.Background;
 
 /// <summary>
 /// Code-Behind for App.xaml.
@@ -30,14 +32,13 @@ public partial class App : Application
 
         NotificationManager.Initialize();
 
+        RegisterBackgroundTask();
+
         this.Host = Microsoft.Extensions.Hosting.Host.
         CreateDefaultBuilder().
         UseContentRoot(AppContext.BaseDirectory).
         ConfigureServices((context, services) =>
         {
-            // Hosted Services and background tasks
-            services.AddHostedService<SynchronizationBackgroundTask>();
-
             // Default Activation Handler
             services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
 
@@ -127,5 +128,50 @@ public partial class App : Application
     {
         // TODO: Log and handle exceptions as appropriate.
         // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
+    }
+
+    private void RegisterBackgroundTask()
+    {
+        var taskName = "SynchronizationBackgroundTask";
+        var taskRegistered = false;
+
+        foreach (var task in BackgroundTaskRegistration.AllTasks)
+        {
+            if (task.Value.Name == taskName)
+            {
+                taskRegistered = true;
+                break;
+            }
+        }
+
+        if (!taskRegistered)
+        {
+            var builder = new BackgroundTaskBuilder
+            {
+                Name = taskName,
+                TaskEntryPoint = "Taskbar_Customizer.Services.SynchronizationBackgroundTask"
+            };
+
+            builder.SetTrigger(new SystemTrigger(SystemTriggerType.InternetAvailable, false)); // Виконується кожні 15 хвилин
+
+            var task = builder.Register();
+
+            task.Completed += new BackgroundTaskCompletedEventHandler(OnSynchronizationBackgroundTaskCompleted);
+        }
+    }
+
+    private void OnSynchronizationBackgroundTaskCompleted(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
+    {
+        try
+        {
+            args.CheckResult();
+
+            NotificationManager.ShowNotification("Background Notification Title", "Your data was synchronized");
+            Debug.WriteLine("Background task completed successfully.");
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Background task completion error: {ex}");
+        }
     }
 }

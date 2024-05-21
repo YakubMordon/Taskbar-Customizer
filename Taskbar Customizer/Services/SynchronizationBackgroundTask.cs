@@ -2,38 +2,21 @@
 
 namespace Taskbar_Customizer.Services;
 
-using System.Media;
+using System.Diagnostics;
 
-using Microsoft.Extensions.Hosting;
-
-using Serilog;
+using Windows.ApplicationModel.Background;
 
 
 /// <summary>
 /// Class for synchronization of data in application.
 /// </summary>
-public class SynchronizationBackgroundTask : BackgroundService
+public sealed class SynchronizationBackgroundTask : IBackgroundTask
 {
-    /// <summary>
-    /// Constant for second in milliseconds.
-    /// </summary>
-    private const int second = 1000;
-
-    /// <summary>
-    /// Constant for seconds in minute
-    /// </summary>
-    private const int secondsInMinute = 60;
-
     /// <inheritdoc />
-    protected async override Task ExecuteAsync(CancellationToken stoppingToken)
+    public void Run(IBackgroundTaskInstance taskInstance)
     {
-        while(!stoppingToken.IsCancellationRequested)
-        {
-            // TODO: Add synchronization code here
-            
-            await Task.Delay(second, stoppingToken);
+        Debug.WriteLine("Hello");
 
-            NotificationManager.ShowNotification("Background Notification Title", "Your data was synchronized");
-        }
+        Console.WriteLine("Hello");
     }
 }
