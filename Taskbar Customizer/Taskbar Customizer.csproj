@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BgTaskComponent\BgTaskComponent.csproj" />
     <ProjectReference Include="..\Taskbar Customizer.Helpers\Taskbar Customizer.Core.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
+    <Platforms>x64;x86</Platforms>
+    <RuntimeIdentifiers>win10-x86;win10-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <!-- CsWinRT properties -->
+  <PropertyGroup>
+    <CsWinRTComponent>true</CsWinRTComponent>
+    <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\kuba0\.nuget\packages\microsoft.windows.cswinrt\1.4.1\runtimes\win-x64\native\WinRT.Host.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\kuba0\.nuget\packages\microsoft.windows.cswinrt\1.4.1\lib\net5.0\WinRT.Host.Shim.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\kuba0\.nuget\packages\microsoft.windows.cswinrt\1.4.1\lib\net5.0\WinRT.Runtime.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.7" />
+  </ItemGroup>
+
+</Project>

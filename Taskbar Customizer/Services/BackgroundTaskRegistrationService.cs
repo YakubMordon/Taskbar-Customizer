@@ -29,7 +29,7 @@ public static class BackgroundTaskRegistrationService
         {
             if (task.Value.Name == SynchronizationTaskName)
             {
-                task.Value.Unregister(true);
+                IsSynchronizationTaskRegistered = true;
                 break;
             }
         }
@@ -39,29 +39,12 @@ public static class BackgroundTaskRegistrationService
             var builder = new BackgroundTaskBuilder
             {
                 Name = SynchronizationTaskName,
-                TaskEntryPoint = $"Taskbar_Customizer.Services.Tasks.{SynchronizationTaskName}"
+                TaskEntryPoint = $"BgTaskComponent.{SynchronizationTaskName}"
             };
 
-            builder.SetTrigger(new SystemTrigger(SystemTriggerType.BackgroundWorkCostChange, false)); // Виконується кожні 15 хвилин
+            builder.SetTrigger(new TimeTrigger(15, false)); // Виконується кожні 15 хвилин
 
             var task = builder.Register();
-
-            task.Completed += new BackgroundTaskCompletedEventHandler(OnSynchronizationBackgroundTaskCompleted);
-        }
-    }
-
-    private static void OnSynchronizationBackgroundTaskCompleted(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
-    {
-        try
-        {
-            args.CheckResult();
-
-            NotificationManager.ShowNotification("Background Notification Title", "Your data was synchronized");
-            Debug.WriteLine("Background task completed successfully.");
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"Background task completion error: {ex}");
         }
     }
 }
