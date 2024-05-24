@@ -7,13 +7,12 @@ using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
-using Taskbar_Customizer.Contracts.Services;
-using Taskbar_Customizer.Helpers.Extensions;
-using Taskbar_Customizer.Helpers.Helpers;
-using Taskbar_Customizer.Services;
+using Taskbar_Customizer.Contracts.Services.Taskbar;
+using Taskbar_Customizer.Helpers.Extensions.Resource;
+using Taskbar_Customizer.Helpers.Extensions.UI;
+using Taskbar_Customizer.Helpers.Helpers.Application;
+using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 using Color = Windows.UI.Color;
-using ColorConverter = Taskbar_Customizer.Services.ColorConverter;
 
 /// <summary>
 /// ViewModel for Main Page.
@@ -53,10 +52,7 @@ public partial class MainViewModel : ObservableRecipient
     {
         this.taskbarCustomizerService = taskbarCustomizerService;
 
-        this.taskbarColor = this.taskbarCustomizerService.TaskbarColor;
-        this.isTaskbarTransparent = this.taskbarCustomizerService.IsTaskbarTransparent;
-        this.isStartButtonLeft = this.taskbarCustomizerService.IsStartButtonLeft;
-        this.isStartButtonCenter = !this.taskbarCustomizerService.IsStartButtonLeft;
+        this.InitializeProperties();
 
         this.ResetToDefaultCommand = new RelayCommand(this.ResetToDefault);
     }
@@ -131,15 +127,53 @@ public partial class MainViewModel : ObservableRecipient
     public ICommand ResetToDefaultCommand { get; }
 
     /// <summary>
+    /// Method for initialization of properties.
+    /// </summary>
+    private void InitializeProperties()
+    {
+        this.InitializeColor();
+        this.InitializeTransparency();
+        this.InitializeStartButtons();
+    }
+
+    /// <summary>
+    /// Method for initialization of color.
+    /// </summary>
+    private void InitializeColor()
+    {
+        this.taskbarColor = this.taskbarCustomizerService.TaskbarColor;
+    }
+
+    /// <summary>
+    /// Method for initialization of transparency.
+    /// </summary>
+    private void InitializeTransparency()
+    {
+        this.isTaskbarTransparent = this.taskbarCustomizerService.IsTaskbarTransparent;
+    }
+
+    /// <summary>
+    /// Method for initialization of start buttons.
+    /// </summary>
+    private void InitializeStartButtons()
+    {
+        var isStartButtonLeft = this.taskbarCustomizerService.IsStartButtonLeft;
+
+        this.isStartButtonLeft = isStartButtonLeft;
+        this.isStartButtonCenter = !isStartButtonLeft;
+    }
+
+    /// <summary>
     /// Method for reseting taskbar settings to default.
     /// </summary>
     private void ResetToDefault()
     {
-        this.TaskbarColor = ColorConverter.ToUIColor(SystemColors.MenuBar);
+        this.TaskbarColor = SystemColors.MenuBar.ToUIColor();
 
-        this.IsTaskbarTransparent = SystemColors.MenuBar.A != 255;
+        this.IsTaskbarTransparent = this.TaskbarColor.Transparent();
 
         this.IsStartButtonCenter = OperationSystemChecker.IsWindows11OrGreater();
+
         this.IsStartButtonLeft = !this.IsStartButtonCenter;
     }
 }

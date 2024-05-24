@@ -11,13 +11,10 @@ using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.UI.Xaml;
 
-using Taskbar_Customizer.Contracts.Services;
-
-using Taskbar_Customizer.Helpers.Helpers;
-using Taskbar_Customizer.Helpers.Extensions;
-
 using Windows.ApplicationModel;
-using Taskbar_Customizer.Services;
+using Taskbar_Customizer.Helpers.Helpers.Application;
+using Taskbar_Customizer.Helpers.Extensions.Resource;
+using Taskbar_Customizer.Contracts.Services.Taskbar;
 
 /// <summary>
 /// ViewModel for Settings Page.

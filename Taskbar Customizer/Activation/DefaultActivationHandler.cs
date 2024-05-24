@@ -3,8 +3,7 @@
 namespace Taskbar_Customizer.Activation;
 
 using Microsoft.UI.Xaml;
-
-using Taskbar_Customizer.Contracts.Services;
+using Taskbar_Customizer.Contracts.Services.Navigation;
 using Taskbar_Customizer.ViewModels;
 
 /// <summary>

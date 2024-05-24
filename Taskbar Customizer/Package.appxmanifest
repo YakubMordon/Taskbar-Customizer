@@ -82,6 +82,10 @@
     <rescap:Capability Name="runFullTrust" />
     <iot:Capability Name="systemManagement"/>
     <uap3:Capability Name="userNotificationListener"/>
+    <uap:Capability Name="userAccountInformation"/>
+    <Capability Name="privateNetworkClientServer"/>
+    <uap3:Capability Name="remoteSystem"/>
+    <Capability Name="internetClientServer"/>
   </Capabilities>
 
   <genTemplate:Metadata>

@@ -2,11 +2,13 @@
 
 namespace Taskbar_Customizer;
 
+using System.Diagnostics;
+
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
-
-using Taskbar_Customizer.Contracts.Services;
-using Taskbar_Customizer.Services;
+using Taskbar_Customizer.Contracts.Services.Configuration;
+using Taskbar_Customizer.Helpers.Helpers.Application;
+using Taskbar_Customizer.Services.Configuration;
 
 /// <summary>
 /// Code-Behind for App.xaml.
@@ -81,7 +83,6 @@ public partial class App : Application
     /// <param name="e">Arguments of exception.</param>
     private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
-        // TODO: Log and handle exceptions as appropriate.
-        // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
+        Debug.WriteLine(e.ToString());
     }
 }

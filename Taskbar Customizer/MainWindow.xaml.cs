@@ -2,12 +2,13 @@
 
 namespace Taskbar_Customizer;
 
-using Taskbar_Customizer.Event_Handlers;
-using Helpers;
 using Microsoft.UI.Dispatching;
+
+using Taskbar_Customizer.Event_Handlers;
+
 using Windows.UI.ViewManagement;
-using Helpers.Helpers;
-using Taskbar_Customizer.Helpers.Extensions;
+using Taskbar_Customizer.Helpers.Helpers.Taskbar;
+using Taskbar_Customizer.Helpers.Extensions.Resource;
 
 /// <summary>
 /// Code-Behind for MainWindow.xaml.
@@ -17,12 +18,12 @@ public sealed partial class MainWindow : WindowEx
     /// <summary>
     /// Language change event handler.
     /// </summary>
-    public LanguageChangeEventHandler EventHandler = new LanguageChangeEventHandler();
+    public LanguageChangeEventHandler EventHandler = new();
 
     /// <summary>
     /// Dispatcher queue for handling UI updates.
     /// </summary>
-    private DispatcherQueue dispatcherQueue;
+    private readonly DispatcherQueue dispatcherQueue;
 
     /// <summary>
     /// Windows UI settings for system theme changes.
@@ -45,7 +46,7 @@ public sealed partial class MainWindow : WindowEx
 
         // Theme change code picked from https://github.com/microsoft/WinUI-Gallery/pull/1239
         this.dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-        ConfigureUISettings();
+        this.ConfigureUISettings();
     }
 
     /// <summary>

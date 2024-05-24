@@ -9,7 +9,7 @@ namespace Taskbar_Customizer.Activation;
 /// <remarks>
 /// Extend this class to implement new activation handlers. See <see cref="DefaultActivationHandler"/> for an example.
 /// For more information about activation handlers in WinUI, visit:
-/// https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/activation.md
+/// https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/activation.md.
 /// </remarks>
 public abstract class ActivationHandler<T> : IActivationHandler
     where T : class

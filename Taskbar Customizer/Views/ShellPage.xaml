@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="using:Taskbar_Customizer.Behaviors"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:helpers="using:Taskbar_Customizer.Helpers.Helpers"
+    xmlns:navigation="using:Taskbar_Customizer.Helpers.Helpers.Application"
     Loaded="OnLoaded">
 
     <Grid>
@@ -34,7 +34,7 @@
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
             <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="MainItem" helpers:NavigationHelper.NavigateTo="Taskbar_Customizer.ViewModels.MainViewModel">
+                <NavigationViewItem x:Name="MainItem" navigation:NavigationHelper.NavigateTo="Taskbar_Customizer.ViewModels.MainViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe80f;"/>
                     </NavigationViewItem.Icon>
