@@ -168,9 +168,11 @@ public partial class MainViewModel : ObservableRecipient
     /// </summary>
     private void ResetToDefault()
     {
-        this.TaskbarColor = SystemColors.MenuBar.ToUIColor();
+        var color = SystemColors.MenuBar.ToUIColor();
 
-        this.IsTaskbarTransparent = this.TaskbarColor.Transparent();
+        this.TaskbarColor = color;
+
+        this.IsTaskbarTransparent = color.Transparent();
 
         this.IsStartButtonCenter = OperationSystemChecker.IsWindows11OrGreater();
 
