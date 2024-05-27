@@ -18,7 +18,7 @@ public sealed partial class MainWindow : WindowEx
     /// <summary>
     /// Language change event handler.
     /// </summary>
-    public LanguageChangeEventHandler EventHandler = new();
+    public LanguageChangeEventHandler EventHandler = new ();
 
     /// <summary>
     /// Dispatcher queue for handling UI updates.
@@ -44,7 +44,6 @@ public sealed partial class MainWindow : WindowEx
 
         this.UpdateUI();
 
-        // Theme change code picked from https://github.com/microsoft/WinUI-Gallery/pull/1239
         this.dispatcherQueue = DispatcherQueue.GetForCurrentThread();
         this.ConfigureUISettings();
     }

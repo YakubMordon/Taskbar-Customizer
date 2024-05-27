@@ -65,10 +65,10 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     /// <inheritdoc />
     public async Task InitializeAsync()
     {
-        TaskbarColor = await LoadColorFromSettingsAsync();
+        this.TaskbarColor = await this.LoadColorFromSettingsAsync();
 
-        IsTaskbarTransparent = await LoadIndicatorFromSettingsAsync(TaskbarTransparentKey);
-        IsStartButtonLeft = await LoadIndicatorFromSettingsAsync(TaskbarStartButtonKey);
+        this.IsTaskbarTransparent = await this.LoadIndicatorFromSettingsAsync(TaskbarTransparentKey);
+        this.IsStartButtonLeft = await this.LoadIndicatorFromSettingsAsync(TaskbarStartButtonKey);
 
         await Task.CompletedTask;
     }
@@ -76,34 +76,34 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     /// <inheritdoc />
     public async Task SetTaskbarColor(Color color)
     {
-        TaskbarColor = color;
+        this.TaskbarColor = color;
 
-        TaskbarColorHelper.SetTaskbarColor(TaskbarColor);
+        TaskbarColorHelper.SetTaskbarColor(this.TaskbarColor);
 
-        await SaveColorInSettingsAsync(TaskbarColor);
+        await this.SaveColorInSettingsAsync(this.TaskbarColor);
     }
 
     /// <inheritdoc />
     public async Task SetStartButtonPosition(bool isLeft)
     {
-        IsStartButtonLeft = isLeft;
+        this.IsStartButtonLeft = isLeft;
 
         if (OperationSystemChecker.IsWindows11OrGreater())
         {
-            TaskbarAlignmentHelper.SetTaskbarAlignment(!IsStartButtonLeft);
+            TaskbarAlignmentHelper.SetTaskbarAlignment(!this.IsStartButtonLeft);
         }
 
-        await SaveIndicatorInSettingsAsync(TaskbarStartButtonKey, IsStartButtonLeft);
+        await this.SaveIndicatorInSettingsAsync(TaskbarStartButtonKey, this.IsStartButtonLeft);
     }
 
     /// <inheritdoc />
     public async Task SetTaskbarTransparent(bool transparent)
     {
-        IsTaskbarTransparent = transparent;
+        this.IsTaskbarTransparent = transparent;
 
-        TransparencyHelper.SetTaskbarTransparency(IsTaskbarTransparent);
+        TransparencyHelper.SetTaskbarTransparency(this.IsTaskbarTransparent);
 
-        await SaveIndicatorInSettingsAsync(TaskbarTransparentKey, IsTaskbarTransparent);
+        await this.SaveIndicatorInSettingsAsync(TaskbarTransparentKey, this.IsTaskbarTransparent);
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     /// <returns>Color.</returns>
     private async Task<Color> LoadColorFromSettingsAsync()
     {
-        var colorString = await localSettingsService.ReadSettingAsync<string>(TaskbarColorKey);
+        var colorString = await this.localSettingsService.ReadSettingAsync<string>(TaskbarColorKey);
 
         if (string.IsNullOrWhiteSpace(colorString))
         {
@@ -131,7 +131,7 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     {
         var stringifiedColor = await Json.StringifyAsync(color);
 
-        await localSettingsService.SaveSettingAsync(TaskbarColorKey, stringifiedColor);
+        await this.localSettingsService.SaveSettingAsync(TaskbarColorKey, stringifiedColor);
     }
 
     /// <summary>
@@ -141,7 +141,7 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     /// <returns>Indicator.</returns>
     private async Task<bool> LoadIndicatorFromSettingsAsync(string key)
     {
-        var indicatorString = await localSettingsService.ReadSettingAsync<string>(key);
+        var indicatorString = await this.localSettingsService.ReadSettingAsync<string>(key);
 
         if (bool.TryParse(indicatorString, out var indicator))
         {
@@ -159,6 +159,6 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     /// <returns>Completed Task.</returns>
     private async Task SaveIndicatorInSettingsAsync(string key, bool indicator)
     {
-        await localSettingsService.SaveSettingAsync(key, indicator.ToString());
+        await this.localSettingsService.SaveSettingAsync(key, indicator.ToString());
     }
 }

@@ -63,23 +63,23 @@ public class ActivationService : IActivationService
     public async Task ActivateAsync(object activationArgs)
     {
         // Execute tasks before activation.
-        await InitializeAsync();
+        await this.InitializeAsync();
 
         // Set the MainWindow Content.
         if (App.MainWindow.Content is null)
         {
-            shell = App.GetService<ShellPage>();
-            App.MainWindow.Content = shell ?? new Frame();
+            this.shell = App.GetService<ShellPage>();
+            App.MainWindow.Content = this.shell ?? new Frame();
         }
 
         // Handle activation via ActivationHandlers.
-        await HandleActivationAsync(activationArgs);
+        await this.HandleActivationAsync(activationArgs);
 
         // Activate the MainWindow.
         App.MainWindow.Activate();
 
         // Execute tasks after activation.
-        await StartupAsync();
+        await this.StartupAsync();
     }
 
     /// <summary>
@@ -89,16 +89,16 @@ public class ActivationService : IActivationService
     /// <returns>Completed Task.</returns>
     private async Task HandleActivationAsync(object activationArgs)
     {
-        var activationHandler = activationHandlers.FirstOrDefault(h => h.CanHandle(activationArgs));
+        var activationHandler = this.activationHandlers.FirstOrDefault(h => h.CanHandle(activationArgs));
 
         if (activationHandler is not null)
         {
             await activationHandler.HandleAsync(activationArgs);
         }
 
-        if (defaultHandler.CanHandle(activationArgs))
+        if (this.defaultHandler.CanHandle(activationArgs))
         {
-            await defaultHandler.HandleAsync(activationArgs);
+            await this.defaultHandler.HandleAsync(activationArgs);
         }
     }
 
@@ -108,9 +108,9 @@ public class ActivationService : IActivationService
     /// <returns>Completed Task.</returns>
     private async Task InitializeAsync()
     {
-        await themeSelectorService.InitializeAsync().ConfigureAwait(false);
+        await this.themeSelectorService.InitializeAsync().ConfigureAwait(false);
 
-        await taskbarCustomizerService.InitializeAsync().ConfigureAwait(false);
+        await this.taskbarCustomizerService.InitializeAsync().ConfigureAwait(false);
 
         await Task.CompletedTask;
     }
@@ -121,7 +121,7 @@ public class ActivationService : IActivationService
     /// <returns>Completed Task.</returns>
     private async Task StartupAsync()
     {
-        await themeSelectorService.SetRequestedThemeAsync();
+        await this.themeSelectorService.SetRequestedThemeAsync();
 
         await Task.CompletedTask;
     }

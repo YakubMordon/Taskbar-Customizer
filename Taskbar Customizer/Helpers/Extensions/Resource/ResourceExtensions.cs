@@ -12,7 +12,7 @@ public static class ResourceExtensions
     /// <summary>
     /// Resource loader.
     /// </summary>
-    private static readonly ResourceLoader Loader = new();
+    private static readonly ResourceLoader Loader = new ();
 
     /// <summary>
     /// Method for getting the localized string corresponding to the specified resource key.

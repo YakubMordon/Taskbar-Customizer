@@ -43,38 +43,38 @@ public class NavigationViewService : INavigationViewService
     /// <summary>
     /// Gets the collection of menu items associated with the NavigationView control.
     /// </summary>
-    public IList<object>? MenuItems => navigationView?.MenuItems;
+    public IList<object>? MenuItems => this.navigationView?.MenuItems;
 
     /// <summary>
     /// Gets the settings item associated with the NavigationView control.
     /// </summary>
-    public object? SettingsItem => navigationView?.SettingsItem;
+    public object? SettingsItem => this.navigationView?.SettingsItem;
 
     /// <inheritdoc />
     [MemberNotNull(nameof(NavigationViewService.navigationView))]
     public void Initialize(NavigationView navigationView)
     {
         this.navigationView = navigationView;
-        this.navigationView.BackRequested += OnBackRequested;
-        this.navigationView.ItemInvoked += OnItemInvoked;
+        this.navigationView.BackRequested += this.OnBackRequested;
+        this.navigationView.ItemInvoked += this.OnItemInvoked;
     }
 
     /// <inheritdoc />
     public void UnregisterEvents()
     {
-        if (navigationView is not null)
+        if (this.navigationView is not null)
         {
-            navigationView.BackRequested -= OnBackRequested;
-            navigationView.ItemInvoked -= OnItemInvoked;
+            this.navigationView.BackRequested -= this.OnBackRequested;
+            this.navigationView.ItemInvoked -= this.OnItemInvoked;
         }
     }
 
     /// <inheritdoc />
     public NavigationViewItem? GetSelectedItem(Type pageType)
     {
-        if (navigationView is not null)
+        if (this.navigationView is not null)
         {
-            return GetSelectedItem(navigationView.MenuItems, pageType) ?? GetSelectedItem(navigationView.FooterMenuItems, pageType);
+            return this.GetSelectedItem(this.navigationView.MenuItems, pageType) ?? this.GetSelectedItem(this.navigationView.FooterMenuItems, pageType);
         }
 
         return null;
@@ -85,7 +85,7 @@ public class NavigationViewService : INavigationViewService
     /// </summary>
     /// <param name="sender">The <see cref="NavigationView"/> instance that triggered the event.</param>
     /// <param name="args">The <see cref="NavigationViewBackRequestedEventArgs"/> containing event data.</param>
-    private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args) => navigationService.GoBack();
+    private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args) => this.navigationService.GoBack();
 
     /// <summary>
     /// Event Handler for the item invoked event in the navigation view.
@@ -96,7 +96,7 @@ public class NavigationViewService : INavigationViewService
     {
         if (args.IsSettingsInvoked)
         {
-            navigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
+            this.navigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
         }
         else
         {
@@ -104,7 +104,7 @@ public class NavigationViewService : INavigationViewService
 
             if (selectedItem?.GetValue(NavigationHelper.NavigateToProperty) is string pageKey)
             {
-                navigationService.NavigateTo(pageKey);
+                this.navigationService.NavigateTo(pageKey);
             }
         }
     }
@@ -119,12 +119,12 @@ public class NavigationViewService : INavigationViewService
     {
         foreach (var item in menuItems.OfType<NavigationViewItem>())
         {
-            if (IsMenuItemForPageType(item, pageType))
+            if (this.IsMenuItemForPageType(item, pageType))
             {
                 return item;
             }
 
-            var selectedChild = GetSelectedItem(item.MenuItems, pageType);
+            var selectedChild = this.GetSelectedItem(item.MenuItems, pageType);
 
             if (selectedChild is not null)
             {
@@ -145,7 +145,7 @@ public class NavigationViewService : INavigationViewService
     {
         if (menuItem.GetValue(NavigationHelper.NavigateToProperty) is string pageKey)
         {
-            return pageService.GetPageType(pageKey) == sourcePageType;
+            return this.pageService.GetPageType(pageKey) == sourcePageType;
         }
 
         return false;

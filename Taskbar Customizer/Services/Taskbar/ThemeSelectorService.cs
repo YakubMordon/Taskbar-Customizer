@@ -40,7 +40,7 @@ public class ThemeSelectorService : IThemeSelectorService
     /// <inheritdoc />
     public async Task InitializeAsync()
     {
-        Theme = await LoadThemeFromSettingsAsync();
+        this.Theme = await this.LoadThemeFromSettingsAsync();
 
         await Task.CompletedTask;
     }
@@ -48,10 +48,10 @@ public class ThemeSelectorService : IThemeSelectorService
     /// <inheritdoc />
     public async Task SetThemeAsync(ElementTheme theme)
     {
-        Theme = theme;
+        this.Theme = theme;
 
-        await SetRequestedThemeAsync();
-        await SaveThemeInSettingsAsync(Theme);
+        await this.SetRequestedThemeAsync();
+        await this.SaveThemeInSettingsAsync(this.Theme);
     }
 
     /// <inheritdoc />
@@ -59,9 +59,9 @@ public class ThemeSelectorService : IThemeSelectorService
     {
         if (App.MainWindow.Content is FrameworkElement rootElement)
         {
-            rootElement.RequestedTheme = Theme;
+            rootElement.RequestedTheme = this.Theme;
 
-            TitleBarHelper.UpdateTitleBar(Theme);
+            TitleBarHelper.UpdateTitleBar(this.Theme);
         }
 
         await Task.CompletedTask;
@@ -73,7 +73,7 @@ public class ThemeSelectorService : IThemeSelectorService
     /// <returns>Theme.</returns>
     private async Task<ElementTheme> LoadThemeFromSettingsAsync()
     {
-        var themeName = await localSettingsService.ReadSettingAsync<string>(SettingsKey);
+        var themeName = await this.localSettingsService.ReadSettingAsync<string>(SettingsKey);
 
         if (Enum.TryParse(themeName, out ElementTheme cacheTheme))
         {
@@ -90,6 +90,6 @@ public class ThemeSelectorService : IThemeSelectorService
     /// <returns>Completed Task.</returns>
     private async Task SaveThemeInSettingsAsync(ElementTheme theme)
     {
-        await localSettingsService.SaveSettingAsync(SettingsKey, theme.ToString());
+        await this.localSettingsService.SaveSettingAsync(SettingsKey, theme.ToString());
     }
 }

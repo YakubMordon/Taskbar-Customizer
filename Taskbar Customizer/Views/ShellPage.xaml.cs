@@ -33,8 +33,6 @@ public sealed partial class ShellPage : Page
         this.ViewModel.NavigationService.Frame = this.NavigationFrame;
         this.ViewModel.NavigationViewService.Initialize(this.NavigationViewControl);
 
-        // A custom title bar is required for full window theme and Mica support.
-        // https://docs.microsoft.com/windows/apps/develop/title-bar?tabs=winui3#full-customization
         App.MainWindow.ExtendsContentIntoTitleBar = true;
         App.MainWindow.SetTitleBar(this.AppTitleBar);
         App.MainWindow.Activated += this.MainWindow_Activated;

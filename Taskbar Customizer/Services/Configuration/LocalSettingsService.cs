@@ -72,10 +72,10 @@ public class LocalSettingsService : ILocalSettingsService
         this.fileService = fileService;
         this.options = options.Value;
 
-        applicationDataFolder = Path.Combine(localApplicationData, this.options.ApplicationDataFolder ?? DefaultApplicationDataFolder);
-        localsettingsFile = this.options.LocalSettingsFile ?? DefaultLocalSettingsFile;
+        this.applicationDataFolder = Path.Combine(this.localApplicationData, this.options.ApplicationDataFolder ?? DefaultApplicationDataFolder);
+        this.localsettingsFile = this.options.LocalSettingsFile ?? DefaultLocalSettingsFile;
 
-        settings = new Dictionary<string, object>();
+        this.settings = new Dictionary<string, object>();
     }
 
     /// <inheritdoc />
@@ -90,9 +90,9 @@ public class LocalSettingsService : ILocalSettingsService
         }
         else
         {
-            await InitializeAsync();
+            await this.InitializeAsync();
 
-            if (settings is not null && settings.TryGetValue(key, out var obj))
+            if (this.settings is not null && this.settings.TryGetValue(key, out var obj))
             {
                 return await Json.ToObjectAsync<T>((string)obj);
             }
@@ -110,11 +110,11 @@ public class LocalSettingsService : ILocalSettingsService
         }
         else
         {
-            await InitializeAsync();
+            await this.InitializeAsync();
 
-            settings[key] = await Json.StringifyAsync(value);
+            this.settings[key] = await Json.StringifyAsync(value);
 
-            await Task.Run(() => fileService.Save(applicationDataFolder, localsettingsFile, settings));
+            await Task.Run(() => this.fileService.Save(this.applicationDataFolder, this.localsettingsFile, this.settings));
         }
     }
 
@@ -123,11 +123,11 @@ public class LocalSettingsService : ILocalSettingsService
     /// </summary>
     private async Task InitializeAsync()
     {
-        if (!isInitialized)
+        if (!this.isInitialized)
         {
-            settings = await Task.Run(() => fileService.Read<Dictionary<string, object>>(applicationDataFolder, localsettingsFile)) ?? new Dictionary<string, object>();
+            this.settings = await Task.Run(() => this.fileService.Read<Dictionary<string, object>>(this.applicationDataFolder, this.localsettingsFile)) ?? new Dictionary<string, object>();
 
-            isInitialized = true;
+            this.isInitialized = true;
         }
     }
 }

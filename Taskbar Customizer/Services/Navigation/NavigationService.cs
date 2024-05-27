@@ -53,20 +53,20 @@ public class NavigationService : INavigationService
     {
         get
         {
-            if (frame is null)
+            if (this.frame is null)
             {
-                frame = App.MainWindow.Content as Frame;
-                RegisterFrameEvents();
+                this.frame = App.MainWindow.Content as Frame;
+                this.RegisterFrameEvents();
             }
 
-            return frame;
+            return this.frame;
         }
 
         set
         {
-            UnregisterFrameEvents();
-            frame = value;
-            RegisterFrameEvents();
+            this.UnregisterFrameEvents();
+            this.frame = value;
+            this.RegisterFrameEvents();
         }
     }
 
@@ -74,16 +74,16 @@ public class NavigationService : INavigationService
     /// Gets a value indicating whether it's possible to navigate back to the previous page.
     /// </summary>
     [MemberNotNullWhen(true, nameof(Frame), nameof(frame))]
-    public bool CanGoBack => Frame is not null && Frame.CanGoBack;
+    public bool CanGoBack => this.Frame is not null && this.Frame.CanGoBack;
 
     /// <inheritdoc />
     public bool GoBack()
     {
-        if (CanGoBack)
+        if (this.CanGoBack)
         {
-            var vmBeforeNavigation = frame.GetPageViewModel();
+            var vmBeforeNavigation = this.frame.GetPageViewModel();
 
-            frame.GoBack();
+            this.frame.GoBack();
 
             if (vmBeforeNavigation is INavigationAware navigationAware)
             {
@@ -99,16 +99,16 @@ public class NavigationService : INavigationService
     /// <inheritdoc />
     public bool NavigateTo(string pageKey, object? parameter = null, bool clearNavigation = false)
     {
-        var pageType = pageService.GetPageType(pageKey);
+        var pageType = this.pageService.GetPageType(pageKey);
 
-        if (frame is not null && (frame.Content?.GetType() != pageType || parameter is not null && !parameter.Equals(lastParameterUsed)))
+        if (this.frame is not null && (this.frame.Content?.GetType() != pageType || (parameter is not null && !parameter.Equals(this.lastParameterUsed))))
         {
-            frame.Tag = clearNavigation;
-            var vmBeforeNavigation = frame.GetPageViewModel();
-            var navigated = frame.Navigate(pageType, parameter);
+            this.frame.Tag = clearNavigation;
+            var vmBeforeNavigation = this.frame.GetPageViewModel();
+            var navigated = this.frame.Navigate(pageType, parameter);
             if (navigated)
             {
-                lastParameterUsed = parameter;
+                this.lastParameterUsed = parameter;
                 if (vmBeforeNavigation is INavigationAware navigationAware)
                 {
                     navigationAware.OnNavigatedFrom();
@@ -126,9 +126,9 @@ public class NavigationService : INavigationService
     /// </summary>
     private void RegisterFrameEvents()
     {
-        if (frame is not null)
+        if (this.frame is not null)
         {
-            frame.Navigated += OnNavigated;
+            this.frame.Navigated += this.OnNavigated;
         }
     }
 
@@ -137,9 +137,9 @@ public class NavigationService : INavigationService
     /// </summary>
     private void UnregisterFrameEvents()
     {
-        if (frame is not null)
+        if (this.frame is not null)
         {
-            frame.Navigated -= OnNavigated;
+            this.frame.Navigated -= this.OnNavigated;
         }
     }
 
@@ -161,7 +161,7 @@ public class NavigationService : INavigationService
                 navigationAware.OnNavigatedTo(e.Parameter);
             }
 
-            Navigated?.Invoke(sender, e);
+            this.Navigated?.Invoke(sender, e);
         }
     }
 }

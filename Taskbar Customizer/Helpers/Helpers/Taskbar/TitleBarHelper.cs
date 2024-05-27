@@ -128,8 +128,8 @@ internal class TitleBarHelper
     /// </summary>
     /// <param name="hWnd">A handle to the window whose window procedure will receive the message.</param>
     /// <param name="msg">The message to be sent.</param>
-    /// <param name="wParam">Additional message-specific information.</param>
-    /// <param name="lParam">Additional message-specific information.</param>
+    /// <param name="wParam">Additional message-specific wParam information.</param>
+    /// <param name="lParam">Additional message-specific lParam information.</param>
     /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     private static extern nint SendMessage(nint hWnd, int msg, int wParam, nint lParam);
