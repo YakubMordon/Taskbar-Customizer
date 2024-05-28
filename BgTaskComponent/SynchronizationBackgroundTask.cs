@@ -2,22 +2,73 @@
 
 namespace BgTaskComponent;
 
-using System.Diagnostics;
+using System.Linq;
+using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
+
+using Windows.Foundation.Collections;
+
 using Windows.UI.Notifications;
 
 /// <summary>
 /// Class for synchronization of data in application.
 /// </summary>
-public sealed class SynchronizationBackgroundTask: IBackgroundTask
+public sealed class SynchronizationBackgroundTask : IBackgroundTask
 {
+    /// <summary>
+    /// Background task deferral.
+    /// </summary>
+    private BackgroundTaskDeferral deferral;
+
+    /// <summary>
+    /// Connection to app service.
+    /// </summary>
+    private AppServiceConnection connection;
+
+    /// <summary>
+    /// Value set of synchronized data
+    /// </summary>
+    private static ValueSet synchronizedData = new ();
+
     /// <inheritdoc />
     public void Run(IBackgroundTaskInstance taskInstance)
     {
-        Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
+        deferral = taskInstance.GetDeferral();
+        taskInstance.Canceled += OnTaskCanceled;
 
-        // Perform the background task.
+        var details = taskInstance.TriggerDetails as AppServiceTriggerDetails;
+        connection = details.AppServiceConnection;
+        connection.RequestReceived += OnRequestReceived;
+    }
+
+    /// <summary>
+    /// Event handler for handling requests.
+    /// </summary>
+    private void OnRequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
+    {
+        var messageDeferral = args.GetDeferral();
+        var input = args.Request.Message;
+
+        foreach (var key in input.Keys)
+        {
+            synchronizedData[key] = input[key];
+        }
+
+        args.Request.SendResponseAsync(synchronizedData).Completed = (info, status) =>
+        {
+            messageDeferral.Complete();
+        };
+
         SendNotification();
+    }
+
+    /// <summary>
+    /// Event handler for canceling task.
+    /// </summary>
+    private void OnTaskCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+    {
+        connection.Dispose();
+        deferral.Complete();
     }
 
     /// <summary>
@@ -29,7 +80,7 @@ public sealed class SynchronizationBackgroundTask: IBackgroundTask
 
         var textElements = toastXml.GetElementsByTagName("text");
 
-        textElements[0].AppendChild(toastXml.CreateTextNode("Background Notification Title"));
+        textElements[0].AppendChild(toastXml.CreateTextNode("Background Notification"));
         textElements[1].AppendChild(toastXml.CreateTextNode("Your data was synchronized"));
 
         var notification = new ToastNotification(toastXml);

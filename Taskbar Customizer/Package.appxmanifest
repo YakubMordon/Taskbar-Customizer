@@ -65,7 +65,10 @@
                   <Task Type="systemEvent"/>
               </BackgroundTasks>
           </Extension>
-      </Extensions>
+          <uap:Extension Category="windows.appService" EntryPoint="BgTaskComponent.SynchronizationBackgroundTask">
+              <uap:AppService Name="com.TaskbarCustomizer.SyncService"/>
+          </uap:Extension>
+	  </Extensions>
     </Application>
   </Applications>
 

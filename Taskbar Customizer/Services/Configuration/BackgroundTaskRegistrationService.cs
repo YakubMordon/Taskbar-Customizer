@@ -42,6 +42,7 @@ public static class BackgroundTaskRegistrationService
             };
 
             builder.SetTrigger(new TimeTrigger(15, false)); // Виконується кожні 15 хвилин
+            builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
 
             var task = builder.Register();
         }

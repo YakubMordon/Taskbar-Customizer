@@ -7,11 +7,19 @@ using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
+using Newtonsoft.Json;
+
 using Taskbar_Customizer.Contracts.Services.Taskbar;
+
 using Taskbar_Customizer.Helpers.Extensions.Resource;
 using Taskbar_Customizer.Helpers.Extensions.UI;
+
 using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
+
+using Taskbar_Customizer.Services.Configuration;
+
 using Color = Windows.UI.Color;
 
 /// <summary>
@@ -23,6 +31,11 @@ public partial class MainViewModel : ObservableRecipient
     /// The taskbar customizer service.
     /// </summary>
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
+
+    /// <summary>
+    /// Synchronization service.
+    /// </summary>
+    private readonly SynchronizationService synchronizationService;
 
     /// <summary>
     /// The color of the taskbar.
@@ -48,11 +61,14 @@ public partial class MainViewModel : ObservableRecipient
     /// Initializes a new instance of the <see cref="MainViewModel"/> class.
     /// </summary>
     /// <param name="taskbarCustomizerService">The taskbar customizer service.</param>
-    public MainViewModel(ITaskbarCustomizerService taskbarCustomizerService)
+    /// <param name="synchronizationService">Synchronization service.</param>
+    public MainViewModel(ITaskbarCustomizerService taskbarCustomizerService, SynchronizationService synchronizationService)
     {
         this.taskbarCustomizerService = taskbarCustomizerService;
 
-        this.InitializeProperties();
+        this.synchronizationService = synchronizationService;
+
+        this.UpdateProperties();
 
         this.ResetToDefaultCommand = new RelayCommand(this.ResetToDefault);
     }
@@ -68,7 +84,7 @@ public partial class MainViewModel : ObservableRecipient
             if (this.SetProperty(ref this.taskbarColor, value))
             {
                 this.taskbarColor.A = (byte)(this.IsTaskbarTransparent ? 128 : 255);
-                this.taskbarCustomizerService.SetTaskbarColor(this.taskbarColor);
+                this.synchronizationService.CallSyncService("Color", JsonConvert.SerializeObject(this.taskbarColor));
                 NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationColorChanged".GetLocalized());
             }
         }
@@ -84,7 +100,8 @@ public partial class MainViewModel : ObservableRecipient
         {
             if (this.SetProperty(ref this.isTaskbarTransparent, value))
             {
-                this.taskbarCustomizerService.SetTaskbarTransparent(this.isTaskbarTransparent);
+                this.synchronizationService.CallSyncService("Transparency", JsonConvert.SerializeObject(this.isTaskbarTransparent));
+                
                 NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationTransparencyChanged".GetLocalized());
             }
         }
@@ -115,7 +132,7 @@ public partial class MainViewModel : ObservableRecipient
         {
             if (this.SetProperty(ref this.isStartButtonCenter, value))
             {
-                this.taskbarCustomizerService.SetStartButtonPosition(!this.isStartButtonCenter);
+                this.synchronizationService.CallSyncService("Alignment", JsonConvert.SerializeObject(this.isStartButtonCenter));
                 NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationAlignmentChanged".GetLocalized());
             }
         }
@@ -129,17 +146,17 @@ public partial class MainViewModel : ObservableRecipient
     /// <summary>
     /// Method for initialization of properties.
     /// </summary>
-    private void InitializeProperties()
+    private void UpdateProperties()
     {
-        this.InitializeColor();
-        this.InitializeTransparency();
-        this.InitializeStartButtons();
+        this.UpdateColor();
+        this.UpdateTransparency();
+        this.UpdateStartButtons();
     }
 
     /// <summary>
     /// Method for initialization of color.
     /// </summary>
-    private void InitializeColor()
+    private void UpdateColor()
     {
         this.taskbarColor = this.taskbarCustomizerService.TaskbarColor;
     }
@@ -147,7 +164,7 @@ public partial class MainViewModel : ObservableRecipient
     /// <summary>
     /// Method for initialization of transparency.
     /// </summary>
-    private void InitializeTransparency()
+    private void UpdateTransparency()
     {
         this.isTaskbarTransparent = this.taskbarCustomizerService.IsTaskbarTransparent;
     }
@@ -155,7 +172,7 @@ public partial class MainViewModel : ObservableRecipient
     /// <summary>
     /// Method for initialization of start buttons.
     /// </summary>
-    private void InitializeStartButtons()
+    private void UpdateStartButtons()
     {
         var isStartButtonLeft = this.taskbarCustomizerService.IsStartButtonLeft;
 

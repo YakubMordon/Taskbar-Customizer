@@ -58,6 +58,7 @@ public static class ConfigureHostService
         services.AddSingleton<ITaskbarCustomizerService, TaskbarCustomizerService>();
 
         services.AddTransient<INavigationViewService, NavigationViewService>();
+        services.AddTransient<SynchronizationService>();
 
         services.AddSingleton<IActivationService, ActivationService>();
         services.AddSingleton<IPageService, PageService>();
