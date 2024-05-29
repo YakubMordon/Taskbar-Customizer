@@ -44,81 +44,16 @@ public class SynchronizationService
             message.Add(key, value);
         }
 
-        await UpdateAppService(message);
+        await this.UpdateAppService(message);
 
         var remoteSystemWatcher = RemoteSystem.CreateWatcher();
 
         remoteSystemWatcher.RemoteSystemAdded += async (sender, args) =>
         {
-            await UpdateRemoteSystem(args.RemoteSystem, message);
+            await this.UpdateRemoteSystem(args.RemoteSystem, message);
         };
 
         remoteSystemWatcher.Start();
-    }
-
-    /// <summary>
-    /// Method for updating data of application service.
-    /// </summary>
-    private async Task UpdateAppService(ValueSet message)
-    {
-        var connection = new AppServiceConnection
-        {
-            AppServiceName = "com.TaskbarCustomizer.SyncService",
-            PackageFamilyName = Windows.ApplicationModel.Package.Current.Id.FamilyName
-        };
-
-        var status = await connection.OpenAsync();
-
-        await this.SendDataToService(connection, status, message);
-    }
-
-    /// <summary>
-    /// Method for updating remote system.
-    /// </summary>
-    private async Task UpdateRemoteSystem(RemoteSystem remoteSystem, ValueSet message)
-    {
-        var connectionRequest = new RemoteSystemConnectionRequest(remoteSystem);
-        var connection = new AppServiceConnection
-        {
-            AppServiceName = "com.TaskbarCustomizer.SyncService",
-            PackageFamilyName = Windows.ApplicationModel.Package.Current.Id.FamilyName
-        };
-
-        var status = await connection.OpenRemoteAsync(connectionRequest);
-
-        await this.SendDataToService(connection, status, message);
-    }
-
-    /// <summary>
-    /// Method for updating data in taskbar service and background task.
-    /// </summary>
-    private async Task SendDataToService(AppServiceConnection connection, AppServiceConnectionStatus status,
-        ValueSet message)
-    {
-        if (status == AppServiceConnectionStatus.Success)
-        {
-            var response = await connection.SendMessageAsync(message);
-
-            if (response.Status == AppServiceResponseStatus.Success)
-            {
-                var result = response.Message;
-
-                if (GetBooleanValue("Transparency", result, out var isTransparent))
-                {
-                    await taskbarCustomizerService.SetTaskbarTransparent(isTransparent);
-                }
-
-                if (GetBooleanValue("Alignment", result, out var isAlignedOnCenter))
-                {
-                    await taskbarCustomizerService.SetStartButtonPosition(!isAlignedOnCenter);
-                }
-
-                if (GetValue<Color?>("Color", result) is Color color)
-                {
-                    await taskbarCustomizerService.SetTaskbarColor(color);
-                }
-            }
-        }
     }
 
     /// <summary>
@@ -147,5 +82,77 @@ public class SynchronizationService
         }
 
         return false;
+    }
+
+    /// <summary>
+    /// Method for updating data of application service.
+    /// </summary>
+    /// <param name="message">Message containing data for update.</param>
+    /// <returns>Completed Task.</returns>
+    private async Task UpdateAppService(ValueSet message)
+    {
+        var connection = new AppServiceConnection
+        {
+            AppServiceName = "com.TaskbarCustomizer.SyncService",
+            PackageFamilyName = Windows.ApplicationModel.Package.Current.Id.FamilyName,
+        };
+
+        var status = await connection.OpenAsync();
+
+        await this.SendDataToService(connection, status, message);
+    }
+
+    /// <summary>
+    /// Method for updating remote system.
+    /// </summary>
+    /// <param name="remoteSystem">Remote system.</param>
+    /// <param name="message">Message for updating data.</param>
+    /// <returns>Completed Task.</returns>
+    private async Task UpdateRemoteSystem(RemoteSystem remoteSystem, ValueSet message)
+    {
+        var connectionRequest = new RemoteSystemConnectionRequest(remoteSystem);
+        var connection = new AppServiceConnection
+        {
+            AppServiceName = "com.TaskbarCustomizer.SyncService",
+            PackageFamilyName = Windows.ApplicationModel.Package.Current.Id.FamilyName,
+        };
+
+        var status = await connection.OpenRemoteAsync(connectionRequest);
+
+        await this.SendDataToService(connection, status, message);
+    }
+
+    /// <summary>
+    /// Method for updating data in taskbar service and background task.
+    /// </summary>
+    /// <param name="connection">Connection to background task / application service.</param>
+    /// <param name="status">Status of connection.</param>
+    /// <param name="message">Message for updating data.</param>
+    private async Task SendDataToService(AppServiceConnection connection, AppServiceConnectionStatus status, ValueSet message)
+    {
+        if (status == AppServiceConnectionStatus.Success)
+        {
+            var response = await connection.SendMessageAsync(message);
+
+            if (response.Status == AppServiceResponseStatus.Success)
+            {
+                var result = response.Message;
+
+                if (GetBooleanValue("Transparency", result, out var isTransparent))
+                {
+                    await this.taskbarCustomizerService.SetTaskbarTransparent(isTransparent);
+                }
+
+                if (GetBooleanValue("Alignment", result, out var isAlignedOnCenter))
+                {
+                    await this.taskbarCustomizerService.SetStartButtonPosition(!isAlignedOnCenter);
+                }
+
+                if (GetValue<Color?>("Color", result) is Color color)
+                {
+                    await this.taskbarCustomizerService.SetTaskbarColor(color);
+                }
+            }
+        }
     }
 }
