@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Taskbar_Customizer.Contracts.Services.Taskbar;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
+using Windows.System.RemoteSystems;
 using Windows.UI;
 
 namespace Taskbar_Customizer.Services.Configuration;
@@ -32,51 +33,52 @@ public class SynchronizationService
     /// </summary>
     /// <param name="key">Key for synchronization.</param>
     /// <param name="value">Value for synchronization.</param>
-    public async void CallSyncService(string? key, string? value)
+    public void CallSyncService(string? key, string? value)
     {
-        var connection = new AppServiceConnection
+        var remoteSystemWatcher = RemoteSystem.CreateWatcher();
+        remoteSystemWatcher.RemoteSystemAdded += async (sender, args) =>
         {
-            AppServiceName = "com.TaskbarCustomizer.SyncService",
-            PackageFamilyName = Windows.ApplicationModel.Package.Current.Id.FamilyName
+            var connectionRequest = new RemoteSystemConnectionRequest(args.RemoteSystem);
+            var connection = new AppServiceConnection
+            {
+                AppServiceName = "com.TaskbarCustomizer.SyncService",
+                PackageFamilyName = Windows.ApplicationModel.Package.Current.Id.FamilyName
+            };
+
+            var status = await connection.OpenRemoteAsync(connectionRequest);
+
+            if (status == AppServiceConnectionStatus.Success)
+            {
+                var message = new ValueSet
+                {
+                    { key, value }
+                };
+
+                var response = await connection.SendMessageAsync(message);
+
+                if (response.Status == AppServiceResponseStatus.Success)
+                {
+                    var result = response.Message;
+
+                    if (GetBooleanValue("Transparency", result, out var isTransparent))
+                    {
+                        await taskbarCustomizerService.SetTaskbarTransparent(isTransparent);
+                    }
+
+                    if (GetBooleanValue("Alignment", result, out var isAlignedOnCenter))
+                    {
+                        await taskbarCustomizerService.SetStartButtonPosition(!isAlignedOnCenter);
+                    }
+
+                    if (GetValue<Color?>("Color", result) is Color color)
+                    {
+                        await taskbarCustomizerService.SetTaskbarColor(color);
+                    }
+                }
+            }
         };
 
-        var status = await connection.OpenAsync();
-
-        if (status == AppServiceConnectionStatus.Success)
-        {
-            var message = new ValueSet();
-
-            if (!string.IsNullOrWhiteSpace(key) && !string.IsNullOrWhiteSpace(value))
-            {
-                message.Add(key, value);
-            }
-
-            var response = await connection.SendMessageAsync(message);
-
-            if (response.Status == AppServiceResponseStatus.Success)
-            {
-                var result = response.Message;
-
-                var nullableColor = GetValue<Color?>("Color", result);
-                var transparencySuccess = GetBooleanValue("Transparency", result, out var isTransparent);
-                var alignmentSuccess = GetBooleanValue("Alignment", result, out var isAlignedOnCenter);
-
-                if (transparencySuccess)
-                {
-                    await taskbarCustomizerService.SetTaskbarTransparent(isTransparent);
-                }
-
-                if (alignmentSuccess)
-                {
-                    await taskbarCustomizerService.SetStartButtonPosition(!isAlignedOnCenter);
-                }
-
-                if (nullableColor is Color color)
-                {
-                    await taskbarCustomizerService.SetTaskbarColor(color);
-                }
-            }
-        }
+        remoteSystemWatcher.Start();
     }
 
     /// <summary>

@@ -84,7 +84,10 @@ public partial class MainViewModel : ObservableRecipient
             if (this.SetProperty(ref this.taskbarColor, value))
             {
                 this.taskbarColor.A = (byte)(this.IsTaskbarTransparent ? 128 : 255);
+                this.taskbarCustomizerService.SetTaskbarColor(this.taskbarColor);
+
                 this.synchronizationService.CallSyncService("Color", JsonConvert.SerializeObject(this.taskbarColor));
+
                 NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationColorChanged".GetLocalized());
             }
         }
@@ -100,6 +103,8 @@ public partial class MainViewModel : ObservableRecipient
         {
             if (this.SetProperty(ref this.isTaskbarTransparent, value))
             {
+                this.taskbarCustomizerService.SetTaskbarTransparent(this.isTaskbarTransparent);
+
                 this.synchronizationService.CallSyncService("Transparency", JsonConvert.SerializeObject(this.isTaskbarTransparent));
                 
                 NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationTransparencyChanged".GetLocalized());
@@ -113,13 +118,7 @@ public partial class MainViewModel : ObservableRecipient
     public bool IsStartButtonLeft
     {
         get => this.isStartButtonLeft;
-        set
-        {
-            if (this.SetProperty(ref this.isStartButtonLeft, value))
-            {
-                this.taskbarCustomizerService.SetStartButtonPosition(this.isStartButtonLeft);
-            }
-        }
+        set => this.SetProperty(ref this.isStartButtonLeft, value);
     }
 
     /// <summary>
@@ -132,7 +131,10 @@ public partial class MainViewModel : ObservableRecipient
         {
             if (this.SetProperty(ref this.isStartButtonCenter, value))
             {
+                this.taskbarCustomizerService.SetStartButtonPosition(!this.isStartButtonCenter);
+
                 this.synchronizationService.CallSyncService("Alignment", JsonConvert.SerializeObject(this.isStartButtonCenter));
+
                 NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationAlignmentChanged".GetLocalized());
             }
         }
