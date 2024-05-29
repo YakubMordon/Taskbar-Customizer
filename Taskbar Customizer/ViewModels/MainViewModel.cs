@@ -187,12 +187,26 @@ public partial class MainViewModel : ObservableRecipient
     /// </summary>
     private void ResetToDefault()
     {
-        var color = SystemColors.MenuBar.ToUIColor();
+        this.ResetColorRelated();
 
-        this.TaskbarColor = color;
+        this.ResetStartButtons();
+    }
 
-        this.IsTaskbarTransparent = color.Transparent();
+    /// <summary>
+    /// Method for resetting color-related elements to default.
+    /// </summary>
+    private void ResetColorRelated()
+    {
+        this.TaskbarColor = SystemColors.MenuBar.ToUIColor();
 
+        this.IsTaskbarTransparent = this.TaskbarColor.Transparent();
+    }
+
+    /// <summary>
+    /// Method for resetting start button to default.
+    /// </summary>
+    private void ResetStartButtons()
+    {
         this.IsStartButtonCenter = OperationSystemChecker.IsWindows11OrGreater();
 
         this.IsStartButtonLeft = !this.IsStartButtonCenter;

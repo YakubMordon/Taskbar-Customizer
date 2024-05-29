@@ -47,35 +47,99 @@ public static class ConfigureHostService
     /// <param name="services">Collection of services.</param>
     private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
-        // Default Activation Handler
+        AddConfigurationServices(services);
+        AddNavigationServices(services);
+        AddTaskbarServices(services);
+
+        AddCoreServices(services);
+
+        AddViewModels(services);
+        AddViews(services);
+
+        ConfigureContainer(context, services);
+    }
+
+    /// <summary>
+    /// Method for adding configuration-related services to dependency injection container.
+    /// </summary>
+    /// <param name="services">Collection of services.</param>
+    private static void AddConfigurationServices(IServiceCollection services)
+    {
         services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
 
-        // Other Activation Handlers
-
-        // Services
         services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
-        services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
-        services.AddSingleton<ITaskbarCustomizerService, TaskbarCustomizerService>();
-
-        services.AddTransient<INavigationViewService, NavigationViewService>();
-        services.AddTransient<SynchronizationService>();
 
         services.AddSingleton<IActivationService, ActivationService>();
+
+        services.AddTransient<SynchronizationService>();
+    }
+
+    /// <summary>
+    /// Method for adding navigation-related services to dependency injection container.
+    /// </summary>
+    /// <param name="services">Collection of services.</param>
+    private static void AddNavigationServices(IServiceCollection services)
+    {
+        services.AddTransient<INavigationViewService, NavigationViewService>();
+
         services.AddSingleton<IPageService, PageService>();
+
         services.AddSingleton<INavigationService, NavigationService>();
+    }
 
-        // Core Services
+    /// <summary>
+    /// Method for adding taskbar-related services to dependency injection container.
+    /// </summary>
+    /// <param name="services">Collection of services.</param>
+    private static void AddTaskbarServices(IServiceCollection services)
+    {
+        services.AddSingleton<ITaskbarCustomizerService, TaskbarCustomizerService>();
+
+        services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
+    }
+
+    /// <summary>
+    /// Method for adding core services to dependency injection container.
+    /// </summary>
+    /// <param name="services">Collection of services.</param>
+    private static void AddCoreServices(IServiceCollection services)
+    {
         services.AddSingleton<IFileService, FileService>();
+    }
 
-        // Views and ViewModels
+    /// <summary>
+    /// Method for adding viewmodels to dependency injection container.
+    /// </summary>
+    /// <param name="services">Collection of services.</param>
+    private static void AddViewModels(IServiceCollection services)
+    {
         services.AddTransient<SettingsViewModel>();
-        services.AddTransient<SettingsPage>();
-        services.AddTransient<MainViewModel>();
-        services.AddTransient<MainPage>();
-        services.AddTransient<ShellPage>();
-        services.AddTransient<ShellViewModel>();
 
-        // Configuration
+        services.AddTransient<MainViewModel>();
+
+        services.AddTransient<ShellViewModel>();
+    }
+
+    /// <summary>
+    /// Method for adding views to dependency injection container.
+    /// </summary>
+    /// <param name="services">Collection of services.</param>
+    private static void AddViews(IServiceCollection services)
+    {
+        services.AddTransient<SettingsPage>();
+
+        services.AddTransient<MainPage>();
+
+        services.AddTransient<ShellPage>();
+    }
+
+    /// <summary>
+    /// Method for configuring container.
+    /// </summary>
+    /// <param name="context">Host builder context.</param>
+    /// <param name="services">Collection of services.</param>
+    private static void ConfigureContainer(HostBuilderContext context, IServiceCollection services)
+    {
         services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
     }
 }
