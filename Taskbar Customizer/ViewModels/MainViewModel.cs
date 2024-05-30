@@ -197,9 +197,11 @@ public partial class MainViewModel : ObservableRecipient
     /// </summary>
     private void ResetColorRelated()
     {
-        this.TaskbarColor = SystemColors.MenuBar.ToUIColor();
+        var color = SystemColors.MenuBar.ToUIColor();
 
-        this.IsTaskbarTransparent = this.TaskbarColor.Transparent();
+        this.TaskbarColor = color;
+
+        this.IsTaskbarTransparent = color.Transparent();
     }
 
     /// <summary>

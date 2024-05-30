@@ -12,12 +12,10 @@ using Taskbar_Customizer.Models;
 using Taskbar_Customizer.ViewModels;
 using Taskbar_Customizer.Views;
 
-using Taskbar_Customizer.Helpers.Contracts.Services;
 using Taskbar_Customizer.Helpers.Services;
 using Taskbar_Customizer.Services.Taskbar;
 using Taskbar_Customizer.Services.Navigation;
 using Taskbar_Customizer.Contracts.Services.Navigation;
-using Taskbar_Customizer.Contracts.Services.Taskbar;
 using Taskbar_Customizer.Contracts.Services.Configuration;
 
 /// <summary>
@@ -93,9 +91,11 @@ public static class ConfigureHostService
     /// <param name="services">Collection of services.</param>
     private static void AddTaskbarServices(IServiceCollection services)
     {
-        services.AddSingleton<ITaskbarCustomizerService, TaskbarCustomizerService>();
-
-        services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
+        services.Scan(scan => scan
+            .FromCallingAssembly()
+            .AddClasses(classes => classes.InNamespaceOf<TaskbarCustomizerService>())
+            .AsImplementedInterfaces()
+            .WithSingletonLifetime());
     }
 
     /// <summary>
@@ -104,7 +104,11 @@ public static class ConfigureHostService
     /// <param name="services">Collection of services.</param>
     private static void AddCoreServices(IServiceCollection services)
     {
-        services.AddSingleton<IFileService, FileService>();
+        services.Scan(scan => scan
+            .FromAssembliesOf(typeof(FileService))
+            .AddClasses(classes => classes.InNamespaceOf<FileService>())
+            .AsImplementedInterfaces()
+            .WithSingletonLifetime());
     }
 
     /// <summary>
@@ -113,11 +117,12 @@ public static class ConfigureHostService
     /// <param name="services">Collection of services.</param>
     private static void AddViewModels(IServiceCollection services)
     {
-        services.AddTransient<SettingsViewModel>();
-
-        services.AddTransient<MainViewModel>();
-
-        services.AddTransient<ShellViewModel>();
+        services.Scan(scan => scan
+            .FromCallingAssembly()
+            .AddClasses(classes => classes.InNamespaceOf<MainViewModel>())
+            .AsSelf()
+            .WithTransientLifetime()
+        );
     }
 
     /// <summary>
@@ -126,11 +131,12 @@ public static class ConfigureHostService
     /// <param name="services">Collection of services.</param>
     private static void AddViews(IServiceCollection services)
     {
-        services.AddTransient<SettingsPage>();
-
-        services.AddTransient<MainPage>();
-
-        services.AddTransient<ShellPage>();
+        services.Scan(scan => scan
+            .FromCallingAssembly()
+            .AddClasses(classes => classes.InNamespaceOf<MainPage>())
+            .AsSelf()
+            .WithTransientLifetime()
+        );
     }
 
     /// <summary>
