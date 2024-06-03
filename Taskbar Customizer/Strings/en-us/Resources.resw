@@ -207,4 +207,13 @@ This program can:
   <data name="NotificationTransparencyChanged" xml:space="preserve">
     <value>Transparency of the taskbar was changed</value>
   </data>
+  <data name="Synchronization" xml:space="preserve">
+    <value>Synchronization of Data</value>
+  </data>
+  <data name="SynchronizationSwitchOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="SynchronizationSwitchOn" xml:space="preserve">
+    <value>On</value>
+  </data>
 </root>

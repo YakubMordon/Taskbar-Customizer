@@ -59,4 +59,11 @@ public interface ITaskbarCustomizerService
     /// <param name="isLeft">Indicator if windows button is on left.</param>
     /// <returns>Completed Task.</returns>
     Task SetStartButtonPosition(bool isLeft);
+
+    /// <summary>
+    /// Method for settings synchronization.
+    /// </summary>
+    /// <param name="isSynchronizable">Indicator whether the settings of taskbar should be synchronized.</param>
+    /// <returns>Completed Task.</returns>
+    Task SetSynchronization(bool isSynchronizable);
 }

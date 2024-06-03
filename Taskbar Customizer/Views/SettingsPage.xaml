@@ -50,6 +50,9 @@
                 </StackPanel>
             </StackPanel>
 
+            <TextBlock x:Name="Synchronization" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+            <ToggleSwitch x:Name="SynchronizationSwitch" IsOn="{x:Bind ViewModel.IsSynchronizationOn, Mode=TwoWay}" Margin="0,10,0,0" />
+
             <TextBlock x:Name="Language" Style="{ThemeResource SubtitleTextBlockStyle}" />
             <StackPanel Orientation="Horizontal" Margin="{StaticResource SmallTopBottomMargin}">
                 <ComboBox Width="200" ItemsSource="{x:Bind ViewModel.Languages}"

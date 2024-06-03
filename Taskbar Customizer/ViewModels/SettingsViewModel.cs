@@ -12,8 +12,10 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 
 using Windows.ApplicationModel;
+
 using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Helpers.Extensions.Resource;
+using Taskbar_Customizer.Services.Configuration;
 using Taskbar_Customizer.Contracts.Services.Taskbar;
 
 /// <summary>
@@ -25,6 +27,11 @@ public partial class SettingsViewModel : ObservableRecipient
     /// Service for theme selection handling.
     /// </summary>
     private readonly IThemeSelectorService themeSelectorService;
+
+    /// <summary>
+    /// The taskbar customizer service.
+    /// </summary>
+    private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
     /// <summary>
     /// Current element theme.
@@ -44,16 +51,26 @@ public partial class SettingsViewModel : ObservableRecipient
     private string selectedLanguage;
 
     /// <summary>
+    /// Indicates whether synchronization is on.
+    /// </summary>
+    private bool isSynchronizationOn;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
     /// </summary>
     /// <param name="themeSelectorService">The theme selector service used to manage app themes.</param>
-    public SettingsViewModel(IThemeSelectorService themeSelectorService)
+    /// <param name="taskbarCustomizerService">The taskbar customizer service.</param>
+    public SettingsViewModel(IThemeSelectorService themeSelectorService, ITaskbarCustomizerService taskbarCustomizerService)
     {
         this.themeSelectorService = themeSelectorService;
         this.elementTheme = this.themeSelectorService.Theme;
         this.versionDescription = GetVersionDescription();
 
+        this.taskbarCustomizerService = taskbarCustomizerService;
+
         this.Languages = new ObservableCollection<string>(LanguageHelper.AvailableLanguages);
+
+        this.IsSynchronizationOn = SynchronizationService.IsSynchronizable;
 
         this.selectedLanguage = LanguageHelper.GetCurrentLanguage();
 
@@ -64,6 +81,21 @@ public partial class SettingsViewModel : ObservableRecipient
     /// Gets collection of available languages in app.
     /// </summary>
     public ObservableCollection<string> Languages { get; }
+
+    /// <summary>
+    /// Gets or sets indicator, which indicates whether synchronization is on.
+    /// </summary>
+    public bool IsSynchronizationOn
+    {
+        get => this.isSynchronizationOn;
+        set
+        {
+            if (this.SetProperty(ref this.isSynchronizationOn, value))
+            {
+                this.taskbarCustomizerService.SetSynchronization(value);
+            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets selected language of the app.

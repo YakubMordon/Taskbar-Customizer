@@ -40,6 +40,8 @@ public sealed partial class SettingsPage : Page
         this.UpdatePersonalization();
         this.UpdateTheme();
 
+        this.UpdateSynchronization();
+
         this.UpdateLanguage();
 
         this.UpdateAbout();
@@ -65,6 +67,17 @@ public sealed partial class SettingsPage : Page
         this.ThemeDark.Content = "ThemeDark".GetLocalized();
         this.ThemeDefault.Content = "ThemeDefault".GetLocalized();
         this.ThemeLight.Content = "ThemeLight".GetLocalized();
+    }
+
+    /// <summary>
+    /// Method for updating synchronization elements.
+    /// </summary>
+    private void UpdateSynchronization()
+    {
+        this.Synchronization.Text = "Synchronization".GetLocalized();
+
+        this.SynchronizationSwitch.OnContent = "SynchronizationSwitchOn".GetLocalized();
+        this.SynchronizationSwitch.OffContent = "SynchronizationSwitchOff".GetLocalized();
     }
 
     /// <summary>

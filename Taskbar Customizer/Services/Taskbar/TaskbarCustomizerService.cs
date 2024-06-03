@@ -3,11 +3,17 @@
 namespace Taskbar_Customizer.Services.Taskbar;
 
 using System.Threading.Tasks;
+
 using Microsoft.UI;
+
 using Taskbar_Customizer.Contracts.Services.Configuration;
 using Taskbar_Customizer.Contracts.Services.Taskbar;
+
+using Taskbar_Customizer.Services.Configuration;
+
 using Taskbar_Customizer.Helpers.Helpers;
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
+
 using Windows.UI;
 
 /// <summary>
@@ -29,6 +35,11 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     /// Taskbar Start Button key.
     /// </summary>
     private const string TaskbarStartButtonKey = "AppBackgroundTaskbarStartButton";
+
+    /// <summary>
+    /// Synchronization key.
+    /// </summary>
+    private const string TaskbarSynchronizationKey = "AppBackgroundSynchronizable";
 
     /// <summary>
     /// The service used to access local settings.
@@ -70,6 +81,8 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
         this.IsTaskbarTransparent = await this.LoadIndicatorFromSettingsAsync(TaskbarTransparentKey);
         this.IsStartButtonLeft = await this.LoadIndicatorFromSettingsAsync(TaskbarStartButtonKey);
 
+        SynchronizationService.IsSynchronizable = await this.LoadIndicatorFromSettingsAsync(TaskbarSynchronizationKey);
+
         await Task.CompletedTask;
     }
 
@@ -104,6 +117,14 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
         TransparencyHelper.SetTaskbarTransparency(this.IsTaskbarTransparent);
 
         await this.SaveIndicatorInSettingsAsync(TaskbarTransparentKey, this.IsTaskbarTransparent);
+    }
+
+    /// <inheritdoc />
+    public async Task SetSynchronization(bool isSynchronizable)
+    {
+        SynchronizationService.IsSynchronizable = isSynchronizable;
+
+        await this.SaveIndicatorInSettingsAsync(TaskbarSynchronizationKey, SynchronizationService.IsSynchronizable);
     }
 
     /// <summary>

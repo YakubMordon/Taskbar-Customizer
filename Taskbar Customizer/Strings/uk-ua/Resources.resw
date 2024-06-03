@@ -209,4 +209,13 @@
   <data name="NotificationTransparencyChanged" xml:space="preserve">
     <value>Прозорість панелі завдань було змінено</value>
   </data>
+  <data name="Synchronization" xml:space="preserve">
+    <value>Синхронізація даних</value>
+  </data>
+  <data name="SynchronizationSwitchOff" xml:space="preserve">
+    <value>Викл.</value>
+  </data>
+  <data name="SynchronizationSwitchOn" xml:space="preserve">
+    <value>Вкл.</value>
+  </data>
 </root>

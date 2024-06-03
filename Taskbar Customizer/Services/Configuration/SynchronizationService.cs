@@ -22,6 +22,11 @@ public class SynchronizationService
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
     /// <summary>
+    /// Indicates whether service should synchronize data.
+    /// </summary>
+    public static bool IsSynchronizable = true;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="SynchronizationService"/> class.
     /// </summary>
     /// <param name="taskbarCustomizerService">Service for customizing taskbar.</param>
@@ -37,23 +42,26 @@ public class SynchronizationService
     /// <param name="value">Value for synchronization.</param>
     public async void CallSyncService(string? key, string? value)
     {
-        var message = new ValueSet();
-
-        if (!string.IsNullOrWhiteSpace(key) && !string.IsNullOrWhiteSpace(value))
+        if (IsSynchronizable)
         {
-            message.Add(key, value);
+            var message = new ValueSet();
+
+            if (!string.IsNullOrWhiteSpace(key) && !string.IsNullOrWhiteSpace(value))
+            {
+                message.Add(key, value);
+            }
+
+            await this.UpdateAppService(message);
+
+            var remoteSystemWatcher = RemoteSystem.CreateWatcher();
+
+            remoteSystemWatcher.RemoteSystemAdded += async (sender, args) =>
+            {
+                await this.UpdateRemoteSystem(args.RemoteSystem, message);
+            };
+
+            remoteSystemWatcher.Start();
         }
-
-        await this.UpdateAppService(message);
-
-        var remoteSystemWatcher = RemoteSystem.CreateWatcher();
-
-        remoteSystemWatcher.RemoteSystemAdded += async (sender, args) =>
-        {
-            await this.UpdateRemoteSystem(args.RemoteSystem, message);
-        };
-
-        remoteSystemWatcher.Start();
     }
 
     /// <summary>
