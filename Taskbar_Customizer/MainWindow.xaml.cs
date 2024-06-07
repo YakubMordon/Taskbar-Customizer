@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-using System.Runtime.CompilerServices;
-
 namespace Taskbar_Customizer;
 
 using Microsoft.UI.Dispatching;

@@ -16,12 +16,12 @@ using Windows.UI;
 /// </summary>
 public class SynchronizationService
 {
-    private readonly ITaskbarCustomizerService taskbarCustomizerService;
-
     /// <summary>
     /// Indicates whether service should synchronize data.
     /// </summary>
     public static bool IsSynchronizable = true;
+
+    private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SynchronizationService"/> class.

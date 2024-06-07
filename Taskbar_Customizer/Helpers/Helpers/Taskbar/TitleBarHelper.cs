@@ -41,20 +41,17 @@ internal class TitleBarHelper
                     ButtonForegroundColor: Colors.White,
                     ButtonHoverForegroundColor: Colors.White,
                     ButtonHoverBackgroundColor: Color.FromArgb(0x33, 0xFF, 0xFF, 0xFF),
-                    ButtonPressedBackgroundColor: Color.FromArgb(0x66, 0xFF, 0xFF, 0xFF)
-                ),
+                    ButtonPressedBackgroundColor: Color.FromArgb(0x66, 0xFF, 0xFF, 0xFF)),
                 ElementTheme.Light => (
                     ButtonForegroundColor: Colors.Black,
                     ButtonHoverForegroundColor: Colors.Black,
                     ButtonHoverBackgroundColor: Color.FromArgb(0x33, 0x00, 0x00, 0x00),
-                    ButtonPressedBackgroundColor: Color.FromArgb(0x66, 0x00, 0x00, 0x00)
-                ),
+                    ButtonPressedBackgroundColor: Color.FromArgb(0x66, 0x00, 0x00, 0x00)),
                 _ => (
                     ButtonForegroundColor: Colors.Transparent,
                     ButtonHoverForegroundColor: Colors.Transparent,
                     ButtonHoverBackgroundColor: Colors.Transparent,
-                    ButtonPressedBackgroundColor: Colors.Transparent
-                )
+                    ButtonPressedBackgroundColor: Colors.Transparent)
             };
 
             // Configure button colors

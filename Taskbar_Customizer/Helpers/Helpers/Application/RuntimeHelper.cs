@@ -24,6 +24,4 @@ public class RuntimeHelper
             return Kernel32Interop.GetCurrentPackageFullName(ref length, null) != 15700L;
         }
     }
-
-
 }

@@ -88,7 +88,7 @@ public partial class MainViewModel : ObservableRecipient
                 this.taskbarCustomizerService.SetTaskbarTransparent(this.isTaskbarTransparent);
 
                 this.synchronizationService.CallSyncService("Transparency", JsonConvert.SerializeObject(this.isTaskbarTransparent));
-                
+
                 NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationTransparencyChanged".GetLocalized());
             }
         }

@@ -95,8 +95,7 @@ public static class ConfigureHostService
             .FromCallingAssembly()
             .AddClasses(classes => classes.InNamespaceOf<MainViewModel>())
             .AsSelf()
-            .WithTransientLifetime()
-        );
+            .WithTransientLifetime());
     }
 
     private static void AddViews(IServiceCollection services)
@@ -105,8 +104,7 @@ public static class ConfigureHostService
             .FromCallingAssembly()
             .AddClasses(classes => classes.InNamespaceOf<MainPage>())
             .AsSelf()
-            .WithTransientLifetime()
-        );
+            .WithTransientLifetime());
     }
 
     private static void ConfigureContainer(HostBuilderContext context, IServiceCollection services)

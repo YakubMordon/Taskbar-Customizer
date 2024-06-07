@@ -24,7 +24,7 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
     private const string TaskbarColorKey = "AppBackgroundTaskbarColor";
 
     private const string TaskbarTransparentKey = "AppBackgroundTaskbarTransparent";
-    
+
     private const string TaskbarStartButtonKey = "AppBackgroundTaskbarStartButton";
 
     private const string TaskbarSynchronizationKey = "AppBackgroundSynchronizable";

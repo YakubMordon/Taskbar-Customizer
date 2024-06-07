@@ -65,7 +65,7 @@ public partial class SettingsViewModel : ObservableRecipient
     public ObservableCollection<string> Languages { get; }
 
     /// <summary>
-    /// Gets or sets indicator, which indicates whether synchronization is on.
+    /// Gets or sets a value indicating whether indicates whether synchronization is on.
     /// </summary>
     public bool IsSynchronizationOn
     {

@@ -20,7 +20,7 @@ public static class User32Interop
         WCA_ACCENT_POLICY = 19,
     }
 
-    [DllImport("user32.dll", SetLastError = true)]
+    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     public static extern nint FindWindow(string lpClassName, string lpWindowName);
 
     [DllImport("user32.dll")]
@@ -49,7 +49,7 @@ public static class User32Interop
         public int nFlags;
 
         public int nColor;
-        
+
         public int nAnimationId;
     }
 
