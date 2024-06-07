@@ -44,7 +44,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BgTaskComponent\BgTaskComponent.csproj" />
-    <ProjectReference Include="..\Taskbar Customizer.Helpers\TaskbarCustomizer.Core.csproj" />
+    <ProjectReference Include="..\Taskbar Customizer.Helpers\Taskbar_Customizer.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

@@ -20,7 +20,7 @@
   <mp:PhoneIdentity PhoneProductId="52723aee-9784-4ec5-b3c4-8db2797d13e5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
     
   <Properties>
-    <DisplayName>Taskbar Customizer</DisplayName>
+    <DisplayName>Taskbar_Customizer</DisplayName>
     <PublisherDisplayName>kuba0</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -55,7 +55,7 @@
 
           <com:Extension Category="windows.comServer">
               <com:ComServer>
-                  <com:ExeServer Executable="Taskbar Customizer.exe" Arguments="----AppNotificationActivated:" DisplayName="Toast activator">
+                  <com:ExeServer Executable="Taskbar_Customizer.exe" Arguments="----AppNotificationActivated:" DisplayName="Toast activator">
                       <com:Class Id="c4b643d1-0035-452c-9f6a-2049d3eb0d62" DisplayName="Toast activator"/>
                   </com:ExeServer>
               </com:ComServer>
