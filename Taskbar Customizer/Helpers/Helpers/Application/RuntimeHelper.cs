@@ -26,20 +26,6 @@ public class RuntimeHelper
         }
     }
 
-    /// <summary>
-    /// Method for retrieving the full name of the current package.
-    /// </summary>
-    /// <param name="packageFullNameLength">
-    /// A reference to an integer that specifies the length of the package full name.
-    /// When this method returns, contains the number of characters written to the packageFullName parameter.
-    /// </param>
-    /// <param name="packageFullName">
-    /// A StringBuilder object that receives the full name of the current package.
-    /// Pass null to retrieve the required buffer size in packageFullNameLength.
-    /// </param>
-    /// <returns>
-    /// If the method succeeds, the return value is 0. If the method fails, the return value is an error code.
-    /// </returns>
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
     private static extern int GetCurrentPackageFullName(ref int packageFullNameLength, StringBuilder? packageFullName);
 }

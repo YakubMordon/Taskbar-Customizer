@@ -17,49 +17,22 @@ using Taskbar_Customizer.Contracts.Services.Configuration;
 /// </summary>
 public class LocalSettingsService : ILocalSettingsService
 {
-    /// <summary>
-    /// The default folder path where application data is stored.
-    /// </summary>
     private const string DefaultApplicationDataFolder = "Taskbar Customizer/ApplicationData";
 
-    /// <summary>
-    /// The default filename for local settings storage.
-    /// </summary>
     private const string DefaultLocalSettingsFile = "LocalSettings.json";
 
-    /// <summary>
-    /// The file service used for file operations.
-    /// </summary>
     private readonly IFileService fileService;
 
-    /// <summary>
-    /// The options for local settings management.
-    /// </summary>
     private readonly LocalSettingsOptions options;
 
-    /// <summary>
-    /// The path to the local application data folder.
-    /// </summary>
     private readonly string localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-    /// <summary>
-    /// The full path to the application data folder.
-    /// </summary>
     private readonly string applicationDataFolder;
 
-    /// <summary>
-    /// The full path to the local settings file.
-    /// </summary>
     private readonly string localsettingsFile;
 
-    /// <summary>
-    /// The dictionary to store local settings key-value pairs.
-    /// </summary>
     private Dictionary<string, object> settings;
 
-    /// <summary>
-    /// Indicates whether the local settings service has been initialized.
-    /// </summary>
     private bool isInitialized;
 
     /// <summary>
@@ -118,9 +91,6 @@ public class LocalSettingsService : ILocalSettingsService
         }
     }
 
-    /// <summary>
-    /// Method, which initializes the local settings service by reading settings from a file if not already initialized.
-    /// </summary>
     private async Task InitializeAsync()
     {
         if (!this.isInitialized)

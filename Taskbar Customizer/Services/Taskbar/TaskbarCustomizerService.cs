@@ -21,29 +21,14 @@ using Windows.UI;
 /// </summary>
 public class TaskbarCustomizerService : ITaskbarCustomizerService
 {
-    /// <summary>
-    /// Taskbar Color key.
-    /// </summary>
     private const string TaskbarColorKey = "AppBackgroundTaskbarColor";
 
-    /// <summary>
-    /// Taskbar Transparent key.
-    /// </summary>
     private const string TaskbarTransparentKey = "AppBackgroundTaskbarTransparent";
-
-    /// <summary>
-    /// Taskbar Start Button key.
-    /// </summary>
+    
     private const string TaskbarStartButtonKey = "AppBackgroundTaskbarStartButton";
 
-    /// <summary>
-    /// Synchronization key.
-    /// </summary>
     private const string TaskbarSynchronizationKey = "AppBackgroundSynchronizable";
 
-    /// <summary>
-    /// The service used to access local settings.
-    /// </summary>
     private readonly ILocalSettingsService localSettingsService;
 
     /// <summary>
@@ -127,10 +112,6 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
         await this.SaveIndicatorInSettingsAsync(TaskbarSynchronizationKey, SynchronizationService.IsSynchronizable);
     }
 
-    /// <summary>
-    /// Method for loading color from settings asynchronously.
-    /// </summary>
-    /// <returns>Color.</returns>
     private async Task<Color> LoadColorFromSettingsAsync()
     {
         var colorString = await this.localSettingsService.ReadSettingAsync<string>(TaskbarColorKey);
@@ -143,11 +124,6 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
         return await Json.ToObjectAsync<Color>(colorString);
     }
 
-    /// <summary>
-    /// Method for saving color into settings asynchronously.
-    /// </summary>
-    /// <param name="color">Color.</param>
-    /// <returns>Completed Task.</returns>
     private async Task SaveColorInSettingsAsync(Color color)
     {
         var stringifiedColor = await Json.StringifyAsync(color);
@@ -155,11 +131,6 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
         await this.localSettingsService.SaveSettingAsync(TaskbarColorKey, stringifiedColor);
     }
 
-    /// <summary>
-    /// Method for loading indicator (IsTaskbarTransparent or IsStartButtonLeft) from settings asynchronously.
-    /// </summary>
-    /// <param name="key">Key to the indicator.</param>
-    /// <returns>Indicator.</returns>
     private async Task<bool> LoadIndicatorFromSettingsAsync(string key)
     {
         var indicatorString = await this.localSettingsService.ReadSettingAsync<string>(key);
@@ -172,12 +143,6 @@ public class TaskbarCustomizerService : ITaskbarCustomizerService
         return default;
     }
 
-    /// <summary>
-    /// Method for saving indicator (IsTaskbarTransparent or IsStartButtonLeft) into settings asynchronously.
-    /// </summary>
-    /// <param name="key">Key to the indicator.</param>
-    /// <param name="indicator">Indicator.</param>
-    /// <returns>Completed Task.</returns>
     private async Task SaveIndicatorInSettingsAsync(string key, bool indicator)
     {
         await this.localSettingsService.SaveSettingAsync(key, indicator.ToString());

@@ -16,9 +16,6 @@ using Windows.UI;
 /// </summary>
 public class SynchronizationService
 {
-    /// <summary>
-    /// Service for customizing taskbar.
-    /// </summary>
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
     /// <summary>
@@ -64,9 +61,6 @@ public class SynchronizationService
         }
     }
 
-    /// <summary>
-    /// Retrieves a value of type <typeparamref name="T"/> from the <paramref name="result"/> based on the specified <paramref name="key"/>.
-    /// </summary>
     private static T? GetValue<T>(string key, ValueSet result)
     {
         if (result.TryGetValue(key, out var value) && value is string stringValue)
@@ -77,9 +71,6 @@ public class SynchronizationService
         return default;
     }
 
-    /// <summary>
-    /// Retrieves a boolean value from the <paramref name="result"/> based on the specified <paramref name="key"/>.
-    /// </summary>
     private static bool GetBooleanValue(string key, ValueSet result, out bool booleanValue)
     {
         booleanValue = false;
@@ -92,11 +83,6 @@ public class SynchronizationService
         return false;
     }
 
-    /// <summary>
-    /// Method for updating data of application service.
-    /// </summary>
-    /// <param name="message">Message containing data for update.</param>
-    /// <returns>Completed Task.</returns>
     private async Task UpdateAppService(ValueSet message)
     {
         var connection = new AppServiceConnection
@@ -110,12 +96,6 @@ public class SynchronizationService
         await this.SendDataToService(connection, status, message);
     }
 
-    /// <summary>
-    /// Method for updating remote system.
-    /// </summary>
-    /// <param name="remoteSystem">Remote system.</param>
-    /// <param name="message">Message for updating data.</param>
-    /// <returns>Completed Task.</returns>
     private async Task UpdateRemoteSystem(RemoteSystem remoteSystem, ValueSet message)
     {
         var connectionRequest = new RemoteSystemConnectionRequest(remoteSystem);
@@ -130,12 +110,6 @@ public class SynchronizationService
         await this.SendDataToService(connection, status, message);
     }
 
-    /// <summary>
-    /// Method for updating data in taskbar service and background task.
-    /// </summary>
-    /// <param name="connection">Connection to background task / application service.</param>
-    /// <param name="status">Status of connection.</param>
-    /// <param name="message">Message for updating data.</param>
     private async Task SendDataToService(AppServiceConnection connection, AppServiceConnectionStatus status, ValueSet message)
     {
         if (status == AppServiceConnectionStatus.Success)

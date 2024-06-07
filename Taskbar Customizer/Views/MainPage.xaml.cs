@@ -16,7 +16,7 @@ public sealed partial class MainPage : Page
     /// </summary>
     public MainPage()
     {
-        ((MainWindow)App.MainWindow).EventHandler.EventHandler += (sender, e) => this.UpdateUI();
+        ((MainWindow)App.MainWindow).EventHandler += (sender, e) => this.UpdateUI();
 
         this.ViewModel = App.GetService<MainViewModel>();
         this.InitializeComponent();
@@ -32,9 +32,6 @@ public sealed partial class MainPage : Page
         get;
     }
 
-    /// <summary>
-    /// Method for updating UI.
-    /// </summary>
     private void UpdateUI()
     {
         this.UpdateColorPicker();
@@ -43,17 +40,11 @@ public sealed partial class MainPage : Page
         this.UpdateResetButton();
     }
 
-    /// <summary>
-    /// Method for updating color picker elements.
-    /// </summary>
     private void UpdateColorPicker()
     {
         this.ColorPickerTextBlock.Text = "ColorPicker".GetLocalized();
     }
 
-    /// <summary>
-    /// Method for updating transparency elements.
-    /// </summary>
     private void UpdateTransparency()
     {
         this.TransparentTextBlock.Text = "Transparent".GetLocalized();
@@ -61,9 +52,6 @@ public sealed partial class MainPage : Page
         this.TransparentSwitch.OnContent = "TransparentSwitchOn".GetLocalized();
     }
 
-    /// <summary>
-    /// Method for updating start position elements.
-    /// </summary>
     private void UpdateStartPosition()
     {
         this.StartTextBlock.Text = "Start".GetLocalized();
@@ -71,9 +59,6 @@ public sealed partial class MainPage : Page
         this.StartCenterRadio.Content = "StartCenter".GetLocalized();
     }
 
-    /// <summary>
-    /// Method for updating reset elements.
-    /// </summary>
     private void UpdateResetButton()
     {
         this.ResetTextBlock.Text = "Reset".GetLocalized();

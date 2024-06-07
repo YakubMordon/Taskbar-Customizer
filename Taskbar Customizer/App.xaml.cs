@@ -76,11 +76,6 @@ public partial class App : Application
         await App.GetService<IActivationService>().ActivateAsync(args);
     }
 
-    /// <summary>
-    /// Method for handling unhandled exceptions raised by the application.
-    /// </summary>
-    /// <param name="sender">Sender of an exception.</param>
-    /// <param name="e">Arguments of exception.</param>
     private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
         Debug.WriteLine(e.ToString());

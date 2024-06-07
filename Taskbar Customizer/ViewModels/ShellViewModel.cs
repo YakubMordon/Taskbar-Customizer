@@ -13,15 +13,9 @@ using Taskbar_Customizer.Views;
 /// </summary>
 public partial class ShellViewModel : ObservableRecipient
 {
-    /// <summary>
-    /// Value indicating whether the back navigation is enabled.
-    /// </summary>
     [ObservableProperty]
     private bool isBackEnabled;
 
-    /// <summary>
-    /// Currently selected navigation item.
-    /// </summary>
     [ObservableProperty]
     private object? selected;
 
@@ -54,9 +48,6 @@ public partial class ShellViewModel : ObservableRecipient
         get;
     }
 
-    /// <summary>
-    /// Event Handler for navigation event.
-    /// </summary>
     private void OnNavigated(object sender, NavigationEventArgs e)
     {
         this.IsBackEnabled = this.NavigationService.CanGoBack;

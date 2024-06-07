@@ -17,19 +17,10 @@ using Windows.UI.ViewManagement;
 /// </summary>
 internal class TitleBarHelper
 {
-    /// <summary>
-    /// The wParam value for the WM_ACTIVATE message when the window is not active.
-    /// </summary>
     private const int WAINACTIVE = 0x00;
 
-    /// <summary>
-    /// The wParam value for the WM_ACTIVATE message when the window is active.
-    /// </summary>
     private const int WAACTIVE = 0x01;
 
-    /// <summary>
-    /// The message code for the WM_ACTIVATE message.
-    /// </summary>
     private const int WMACTIVATE = 0x0006;
 
     /// <summary>
@@ -115,22 +106,9 @@ internal class TitleBarHelper
         }
     }
 
-    /// <summary>
-    /// Method for retrieving the handle to the active window.
-    /// </summary>
-    /// <returns>The handle to the active window.</returns>
     [DllImport("user32.dll")]
     private static extern nint GetActiveWindow();
 
-    /// <summary>
-    /// Method for sending the specified message to a window or windows.
-    /// The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
-    /// </summary>
-    /// <param name="hWnd">A handle to the window whose window procedure will receive the message.</param>
-    /// <param name="msg">The message to be sent.</param>
-    /// <param name="wParam">Additional message-specific wParam information.</param>
-    /// <param name="lParam">Additional message-specific lParam information.</param>
-    /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     private static extern nint SendMessage(nint hWnd, int msg, int wParam, nint lParam);
 }

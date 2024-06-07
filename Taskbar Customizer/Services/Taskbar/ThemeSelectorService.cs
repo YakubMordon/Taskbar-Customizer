@@ -13,14 +13,8 @@ using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 /// </summary>
 public class ThemeSelectorService : IThemeSelectorService
 {
-    /// <summary>
-    /// Settings key.
-    /// </summary>
     private const string SettingsKey = "AppBackgroundRequestedTheme";
 
-    /// <summary>
-    /// The service used to access local settings.
-    /// </summary>
     private readonly ILocalSettingsService localSettingsService;
 
     /// <summary>
@@ -67,10 +61,6 @@ public class ThemeSelectorService : IThemeSelectorService
         await Task.CompletedTask;
     }
 
-    /// <summary>
-    /// Method for loading theme from settings asynchronously.
-    /// </summary>
-    /// <returns>Theme.</returns>
     private async Task<ElementTheme> LoadThemeFromSettingsAsync()
     {
         var themeName = await this.localSettingsService.ReadSettingAsync<string>(SettingsKey);
@@ -83,11 +73,6 @@ public class ThemeSelectorService : IThemeSelectorService
         return ElementTheme.Default;
     }
 
-    /// <summary>
-    /// Method for saving theme into settings asynchronously.
-    /// </summary>
-    /// <param name="theme">Theme.</param>
-    /// <returns>Completed Task.</returns>
     private async Task SaveThemeInSettingsAsync(ElementTheme theme)
     {
         await this.localSettingsService.SaveSettingAsync(SettingsKey, theme.ToString());

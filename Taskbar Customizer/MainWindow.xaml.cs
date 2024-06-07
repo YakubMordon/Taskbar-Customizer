@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using System.Runtime.CompilerServices;
+
 namespace Taskbar_Customizer;
 
 using Microsoft.UI.Dispatching;
-
-using Taskbar_Customizer.Event_Handlers;
 
 using Windows.UI.ViewManagement;
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
@@ -18,16 +18,10 @@ public sealed partial class MainWindow : WindowEx
     /// <summary>
     /// Language change event handler.
     /// </summary>
-    public LanguageChangeEventHandler EventHandler = new ();
+    public event EventHandler EventHandler;
 
-    /// <summary>
-    /// Dispatcher queue for handling UI updates.
-    /// </summary>
     private readonly DispatcherQueue dispatcherQueue;
 
-    /// <summary>
-    /// Windows UI settings for system theme changes.
-    /// </summary>
     private UISettings settings;
 
     /// <summary>
@@ -40,7 +34,7 @@ public sealed partial class MainWindow : WindowEx
         this.AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/WindowIcon.ico"));
         this.Content = null;
 
-        this.EventHandler.EventHandler += (sender, args) => this.UpdateUI();
+        this.EventHandler += (sender, args) => this.UpdateUI();
 
         this.UpdateUI();
 
@@ -49,8 +43,13 @@ public sealed partial class MainWindow : WindowEx
     }
 
     /// <summary>
-    /// Method for configuration of UI Settings.
+    /// Method for firing event of <see cref="EventHandler"/>.
     /// </summary>
+    public void OnLanguageChanged()
+    {
+        this.EventHandler.Invoke(this, EventArgs.Empty);
+    }
+
     private void ConfigureUISettings()
     {
         this.settings = new UISettings();
@@ -58,9 +57,6 @@ public sealed partial class MainWindow : WindowEx
         this.settings.ColorValuesChanged += this.Settings_ColorValuesChanged; // cannot use FrameworkElement.ActualThemeChanged event
     }
 
-    /// <summary>
-    /// Event Handler for update of the caption button colors, when windows system theme is changed, while app is open.
-    /// </summary>
     private void Settings_ColorValuesChanged(UISettings sender, object args)
     {
         // This calls comes off-thread, hence we will need to dispatch it to current app's thread
@@ -70,9 +66,6 @@ public sealed partial class MainWindow : WindowEx
         });
     }
 
-    /// <summary>
-    /// Method for updating UI.
-    /// </summary>
     private void UpdateUI()
     {
         this.Title = "AppDisplayName".GetLocalized();

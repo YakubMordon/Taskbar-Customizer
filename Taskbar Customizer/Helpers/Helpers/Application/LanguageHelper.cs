@@ -9,14 +9,8 @@ using Windows.Globalization;
 /// </summary>
 public class LanguageHelper
 {
-    /// <summary>
-    /// Abbreviations for languages. Index of language is the same as abbreviation language.
-    /// </summary>
     private static readonly List<string> CultureAbbreviations;
 
-    /// <summary>
-    /// Initializes static members of the <see cref="LanguageHelper"/> class.
-    /// </summary>
     static LanguageHelper()
     {
         AvailableLanguages = new List<string>

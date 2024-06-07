@@ -27,34 +27,16 @@ using Color = Windows.UI.Color;
 /// </summary>
 public partial class MainViewModel : ObservableRecipient
 {
-    /// <summary>
-    /// The taskbar customizer service.
-    /// </summary>
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
-    /// <summary>
-    /// Synchronization service.
-    /// </summary>
     private readonly SynchronizationService synchronizationService;
 
-    /// <summary>
-    /// The color of the taskbar.
-    /// </summary>
     private Color taskbarColor;
 
-    /// <summary>
-    /// Indicates whether the taskbar is transparent.
-    /// </summary>
     private bool isTaskbarTransparent;
 
-    /// <summary>
-    /// Indicates whether the Start button is positioned on the left.
-    /// </summary>
     private bool isStartButtonLeft;
 
-    /// <summary>
-    /// Indicates whether the Start button is positioned in the center.
-    /// </summary>
     private bool isStartButtonCenter;
 
     /// <summary>
@@ -145,9 +127,6 @@ public partial class MainViewModel : ObservableRecipient
     /// </summary>
     public ICommand ResetToDefaultCommand { get; }
 
-    /// <summary>
-    /// Method for initialization of properties.
-    /// </summary>
     private void UpdateProperties()
     {
         this.UpdateColor();
@@ -155,25 +134,16 @@ public partial class MainViewModel : ObservableRecipient
         this.UpdateStartButtons();
     }
 
-    /// <summary>
-    /// Method for initialization of color.
-    /// </summary>
     private void UpdateColor()
     {
         this.taskbarColor = this.taskbarCustomizerService.TaskbarColor;
     }
 
-    /// <summary>
-    /// Method for initialization of transparency.
-    /// </summary>
     private void UpdateTransparency()
     {
         this.isTaskbarTransparent = this.taskbarCustomizerService.IsTaskbarTransparent;
     }
 
-    /// <summary>
-    /// Method for initialization of start buttons.
-    /// </summary>
     private void UpdateStartButtons()
     {
         var isStartButtonLeft = this.taskbarCustomizerService.IsStartButtonLeft;
@@ -182,9 +152,6 @@ public partial class MainViewModel : ObservableRecipient
         this.isStartButtonCenter = !isStartButtonLeft;
     }
 
-    /// <summary>
-    /// Method for reseting taskbar settings to default.
-    /// </summary>
     private void ResetToDefault()
     {
         this.ResetColorRelated();
@@ -192,9 +159,6 @@ public partial class MainViewModel : ObservableRecipient
         this.ResetStartButtons();
     }
 
-    /// <summary>
-    /// Method for resetting color-related elements to default.
-    /// </summary>
     private void ResetColorRelated()
     {
         var color = SystemColors.MenuBar.ToUIColor();
@@ -204,9 +168,6 @@ public partial class MainViewModel : ObservableRecipient
         this.IsTaskbarTransparent = color.Transparent();
     }
 
-    /// <summary>
-    /// Method for resetting start button to default.
-    /// </summary>
     private void ResetStartButtons()
     {
         this.IsStartButtonCenter = OperationSystemChecker.IsWindows11OrGreater();

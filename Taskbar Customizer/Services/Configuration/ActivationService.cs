@@ -15,29 +15,14 @@ using Taskbar_Customizer.Views;
 /// </summary>
 public class ActivationService : IActivationService
 {
-    /// <summary>
-    /// The default activation handler.
-    /// </summary>
     private readonly ActivationHandler<LaunchActivatedEventArgs> defaultHandler;
 
-    /// <summary>
-    /// The collection of activation handlers.
-    /// </summary>
     private readonly IEnumerable<IActivationHandler> activationHandlers;
 
-    /// <summary>
-    /// The theme selector service.
-    /// </summary>
     private readonly IThemeSelectorService themeSelectorService;
 
-    /// <summary>
-    /// The taskbar customizer service.
-    /// </summary>
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
-    /// <summary>
-    /// The UI element representing the application shell.
-    /// </summary>
     private UIElement? shell = null;
 
     /// <summary>
@@ -82,11 +67,6 @@ public class ActivationService : IActivationService
         await this.StartupAsync();
     }
 
-    /// <summary>
-    /// Method for handling activation asynchronously.
-    /// </summary>
-    /// <param name="activationArgs">Activation arguments.</param>
-    /// <returns>Completed Task.</returns>
     private async Task HandleActivationAsync(object activationArgs)
     {
         var activationHandler = this.activationHandlers.FirstOrDefault(h => h.CanHandle(activationArgs));
@@ -102,10 +82,6 @@ public class ActivationService : IActivationService
         }
     }
 
-    /// <summary>
-    /// Method, which initializes the singleton services.
-    /// </summary>
-    /// <returns>Completed Task.</returns>
     private async Task InitializeAsync()
     {
         await this.themeSelectorService.InitializeAsync().ConfigureAwait(false);
@@ -115,10 +91,6 @@ public class ActivationService : IActivationService
         await Task.CompletedTask;
     }
 
-    /// <summary>
-    /// Method for setting the requested application theme after activation.
-    /// </summary>
-    /// <returns>Completed Task.</returns>
     private async Task StartupAsync()
     {
         await this.themeSelectorService.SetRequestedThemeAsync();

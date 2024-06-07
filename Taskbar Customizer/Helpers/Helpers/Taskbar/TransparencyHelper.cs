@@ -9,7 +9,6 @@ using System.Runtime.InteropServices;
 /// </summary>
 public static class TransparencyHelper
 {
-    // Constants for window styles
     private const int GWL_EXSTYLE = -20;
     private const int WS_EX_LAYERED = 0x80000;
     private const int LWA_ALPHA = 0x2;

@@ -17,19 +17,10 @@ using Taskbar_Customizer.Helpers.Extensions.UI;
 /// </summary>
 public class NavigationService : INavigationService
 {
-    /// <summary>
-    /// Service for retrieving page type, based on key.
-    /// </summary>
     private readonly IPageService pageService;
 
-    /// <summary>
-    /// Last parameter used to navigate.
-    /// </summary>
     private object? lastParameterUsed;
 
-    /// <summary>
-    /// Frame control used for navigation.
-    /// </summary>
     private Frame? frame;
 
     /// <summary>
@@ -121,9 +112,6 @@ public class NavigationService : INavigationService
         return false;
     }
 
-    /// <summary>
-    /// Method for registering event handlers for the navigation events of the associated frame.
-    /// </summary>
     private void RegisterFrameEvents()
     {
         if (this.frame is not null)
@@ -132,9 +120,6 @@ public class NavigationService : INavigationService
         }
     }
 
-    /// <summary>
-    /// Method for unregistering event handlers for the navigation events of the associated frame.
-    /// </summary>
     private void UnregisterFrameEvents()
     {
         if (this.frame is not null)
@@ -143,9 +128,6 @@ public class NavigationService : INavigationService
         }
     }
 
-    /// <summary>
-    /// Event Handler for the Navigated event of the frame.
-    /// </summary>
     private void OnNavigated(object sender, NavigationEventArgs e)
     {
         if (sender is Frame frame)

@@ -14,9 +14,6 @@ using Taskbar_Customizer.Views;
 /// </summary>
 public class PageService : IPageService
 {
-    /// <summary>
-    /// Represents the mapping between ViewModel types (keys) and corresponding Page types (values) for page navigation.
-    /// </summary>
     private readonly Dictionary<string, Type> pages = new ();
 
     /// <summary>
@@ -43,12 +40,6 @@ public class PageService : IPageService
         return pageType;
     }
 
-    /// <summary>
-    /// Configures a ViewModel to Page mapping for navigation.
-    /// </summary>
-    /// <typeparam name="TVm">The type of the ViewModel.</typeparam>
-    /// <typeparam name="TV">The type of the corresponding Page.</typeparam>
-    /// <exception cref="ArgumentException">Thrown if the mapping is already configured.</exception>
     private void Configure<TVm, TV>()
         where TVm : ObservableObject
         where TV : Page

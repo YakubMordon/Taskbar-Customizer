@@ -9,14 +9,8 @@ using Microsoft.Win32;
 /// </summary>
 public static class TaskbarAlignmentHelper
 {
-    /// <summary>
-    /// Position of Taskbar alignment.
-    /// </summary>
     private const string RegistryKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 
-    /// <summary>
-    /// Taskbar alignment item.
-    /// </summary>
     private const string RegistryValueName = "TaskbarAl";
 
     /// <summary>

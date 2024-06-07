@@ -12,9 +12,6 @@ using Windows.Storage.Streams;
 /// </summary>
 public static class SettingsStorageExtensions
 {
-    /// <summary>
-    /// File extension.
-    /// </summary>
     private const string FileExtension = ".json";
 
     /// <summary>
@@ -174,11 +171,6 @@ public static class SettingsStorageExtensions
         return null;
     }
 
-    /// <summary>
-    /// Helper method to construct a file name with the specified extension.
-    /// </summary>
-    /// <param name="name">File name.</param>
-    /// <returns>File name with specified extension.</returns>
     private static string GetFileName(string name)
     {
         return string.Concat(name, FileExtension);

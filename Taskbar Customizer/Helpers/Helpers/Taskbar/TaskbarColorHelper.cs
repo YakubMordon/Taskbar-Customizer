@@ -52,31 +52,12 @@ public static class TaskbarColorHelper
         Marshal.FreeHGlobal(data.Data);
     }
 
-    /// <summary>
-    /// Method for setting the window composition attribute for the specified window.
-    /// </summary>
-    /// <param name="hwnd">A handle to the window.</param>
-    /// <param name="data">A reference to a WINDOWCOMPOSITIONATTRIBDATA structure containing the attribute data.</param>
-    /// <returns>
-    /// If the function succeeds, the return value is nonzero. If the function fails, the return value is zero.
-    /// </returns>
     [DllImport("user32.dll")]
     private static extern int SetWindowCompositionAttribute(nint hwnd, ref WINDOWCOMPOSITIONATTRIBDATA data);
 
-    /// <summary>
-    /// Method for retrieving a handle to the top-level window whose class name and window name match the specified strings.
-    /// </summary>
-    /// <param name="lpClassName">The class name or a class atom created by a previous call to the RegisterClass or RegisterClassEx function.</param>
-    /// <param name="lpWindowName">The window name (the window's title).</param>
-    /// <returns>
-    /// If the function succeeds, the return value is a handle to the window that has the specified class name and window name. If the function fails, the return value is NULL.
-    /// </returns>
     [DllImport("user32.dll", SetLastError = true)]
     private static extern nint FindWindow(string lpClassName, string lpWindowName);
 
-    /// <summary>
-    /// Represents an access policy that contains a set of access policy entries.
-    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     private struct ACCENT_POLICY
     {
@@ -101,9 +82,6 @@ public static class TaskbarColorHelper
         public int nAnimationId;
     }
 
-    /// <summary>
-    /// Describes a key/value pair that specifies a window composition attribute and its value.
-    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     private struct WINDOWCOMPOSITIONATTRIBDATA
     {

@@ -9,9 +9,6 @@ using Windows.ApplicationModel.Resources;
 /// </summary>
 public static class ResourceExtensions
 {
-    /// <summary>
-    /// Resource loader.
-    /// </summary>
     private static readonly ResourceLoader Loader = new ();
 
     /// <summary>

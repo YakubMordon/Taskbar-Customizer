@@ -38,11 +38,6 @@ public static class ConfigureHostService
         return host;
     }
 
-    /// <summary>
-    /// Method for configuring services, necessary for Dependency Injection.
-    /// </summary>
-    /// <param name="context">Host builder context.</param>
-    /// <param name="services">Collection of services.</param>
     private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
         AddConfigurationServices(services);
@@ -57,10 +52,6 @@ public static class ConfigureHostService
         ConfigureContainer(context, services);
     }
 
-    /// <summary>
-    /// Method for adding configuration-related services to dependency injection container.
-    /// </summary>
-    /// <param name="services">Collection of services.</param>
     private static void AddConfigurationServices(IServiceCollection services)
     {
         services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
@@ -72,10 +63,6 @@ public static class ConfigureHostService
         services.AddTransient<SynchronizationService>();
     }
 
-    /// <summary>
-    /// Method for adding navigation-related services to dependency injection container.
-    /// </summary>
-    /// <param name="services">Collection of services.</param>
     private static void AddNavigationServices(IServiceCollection services)
     {
         services.AddTransient<INavigationViewService, NavigationViewService>();
@@ -85,10 +72,6 @@ public static class ConfigureHostService
         services.AddSingleton<INavigationService, NavigationService>();
     }
 
-    /// <summary>
-    /// Method for adding taskbar-related services to dependency injection container.
-    /// </summary>
-    /// <param name="services">Collection of services.</param>
     private static void AddTaskbarServices(IServiceCollection services)
     {
         services.Scan(scan => scan
@@ -98,10 +81,6 @@ public static class ConfigureHostService
             .WithSingletonLifetime());
     }
 
-    /// <summary>
-    /// Method for adding core services to dependency injection container.
-    /// </summary>
-    /// <param name="services">Collection of services.</param>
     private static void AddCoreServices(IServiceCollection services)
     {
         services.Scan(scan => scan
@@ -111,10 +90,6 @@ public static class ConfigureHostService
             .WithSingletonLifetime());
     }
 
-    /// <summary>
-    /// Method for adding viewmodels to dependency injection container.
-    /// </summary>
-    /// <param name="services">Collection of services.</param>
     private static void AddViewModels(IServiceCollection services)
     {
         services.Scan(scan => scan
@@ -125,10 +100,6 @@ public static class ConfigureHostService
         );
     }
 
-    /// <summary>
-    /// Method for adding views to dependency injection container.
-    /// </summary>
-    /// <param name="services">Collection of services.</param>
     private static void AddViews(IServiceCollection services)
     {
         services.Scan(scan => scan
@@ -139,11 +110,6 @@ public static class ConfigureHostService
         );
     }
 
-    /// <summary>
-    /// Method for configuring container.
-    /// </summary>
-    /// <param name="context">Host builder context.</param>
-    /// <param name="services">Collection of services.</param>
     private static void ConfigureContainer(HostBuilderContext context, IServiceCollection services)
     {
         services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));

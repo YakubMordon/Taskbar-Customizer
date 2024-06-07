@@ -20,17 +20,7 @@ public abstract class ActivationHandler<T> : IActivationHandler
     /// <inheritdoc />
     public async Task HandleAsync(object args) => await this.HandleInternalAsync((args as T) !);
 
-    /// <summary>
-    /// Method, which determines whether this activation handler can handle the specified activation arguments.
-    /// </summary>
-    /// <param name="args">The activation arguments.</param>
-    /// <returns>True if this handler can handle the activation; otherwise, false.</returns>
     protected virtual bool CanHandleInternal(T args) => true;
 
-    /// <summary>
-    /// Method, which handles the activation asynchronously based on the specified arguments.
-    /// </summary>
-    /// <param name="args">The activation arguments.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
     protected abstract Task HandleInternalAsync(T args);
 }

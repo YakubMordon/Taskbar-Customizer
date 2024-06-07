@@ -23,7 +23,7 @@ public sealed partial class ShellPage : Page
     /// <param name="viewModel">View Model.</param>
     public ShellPage(ShellViewModel viewModel)
     {
-        ((MainWindow)App.MainWindow).EventHandler.EventHandler += (sender, e) => this.UpdateUI();
+        ((MainWindow)App.MainWindow).EventHandler += (sender, e) => this.UpdateUI();
 
         this.ViewModel = viewModel;
         this.InitializeComponent();
@@ -46,12 +46,6 @@ public sealed partial class ShellPage : Page
         get;
     }
 
-    /// <summary>
-    /// Method for building a keyboard accelerator with the specified key and optional modifiers.
-    /// </summary>
-    /// <param name="key">The virtual key to use for the keyboard accelerator.</param>
-    /// <param name="modifiers">Optional modifiers for the keyboard accelerator.</param>
-    /// <returns>The constructed <see cref="KeyboardAccelerator"/>.</returns>
     private static KeyboardAccelerator BuildKeyboardAccelerator(VirtualKey key, VirtualKeyModifiers? modifiers = null)
     {
         var keyboardAccelerator = new KeyboardAccelerator() { Key = key };
@@ -66,9 +60,6 @@ public sealed partial class ShellPage : Page
         return keyboardAccelerator;
     }
 
-    /// <summary>
-    /// Event handler for keyboard accelerator invocation.
-    /// </summary>
     private static void OnKeyboardAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
     {
         var navigationService = App.GetService<INavigationService>();
@@ -78,9 +69,6 @@ public sealed partial class ShellPage : Page
         args.Handled = result;
     }
 
-    /// <summary>
-    /// Event Handler for Loading event for the ShellPage.
-    /// </summary>
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         TitleBarHelper.UpdateTitleBar(this.RequestedTheme);
@@ -89,17 +77,11 @@ public sealed partial class ShellPage : Page
         this.KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
     }
 
-    /// <summary>
-    /// Event Handler for Window Activation event.
-    /// </summary>
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
     {
         App.AppTitlebar = this.AppTitleBarText as UIElement;
     }
 
-    /// <summary>
-    /// Event Handler for DisplayModeChanged event of the NavigationViewControl.
-    /// </summary>
     private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
     {
         this.AppTitleBar.Margin = new Thickness()
@@ -111,9 +93,6 @@ public sealed partial class ShellPage : Page
         };
     }
 
-    /// <summary>
-    /// Method for updating UI.
-    /// </summary>
     private void UpdateUI()
     {
         this.MainItem.Content = "Main".GetLocalized();

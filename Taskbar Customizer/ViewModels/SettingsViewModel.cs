@@ -23,36 +23,18 @@ using Taskbar_Customizer.Contracts.Services.Taskbar;
 /// </summary>
 public partial class SettingsViewModel : ObservableRecipient
 {
-    /// <summary>
-    /// Service for theme selection handling.
-    /// </summary>
     private readonly IThemeSelectorService themeSelectorService;
 
-    /// <summary>
-    /// The taskbar customizer service.
-    /// </summary>
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
-    /// <summary>
-    /// Current element theme.
-    /// </summary>
     [ObservableProperty]
     private ElementTheme elementTheme;
 
-    /// <summary>
-    /// Version description of the app.
-    /// </summary>
     [ObservableProperty]
     private string versionDescription;
 
-    /// <summary>
-    /// Selected language of the app.
-    /// </summary>
     private string selectedLanguage;
 
-    /// <summary>
-    /// Indicates whether synchronization is on.
-    /// </summary>
     private bool isSynchronizationOn;
 
     /// <summary>
@@ -128,7 +110,7 @@ public partial class SettingsViewModel : ObservableRecipient
     {
         LanguageHelper.SetCurrentLanguage(this.selectedLanguage);
 
-        ((MainWindow)App.MainWindow).EventHandler.OnLanguageChanged();
+        ((MainWindow)App.MainWindow).OnLanguageChanged();
     }
 
     /// <summary>
@@ -139,10 +121,6 @@ public partial class SettingsViewModel : ObservableRecipient
         this.VersionDescription = GetVersionDescription();
     }
 
-    /// <summary>
-    /// Method for retrieving the version description of the app.
-    /// </summary>
-    /// <returns>The version description string.</returns>
     private static string GetVersionDescription()
     {
         var packageVersion = Package.Current.Id.Version;
@@ -154,10 +132,6 @@ public partial class SettingsViewModel : ObservableRecipient
         return $"{"AppDisplayName".GetLocalized()} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
     }
 
-    /// <summary>
-    /// Method for switching theme of application theme.
-    /// </summary>
-    /// <param name="theme">Theme of application.</param>
     private async void SwitchTheme(ElementTheme theme)
     {
         if (this.ElementTheme != theme)

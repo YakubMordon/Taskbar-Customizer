@@ -9,14 +9,8 @@ using Windows.ApplicationModel.Background;
 /// </summary>
 public static class BackgroundTaskRegistrationService
 {
-    /// <summary>
-    /// Synchronization background task name.
-    /// </summary>
     private const string SynchronizationTaskName = "SynchronizationBackgroundTask";
 
-    /// <summary>
-    /// Indicates whether synchronization background task is registered.
-    /// </summary>
     private static bool isSynchronizationTaskRegistered = false;
 
     /// <summary>
@@ -41,7 +35,7 @@ public static class BackgroundTaskRegistrationService
                 TaskEntryPoint = $"BgTaskComponent.{SynchronizationTaskName}",
             };
 
-            builder.SetTrigger(new TimeTrigger(15, false)); // Виконується кожні 15 хвилин
+            builder.SetTrigger(new TimeTrigger(15, false)); // Runs every 15 minutes
             builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
 
             var task = builder.Register();

@@ -2,7 +2,6 @@
 
 namespace BgTaskComponent;
 
-using System.Linq;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 
@@ -15,19 +14,10 @@ using Windows.UI.Notifications;
 /// </summary>
 public sealed class SynchronizationBackgroundTask : IBackgroundTask
 {
-    /// <summary>
-    /// Background task deferral.
-    /// </summary>
     private BackgroundTaskDeferral deferral;
 
-    /// <summary>
-    /// Connection to app service.
-    /// </summary>
     private AppServiceConnection connection;
 
-    /// <summary>
-    /// Value set of synchronized data
-    /// </summary>
     private static ValueSet synchronizedData = new ();
 
     /// <inheritdoc />
@@ -41,9 +31,6 @@ public sealed class SynchronizationBackgroundTask : IBackgroundTask
         connection.RequestReceived += OnRequestReceived;
     }
 
-    /// <summary>
-    /// Event handler for handling requests.
-    /// </summary>
     private void OnRequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
     {
         var messageDeferral = args.GetDeferral();
@@ -62,18 +49,12 @@ public sealed class SynchronizationBackgroundTask : IBackgroundTask
         SendNotification();
     }
 
-    /// <summary>
-    /// Event handler for canceling task.
-    /// </summary>
     private void OnTaskCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
     {
         connection.Dispose();
         deferral.Complete();
     }
 
-    /// <summary>
-    /// Method for sending notification.
-    /// </summary>
     private static void SendNotification()
     {
         var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText02);

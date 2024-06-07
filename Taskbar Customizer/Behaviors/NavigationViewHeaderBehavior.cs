@@ -13,23 +13,14 @@ using Taskbar_Customizer.Contracts.Services.Navigation;
 /// </summary>
 public class NavigationViewHeaderBehavior : Behavior<NavigationView>
 {
-    /// <summary>
-    /// Current Header behavior.
-    /// </summary>
     private static NavigationViewHeaderBehavior? current;
 
-    /// <summary>
-    /// Current Page.
-    /// </summary>
     private Page? currentPage;
 
     /// <summary>
     /// Gets or sets the default data template for the header.
     /// </summary>
-    public DataTemplate? DefaultHeaderTemplate
-    {
-        get; set;
-    }
+    public DataTemplate? DefaultHeaderTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the default header object.
@@ -106,9 +97,6 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
     public static readonly DependencyProperty HeaderTemplateProperty =
         DependencyProperty.RegisterAttached("HeaderTemplate", typeof(DataTemplate), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => current!.UpdateHeaderTemplate()));
 
-    /// <summary>
-    /// Event Handler for event when the behavior is attached to a <see cref="NavigationView"/>.
-    /// </summary>
     protected override void OnAttached()
     {
         base.OnAttached();
@@ -119,9 +107,6 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
         current = this;
     }
 
-    /// <summary>
-    /// Event Handler for event when the behavior is detached from a <see cref="NavigationView"/>.
-    /// </summary>
     protected override void OnDetaching()
     {
         base.OnDetaching();
@@ -130,9 +115,6 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
         navigationService.Navigated -= this.OnNavigated;
     }
 
-    /// <summary>
-    /// Event Handler for the navigation event and updates the header accordingly.
-    /// </summary>
     private void OnNavigated(object sender, NavigationEventArgs e)
     {
         if (sender is Frame frame && frame.Content is Page page)
@@ -143,9 +125,6 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
         }
     }
 
-    /// <summary>
-    /// Method for updating the header of the associated <see cref="NavigationView"/> based on the current page's settings.
-    /// </summary>
     private void UpdateHeader()
     {
         if (this.currentPage is not null)
@@ -166,9 +145,6 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
         }
     }
 
-    /// <summary>
-    /// Method for updating the header template of the associated <see cref="NavigationView"/> based on the current page's settings.
-    /// </summary>
     private void UpdateHeaderTemplate()
     {
         if (this.currentPage is not null)

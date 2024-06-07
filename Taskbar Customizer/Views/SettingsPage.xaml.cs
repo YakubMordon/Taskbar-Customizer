@@ -16,7 +16,7 @@ public sealed partial class SettingsPage : Page
     /// </summary>
     public SettingsPage()
     {
-        ((MainWindow)App.MainWindow).EventHandler.EventHandler += (sender, e) => this.UpdateUI();
+        ((MainWindow)App.MainWindow).EventHandler += (sender, e) => this.UpdateUI();
 
         this.ViewModel = App.GetService<SettingsViewModel>();
         this.InitializeComponent();
@@ -32,9 +32,6 @@ public sealed partial class SettingsPage : Page
         get;
     }
 
-    /// <summary>
-    /// Method for updating UI.
-    /// </summary>
     private void UpdateUI()
     {
         this.UpdatePersonalization();
@@ -50,17 +47,11 @@ public sealed partial class SettingsPage : Page
         this.ViewModel.UpdateVersionDescription();
     }
 
-    /// <summary>
-    /// Method for updating personalization elements.
-    /// </summary>
     private void UpdatePersonalization()
     {
         this.Personalization.Text = "Personalization".GetLocalized();
     }
 
-    /// <summary>
-    /// Method for updating theme elements.
-    /// </summary>
     private void UpdateTheme()
     {
         this.Theme.Text = "Theme".GetLocalized();
@@ -69,9 +60,6 @@ public sealed partial class SettingsPage : Page
         this.ThemeLight.Content = "ThemeLight".GetLocalized();
     }
 
-    /// <summary>
-    /// Method for updating synchronization elements.
-    /// </summary>
     private void UpdateSynchronization()
     {
         this.Synchronization.Text = "Synchronization".GetLocalized();
@@ -80,27 +68,18 @@ public sealed partial class SettingsPage : Page
         this.SynchronizationSwitch.OffContent = "SynchronizationSwitchOff".GetLocalized();
     }
 
-    /// <summary>
-    /// Method for updating language elements.
-    /// </summary>
     private void UpdateLanguage()
     {
         this.Language.Text = "Language".GetLocalized();
         this.LanguageWarning.Text = "LanguageWarning".GetLocalized();
     }
 
-    /// <summary>
-    /// Method for updating about elements.
-    /// </summary>
     private void UpdateAbout()
     {
         this.About.Text = "About".GetLocalized();
         this.AboutDescription.Text = "AboutDescription".GetLocalized();
     }
 
-    /// <summary>
-    /// Method for updating privacy elements.
-    /// </summary>
     private void UpdatePrivacy()
     {
         this.PrivacyTerms.Content = "PrivacyTerms".GetLocalized();
