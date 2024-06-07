@@ -2,8 +2,7 @@
 
 namespace Taskbar_Customizer.Helpers.Helpers.Application;
 
-using System.Runtime.InteropServices;
-using System.Text;
+using Taskbar_Customizer.Helpers.Helpers.Native;
 
 /// <summary>
 /// Helper class, which provides helper methods related to runtime environment information.
@@ -22,10 +21,9 @@ public class RuntimeHelper
             // Call GetCurrentPackageFullName with a null StringBuilder to get the required buffer size.
             // MSIX applications have a specific error code (15700L) when GetCurrentPackageFullName is called with a null buffer.
             // Check if the return value is different from the MSIX-specific error code to determine if the application is an MSIX package.
-            return GetCurrentPackageFullName(ref length, null) != 15700L;
+            return Kernel32Interop.GetCurrentPackageFullName(ref length, null) != 15700L;
         }
     }
 
-    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-    private static extern int GetCurrentPackageFullName(ref int packageFullNameLength, StringBuilder? packageFullName);
+
 }

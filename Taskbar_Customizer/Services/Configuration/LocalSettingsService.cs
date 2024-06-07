@@ -5,12 +5,11 @@ namespace Taskbar_Customizer.Services.Configuration;
 using Microsoft.Extensions.Options;
 using Taskbar_Customizer.Models;
 
-using Taskbar_Customizer.Helpers.Contracts.Services;
-
 using Windows.Storage;
 using Taskbar_Customizer.Helpers.Helpers;
 using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Contracts.Services.Configuration;
+using Taskbar_Customizer.Helpers.Contracts.Services.Files;
 
 /// <summary>
 /// Service for reading and saving local settings asynchronously.

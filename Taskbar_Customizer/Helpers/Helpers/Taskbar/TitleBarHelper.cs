@@ -2,13 +2,12 @@
 
 namespace Taskbar_Customizer.Helpers.Helpers.Taskbar;
 
-using System.Runtime.InteropServices;
-
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 
+using Taskbar_Customizer.Helpers.Helpers.Native;
+
 using Windows.UI;
-using Windows.UI.ViewManagement;
 
 /// <summary>
 /// Helper class to manage custom title bar appearance and behavior.
@@ -69,15 +68,15 @@ internal class TitleBarHelper
 
             // Activate the window based on its active state
             var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.MainWindow);
-            if (hwnd == GetActiveWindow())
+            if (hwnd == User32Interop.GetActiveWindow())
             {
-                SendMessage(hwnd, WMACTIVATE, WAINACTIVE, nint.Zero);
-                SendMessage(hwnd, WMACTIVATE, WAACTIVE, nint.Zero);
+                User32Interop.SendMessage(hwnd, WMACTIVATE, WAINACTIVE, nint.Zero);
+                User32Interop.SendMessage(hwnd, WMACTIVATE, WAACTIVE, nint.Zero);
             }
             else
             {
-                SendMessage(hwnd, WMACTIVATE, WAACTIVE, nint.Zero);
-                SendMessage(hwnd, WMACTIVATE, WAINACTIVE, nint.Zero);
+                User32Interop.SendMessage(hwnd, WMACTIVATE, WAACTIVE, nint.Zero);
+                User32Interop.SendMessage(hwnd, WMACTIVATE, WAINACTIVE, nint.Zero);
             }
         }
     }
@@ -93,10 +92,4 @@ internal class TitleBarHelper
             UpdateTitleBar(frame.ActualTheme);
         }
     }
-
-    [DllImport("user32.dll")]
-    private static extern nint GetActiveWindow();
-
-    [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    private static extern nint SendMessage(nint hWnd, int msg, int wParam, nint lParam);
 }

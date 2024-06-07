@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Helpers.Contracts.Services;
+namespace Taskbar_Customizer.Helpers.Contracts.Services.Files;
 
 /// <summary>
 /// Contract for file operations.
