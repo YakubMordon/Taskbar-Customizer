@@ -44,37 +44,33 @@ internal class TitleBarHelper
                 theme = Application.Current.RequestedTheme == ApplicationTheme.Light ? ElementTheme.Light : ElementTheme.Dark;
             }
 
-            // Configure button foreground color
-            App.MainWindow.AppWindow.TitleBar.ButtonForegroundColor = theme switch
+            var colors = theme switch
             {
-                ElementTheme.Dark => Colors.White,
-                ElementTheme.Light => Colors.Black,
-                _ => Colors.Transparent
+                ElementTheme.Dark => (
+                    ButtonForegroundColor: Colors.White,
+                    ButtonHoverForegroundColor: Colors.White,
+                    ButtonHoverBackgroundColor: Color.FromArgb(0x33, 0xFF, 0xFF, 0xFF),
+                    ButtonPressedBackgroundColor: Color.FromArgb(0x66, 0xFF, 0xFF, 0xFF)
+                ),
+                ElementTheme.Light => (
+                    ButtonForegroundColor: Colors.Black,
+                    ButtonHoverForegroundColor: Colors.Black,
+                    ButtonHoverBackgroundColor: Color.FromArgb(0x33, 0x00, 0x00, 0x00),
+                    ButtonPressedBackgroundColor: Color.FromArgb(0x66, 0x00, 0x00, 0x00)
+                ),
+                _ => (
+                    ButtonForegroundColor: Colors.Transparent,
+                    ButtonHoverForegroundColor: Colors.Transparent,
+                    ButtonHoverBackgroundColor: Colors.Transparent,
+                    ButtonPressedBackgroundColor: Colors.Transparent
+                )
             };
 
-            // Configure button hover foreground color
-            App.MainWindow.AppWindow.TitleBar.ButtonHoverForegroundColor = theme switch
-            {
-                ElementTheme.Dark => Colors.White,
-                ElementTheme.Light => Colors.Black,
-                _ => Colors.Transparent
-            };
-
-            // Configure button hover background color
-            App.MainWindow.AppWindow.TitleBar.ButtonHoverBackgroundColor = theme switch
-            {
-                ElementTheme.Dark => Color.FromArgb(0x33, 0xFF, 0xFF, 0xFF),
-                ElementTheme.Light => Color.FromArgb(0x33, 0x00, 0x00, 0x00),
-                _ => Colors.Transparent
-            };
-
-            // Configure button pressed background color
-            App.MainWindow.AppWindow.TitleBar.ButtonPressedBackgroundColor = theme switch
-            {
-                ElementTheme.Dark => Color.FromArgb(0x66, 0xFF, 0xFF, 0xFF),
-                ElementTheme.Light => Color.FromArgb(0x66, 0x00, 0x00, 0x00),
-                _ => Colors.Transparent
-            };
+            // Configure button colors
+            App.MainWindow.AppWindow.TitleBar.ButtonForegroundColor = colors.ButtonForegroundColor;
+            App.MainWindow.AppWindow.TitleBar.ButtonHoverForegroundColor = colors.ButtonHoverForegroundColor;
+            App.MainWindow.AppWindow.TitleBar.ButtonHoverBackgroundColor = colors.ButtonHoverBackgroundColor;
+            App.MainWindow.AppWindow.TitleBar.ButtonPressedBackgroundColor = colors.ButtonPressedBackgroundColor;
 
             // Set title bar background color
             App.MainWindow.AppWindow.TitleBar.BackgroundColor = Colors.Transparent;
