@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taskbar Customizer.Core", "Taskbar Customizer.Helpers\Taskbar Customizer.Core.csproj", "{ACFCDC6B-3D10-468A-A2EF-E370C3BA4262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskbarCustomizer.Core", "Taskbar Customizer.Helpers\TaskbarCustomizer.Core.csproj", "{ACFCDC6B-3D10-468A-A2EF-E370C3BA4262}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BgTaskComponent", "BgTaskComponent\BgTaskComponent.csproj", "{68101E87-3B4C-46A9-A5F1-5A9B73743F65}"
 EndProject
