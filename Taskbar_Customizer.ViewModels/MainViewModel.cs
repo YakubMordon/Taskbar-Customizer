@@ -8,6 +8,8 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
+using Microsoft.UI.Xaml;
+
 using Newtonsoft.Json;
 
 using Taskbar_Customizer.Core.Services.Configuration;
@@ -19,6 +21,7 @@ using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 
 using Color = Windows.UI.Color;
+using System;
 
 /// <summary>
 /// ViewModel for Main Page.
@@ -28,6 +31,8 @@ public partial class MainViewModel : ObservableRecipient
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
     private readonly SynchronizationService synchronizationService;
+
+    private DispatcherTimer debounceTimer;
 
     private Color taskbarColor;
 
@@ -51,6 +56,12 @@ public partial class MainViewModel : ObservableRecipient
         this.UpdateProperties();
 
         this.ResetToDefaultCommand = new RelayCommand(this.ResetToDefault);
+
+        this.debounceTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromMilliseconds(300)
+        };
+        this.debounceTimer.Tick += (sender, e) => this.OnDebounceTimerTick();
     }
 
     /// <summary>
@@ -63,12 +74,9 @@ public partial class MainViewModel : ObservableRecipient
         {
             if (this.SetProperty(ref this.taskbarColor, value))
             {
-                this.taskbarColor.A = (byte)(this.IsTaskbarTransparent ? 128 : 255);
-                this.taskbarCustomizerService.SetTaskbarColor(this.taskbarColor);
-
-                this.synchronizationService.CallSyncService("Color", JsonConvert.SerializeObject(this.taskbarColor));
-
-                NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationColorChanged".GetLocalized());
+                this.taskbarColor.A = (byte)(this.isTaskbarTransparent ? 128 : 255);
+                this.debounceTimer.Stop();
+                this.debounceTimer.Start();
             }
         }
     }
@@ -171,5 +179,18 @@ public partial class MainViewModel : ObservableRecipient
         this.IsStartButtonCenter = OperationSystemChecker.IsWindows11OrGreater();
 
         this.IsStartButtonLeft = !this.IsStartButtonCenter;
+    }
+
+    private void OnDebounceTimerTick()
+    {
+        this.debounceTimer.Stop();
+        this.ApplyDebouncedChanges();
+    }
+
+    private void ApplyDebouncedChanges()
+    {
+        this.taskbarCustomizerService.SetTaskbarColor(this.taskbarColor);
+        this.synchronizationService.CallSyncService("Color", JsonConvert.SerializeObject(this.taskbarColor));
+        NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationColorChanged".GetLocalized());
     }
 }
