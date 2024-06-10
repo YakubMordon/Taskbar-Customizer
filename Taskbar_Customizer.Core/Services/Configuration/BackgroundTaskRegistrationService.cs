@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Services.Configuration;
+namespace Taskbar_Customizer.Core.Services.Configuration;
 
 using Windows.ApplicationModel.Background;
 

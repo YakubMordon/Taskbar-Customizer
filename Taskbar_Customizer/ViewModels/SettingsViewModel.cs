@@ -2,6 +2,7 @@
 
 namespace Taskbar_Customizer.ViewModels;
 
+using System;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows.Input;
@@ -13,8 +14,8 @@ using Microsoft.UI.Xaml;
 
 using Windows.ApplicationModel;
 
-using Taskbar_Customizer.Services.Configuration;
 using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
+using Taskbar_Customizer.Core.Services.Configuration;
 
 using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Helpers.Extensions.Resource;

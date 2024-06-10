@@ -3,12 +3,12 @@
 namespace Taskbar_Customizer.Services.Taskbar;
 
 using Microsoft.UI.Xaml;
+
 using Taskbar_Customizer;
+using Taskbar_Customizer.Helpers;
 
 using Taskbar_Customizer.Core.Contracts.Services.Configuration;
 using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
-
-using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 
 /// <summary>
 /// Service responsible for managing and applying the application theme.

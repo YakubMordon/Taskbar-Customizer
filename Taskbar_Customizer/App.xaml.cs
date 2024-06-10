@@ -7,6 +7,8 @@ using System.Diagnostics;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 
+using Taskbar_Customizer.Core.Services.Configuration;
+
 using Taskbar_Customizer.Services.Configuration;
 
 using Taskbar_Customizer.Core.Contracts.Services.Configuration;

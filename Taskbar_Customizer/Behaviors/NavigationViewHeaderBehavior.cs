@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using Taskbar_Customizer.Models.Behaviors;
+
 namespace Taskbar_Customizer.Behaviors;
 
 using Microsoft.UI.Xaml;

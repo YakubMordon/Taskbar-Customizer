@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using Taskbar_Customizer.Core.Services.Configuration;
+
 namespace Taskbar_Customizer.Services.Configuration;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -96,7 +98,7 @@ public static class ConfigureHostService
     private static void AddViewModels(IServiceCollection services)
     {
         services.Scan(scan => scan
-            .FromCallingAssembly()
+            .FromAssembliesOf(typeof(MainViewModel), typeof(App))
             .AddClasses(classes => classes.InNamespaceOf<MainViewModel>())
             .AsSelf()
             .WithTransientLifetime());

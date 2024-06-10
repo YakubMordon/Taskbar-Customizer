@@ -5,14 +5,16 @@ namespace Taskbar_Customizer.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Taskbar_Customizer.ViewModels;
 
-using Windows.System;
+using Taskbar_Customizer.Helpers;
+
+using Taskbar_Customizer.ViewModels;
 
 using Taskbar_Customizer.Core.Contracts.Services.Navigation;
 
-using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 using Taskbar_Customizer.Helpers.Extensions.Resource;
+
+using Windows.System;
 
 /// <summary>
 /// Code-Behind for ShellPage.xaml.

@@ -10,14 +10,13 @@ using CommunityToolkit.Mvvm.Input;
 
 using Newtonsoft.Json;
 
+using Taskbar_Customizer.Core.Services.Configuration;
 using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
 
 using Taskbar_Customizer.Helpers.Extensions.Resource;
 using Taskbar_Customizer.Helpers.Extensions.UI;
 using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
-
-using Taskbar_Customizer.Services.Configuration;
 
 using Color = Windows.UI.Color;
 

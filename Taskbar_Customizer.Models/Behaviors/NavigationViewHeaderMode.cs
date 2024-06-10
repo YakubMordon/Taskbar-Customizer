@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Behaviors;
+namespace Taskbar_Customizer.Models.Behaviors;
 
 /// <summary>
 /// Specifies the mode of the header in a NavigationView.

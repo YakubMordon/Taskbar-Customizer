@@ -33,11 +33,11 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.61.3" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240428000" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240428000">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
     <PackageReference Include="Scrutor" Version="4.2.2" />
     <PackageReference Include="WinUIEx" Version="2.3.4" />
   </ItemGroup>
@@ -47,6 +47,7 @@
     <ProjectReference Include="..\Taskbar_Customizer.Core\Taskbar_Customizer.Core.csproj" />
     <ProjectReference Include="..\Taskbar_Customizer.Helpers\Taskbar_Customizer.Helpers.csproj" />
     <ProjectReference Include="..\Taskbar_Customizer.Models\Taskbar_Customizer.Models.csproj" />
+    <ProjectReference Include="..\Taskbar_Customizer.ViewModels\Taskbar_Customizer.ViewModels.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
