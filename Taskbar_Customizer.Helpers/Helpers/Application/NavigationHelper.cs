@@ -11,6 +11,12 @@ using Microsoft.UI.Xaml.Controls;
 public static class NavigationHelper
 {
     /// <summary>
+    /// NavigateTo property.
+    /// </summary>
+    public static readonly DependencyProperty NavigateToProperty =
+        DependencyProperty.RegisterAttached("NavigateTo", typeof(string), typeof(NavigationHelper), new PropertyMetadata(null));
+
+    /// <summary>
     /// Method for getting the navigation target associated with the specified NavigationViewItem.
     /// </summary>
     /// <param name="item">The NavigationViewItem.</param>
@@ -23,10 +29,4 @@ public static class NavigationHelper
     /// <param name="item">The NavigationViewItem.</param>
     /// <param name="value">The navigation target as a string.</param>
     public static void SetNavigateTo(NavigationViewItem item, string value) => item.SetValue(NavigateToProperty, value);
-
-    /// <summary>
-    /// NavigateTo property.
-    /// </summary>
-    public static readonly DependencyProperty NavigateToProperty =
-        DependencyProperty.RegisterAttached("NavigateTo", typeof(string), typeof(NavigationHelper), new PropertyMetadata(null));
 }
