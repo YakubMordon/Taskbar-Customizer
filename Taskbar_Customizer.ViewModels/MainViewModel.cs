@@ -26,7 +26,7 @@ using System;
 /// <summary>
 /// ViewModel for Main Page.
 /// </summary>
-public partial class MainViewModel : ObservableRecipient
+public class MainViewModel : ObservableRecipient
 {
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
