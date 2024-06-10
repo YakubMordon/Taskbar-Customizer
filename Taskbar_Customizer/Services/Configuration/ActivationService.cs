@@ -4,11 +4,13 @@ namespace Taskbar_Customizer.Services.Configuration;
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+
 using Taskbar_Customizer;
 using Taskbar_Customizer.Activation;
-using Taskbar_Customizer.Contracts.Services.Configuration;
-using Taskbar_Customizer.Contracts.Services.Taskbar;
 using Taskbar_Customizer.Views;
+
+using Taskbar_Customizer.Core.Contracts.Services.Configuration;
+using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
 
 /// <summary>
 /// Service responsible for handling application activation and startup tasks.

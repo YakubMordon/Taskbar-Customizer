@@ -8,14 +8,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 
 using Taskbar_Customizer.Activation;
-using Taskbar_Customizer.Models;
 using Taskbar_Customizer.ViewModels;
 using Taskbar_Customizer.Views;
 using Taskbar_Customizer.Services.Taskbar;
 using Taskbar_Customizer.Services.Navigation;
-using Taskbar_Customizer.Contracts.Services.Navigation;
-using Taskbar_Customizer.Contracts.Services.Configuration;
-using Core.Services.Files;
+
+using Taskbar_Customizer.Core.Contracts.Services.Navigation;
+using Taskbar_Customizer.Core.Contracts.Services.Configuration;
+using Taskbar_Customizer.Core.Services.Files;
+
+using Taskbar_Customizer.Models;
 
 /// <summary>
 /// Static service for configurating host of application.

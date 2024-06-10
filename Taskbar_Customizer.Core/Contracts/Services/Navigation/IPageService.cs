@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Contracts.Services.Navigation;
+namespace Taskbar_Customizer.Core.Contracts.Services.Navigation;
 
 /// <summary>
 /// Contract for a service that retrieves page types based on a given key.

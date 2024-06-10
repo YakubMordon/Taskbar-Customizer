@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 using Microsoft.UI;
 
-using Taskbar_Customizer.Contracts.Services.Configuration;
-using Taskbar_Customizer.Contracts.Services.Taskbar;
+using Taskbar_Customizer.Core.Contracts.Services.Configuration;
+using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
 
 using Taskbar_Customizer.Services.Configuration;
 

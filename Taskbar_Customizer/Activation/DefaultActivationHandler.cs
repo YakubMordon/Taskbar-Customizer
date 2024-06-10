@@ -3,8 +3,10 @@
 namespace Taskbar_Customizer.Activation;
 
 using Microsoft.UI.Xaml;
-using Taskbar_Customizer.Contracts.Services.Navigation;
+
 using Taskbar_Customizer.ViewModels;
+
+using Taskbar_Customizer.Core.Contracts.Services.Navigation;
 
 /// <summary>
 /// Default activation handler class for launching the application.

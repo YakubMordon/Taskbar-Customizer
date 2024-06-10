@@ -14,7 +14,7 @@ using Microsoft.UI.Xaml;
 using Windows.ApplicationModel;
 
 using Taskbar_Customizer.Services.Configuration;
-using Taskbar_Customizer.Contracts.Services.Taskbar;
+using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
 
 using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Helpers.Extensions.Resource;

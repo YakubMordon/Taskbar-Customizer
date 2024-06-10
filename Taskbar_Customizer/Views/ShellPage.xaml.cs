@@ -9,7 +9,7 @@ using Taskbar_Customizer.ViewModels;
 
 using Windows.System;
 
-using Taskbar_Customizer.Contracts.Services.Navigation;
+using Taskbar_Customizer.Core.Contracts.Services.Navigation;
 
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 using Taskbar_Customizer.Helpers.Extensions.Resource;

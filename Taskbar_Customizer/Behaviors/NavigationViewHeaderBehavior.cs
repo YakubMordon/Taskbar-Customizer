@@ -6,7 +6,8 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Xaml.Interactivity;
-using Taskbar_Customizer.Contracts.Services.Navigation;
+
+using Taskbar_Customizer.Core.Contracts.Services.Navigation;
 
 /// <summary>
 /// Behavior that enhances a <see cref="NavigationView"/> by managing the header based on attached properties of <see cref="Page"/> elements.

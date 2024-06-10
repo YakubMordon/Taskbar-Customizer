@@ -7,9 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-using Taskbar_Customizer;
-using Taskbar_Customizer.Contracts.Services.Navigation;
-using Taskbar_Customizer.Contracts.ViewModels;
+using Taskbar_Customizer.Core.Contracts.Services.Navigation;
 
 using Taskbar_Customizer.Helpers.Extensions.UI;
 

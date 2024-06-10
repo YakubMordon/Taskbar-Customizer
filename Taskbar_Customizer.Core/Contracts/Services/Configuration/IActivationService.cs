@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Contracts.Services.Configuration;
+namespace Taskbar_Customizer.Core.Contracts.Services.Configuration;
 
 /// <summary>
 /// Contract for a service for activating an application asynchronously.

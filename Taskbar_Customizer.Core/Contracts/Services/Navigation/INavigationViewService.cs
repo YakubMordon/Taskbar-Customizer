@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Contracts.Services.Navigation;
+namespace Taskbar_Customizer.Core.Contracts.Services.Navigation;
 
 using Microsoft.UI.Xaml.Controls;
 

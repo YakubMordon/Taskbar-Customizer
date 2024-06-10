@@ -4,7 +4,7 @@ namespace Taskbar_Customizer.Services.Configuration;
 
 using Newtonsoft.Json;
 
-using Taskbar_Customizer.Contracts.Services.Taskbar;
+using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
 
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;

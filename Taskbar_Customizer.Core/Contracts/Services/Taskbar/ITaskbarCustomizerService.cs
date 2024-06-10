@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Contracts.Services.Taskbar;
+namespace Taskbar_Customizer.Core.Contracts.Services.Taskbar;
 
 using Windows.UI;
 

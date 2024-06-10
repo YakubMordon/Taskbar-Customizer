@@ -5,7 +5,9 @@ namespace Taskbar_Customizer.Services.Navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 using Microsoft.UI.Xaml.Controls;
-using Taskbar_Customizer.Contracts.Services.Navigation;
+
+using Taskbar_Customizer.Core.Contracts.Services.Navigation;
+
 using Taskbar_Customizer.ViewModels;
 using Taskbar_Customizer.Views;
 

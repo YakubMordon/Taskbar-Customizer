@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Contracts.ViewModels;
+namespace Taskbar_Customizer.Core.Contracts.Services.Navigation;
 
 /// <summary>
 /// Contract for objects that need to be notified when navigation occurs.
