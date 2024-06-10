@@ -15,6 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Taskbar Customizer.Helpers\Taskbar_Customizer.Core.csproj" />
+    <ProjectReference Include="..\Taskbar_Customizer.Core\Taskbar_Customizer.Core.csproj" />
   </ItemGroup>
 </Project>
