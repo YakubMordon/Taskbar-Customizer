@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Helpers.Services.Files;
+namespace Taskbar_Customizer.Core.Services.Files;
 
 using System.Text;
 
 using Newtonsoft.Json;
-using Taskbar_Customizer.Helpers.Contracts.Services.Files;
+using Core.Contracts.Services.Files;
 
 /// <summary>
 /// Service for operation with files.

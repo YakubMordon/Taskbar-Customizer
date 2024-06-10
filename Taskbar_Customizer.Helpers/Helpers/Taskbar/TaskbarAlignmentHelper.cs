@@ -2,6 +2,8 @@
 
 namespace Taskbar_Customizer.Helpers.Helpers.Taskbar;
 
+using System;
+
 using Microsoft.Win32;
 
 /// <summary>

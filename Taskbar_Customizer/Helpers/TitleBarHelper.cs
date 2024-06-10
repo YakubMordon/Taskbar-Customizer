@@ -14,7 +14,7 @@ using Windows.UI;
 /// DISCLAIMER: The resource key names and color values used below are subject to change. Do not depend on them.
 /// Issues related to custom title bars: https://github.com/microsoft/TemplateStudio/issues/4516.
 /// </summary>
-internal class TitleBarHelper
+public static class TitleBarHelper
 {
     private const int WAINACTIVE = 0x00;
 

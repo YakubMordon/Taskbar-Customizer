@@ -6,9 +6,11 @@ using System.Diagnostics;
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
+
 using Taskbar_Customizer.Contracts.Services.Configuration;
-using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Services.Configuration;
+
+using Taskbar_Customizer.Helpers.Helpers.Application;
 
 /// <summary>
 /// Code-Behind for App.xaml.

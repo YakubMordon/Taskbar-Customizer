@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml;
 using Taskbar_Customizer;
 using Taskbar_Customizer.Contracts.Services.Configuration;
 using Taskbar_Customizer.Contracts.Services.Taskbar;
+
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 
 /// <summary>

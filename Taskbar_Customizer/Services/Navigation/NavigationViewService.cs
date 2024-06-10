@@ -6,8 +6,9 @@ using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.UI.Xaml.Controls;
 using Taskbar_Customizer.ViewModels;
-using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Contracts.Services.Navigation;
+
+using Taskbar_Customizer.Helpers.Helpers.Application;
 
 /// <summary>
 /// Service for managing navigation within a NavigationView control.

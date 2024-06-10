@@ -1,6 +1,12 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using Taskbar_Customizer.Core.Helpers;
+
 namespace Taskbar_Customizer.Helpers.Extensions.Resource;
+
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 using Taskbar_Customizer.Helpers.Helpers;
 

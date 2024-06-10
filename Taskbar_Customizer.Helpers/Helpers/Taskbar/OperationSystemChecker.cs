@@ -2,6 +2,8 @@
 
 namespace Taskbar_Customizer.Helpers.Helpers.Taskbar;
 
+using System;
+
 /// <summary>
 /// Class for checking operating system.
 /// </summary>

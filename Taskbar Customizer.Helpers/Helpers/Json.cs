@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Helpers.Helpers;
+namespace Taskbar_Customizer.Core.Helpers;
 
 using Newtonsoft.Json;
 

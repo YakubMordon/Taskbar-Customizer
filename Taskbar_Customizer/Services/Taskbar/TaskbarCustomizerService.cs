@@ -11,7 +11,8 @@ using Taskbar_Customizer.Contracts.Services.Taskbar;
 
 using Taskbar_Customizer.Services.Configuration;
 
-using Taskbar_Customizer.Helpers.Helpers;
+using Taskbar_Customizer.Core.Helpers;
+
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 
 using Windows.UI;

@@ -3,6 +3,7 @@
 namespace Taskbar_Customizer.Helpers.Helpers.Application;
 
 using CommunityToolkit.WinUI.Notifications;
+
 using Microsoft.Windows.AppNotifications;
 
 /// <summary>

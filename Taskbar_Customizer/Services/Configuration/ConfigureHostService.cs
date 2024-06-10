@@ -15,7 +15,7 @@ using Taskbar_Customizer.Services.Taskbar;
 using Taskbar_Customizer.Services.Navigation;
 using Taskbar_Customizer.Contracts.Services.Navigation;
 using Taskbar_Customizer.Contracts.Services.Configuration;
-using Taskbar_Customizer.Helpers.Services.Files;
+using Core.Services.Files;
 
 /// <summary>
 /// Static service for configurating host of application.

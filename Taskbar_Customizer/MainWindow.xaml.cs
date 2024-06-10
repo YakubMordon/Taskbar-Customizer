@@ -5,6 +5,7 @@ namespace Taskbar_Customizer;
 using Microsoft.UI.Dispatching;
 
 using Windows.UI.ViewManagement;
+
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 using Taskbar_Customizer.Helpers.Extensions.Resource;
 

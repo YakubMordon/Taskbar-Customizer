@@ -14,7 +14,6 @@ using Taskbar_Customizer.Contracts.Services.Taskbar;
 
 using Taskbar_Customizer.Helpers.Extensions.Resource;
 using Taskbar_Customizer.Helpers.Extensions.UI;
-
 using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 
