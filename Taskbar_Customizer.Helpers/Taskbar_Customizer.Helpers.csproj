@@ -30,5 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Taskbar_Customizer.Core\Taskbar_Customizer.Core.csproj" />
+    <ProjectReference Include="..\Taskbar_Customizer.Resources\Taskbar_Customizer.Resources.csproj" />
   </ItemGroup>
 </Project>

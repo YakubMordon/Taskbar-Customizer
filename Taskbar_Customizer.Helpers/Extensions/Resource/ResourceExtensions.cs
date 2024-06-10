@@ -9,7 +9,7 @@ using Windows.ApplicationModel.Resources;
 /// </summary>
 public static class ResourceExtensions
 {
-    private static readonly ResourceLoader Loader = new ();
+    private static readonly ResourceLoader Loader = ResourceLoader.GetForViewIndependentUse("Taskbar_Customizer.Resources/Resources");
 
     /// <summary>
     /// Method for getting the localized string corresponding to the specified resource key.
