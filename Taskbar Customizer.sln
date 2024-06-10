@@ -18,7 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taskbar_Customizer.Helpers"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taskbar_Customizer.Core", "Taskbar_Customizer.Core\Taskbar_Customizer.Core.csproj", "{839831AD-5B18-4012-9AD6-C39756AFA53E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskbar_Customizer.Resources", "Taskbar_Customizer.Resources\Taskbar_Customizer.Resources.csproj", "{BA6BE020-A6A7-4C95-B792-39A8E4F26C26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taskbar_Customizer.Resources", "Taskbar_Customizer.Resources\Taskbar_Customizer.Resources.csproj", "{BA6BE020-A6A7-4C95-B792-39A8E4F26C26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskbar_Customizer.ViewModels", "Taskbar_Customizer.ViewModels\Taskbar_Customizer.ViewModels.csproj", "{9B13D78C-45A9-4296-988D-566A2A73880E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -164,6 +166,26 @@ Global
 		{BA6BE020-A6A7-4C95-B792-39A8E4F26C26}.Release|x64.Build.0 = Release|Any CPU
 		{BA6BE020-A6A7-4C95-B792-39A8E4F26C26}.Release|x86.ActiveCfg = Release|Any CPU
 		{BA6BE020-A6A7-4C95-B792-39A8E4F26C26}.Release|x86.Build.0 = Release|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Debug|ARM.Build.0 = Debug|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Debug|arm64.Build.0 = Debug|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Debug|x64.Build.0 = Debug|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Debug|x86.Build.0 = Debug|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Release|ARM.Build.0 = Release|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Release|arm64.ActiveCfg = Release|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Release|arm64.Build.0 = Release|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Release|x64.ActiveCfg = Release|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Release|x64.Build.0 = Release|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Release|x86.ActiveCfg = Release|Any CPU
+		{9B13D78C-45A9-4296-988D-566A2A73880E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

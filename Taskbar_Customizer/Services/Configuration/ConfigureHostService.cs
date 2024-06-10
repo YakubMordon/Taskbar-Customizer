@@ -13,6 +13,8 @@ using Taskbar_Customizer.Views;
 using Taskbar_Customizer.Services.Taskbar;
 using Taskbar_Customizer.Services.Navigation;
 
+using Taskbar_Customizer.Core.Activation;
+
 using Taskbar_Customizer.Core.Contracts.Services.Navigation;
 using Taskbar_Customizer.Core.Contracts.Services.Configuration;
 using Taskbar_Customizer.Core.Services.Files;

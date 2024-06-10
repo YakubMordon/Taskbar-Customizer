@@ -6,6 +6,8 @@ using Microsoft.UI.Xaml;
 
 using Taskbar_Customizer.ViewModels;
 
+using Taskbar_Customizer.Core.Activation;
+
 using Taskbar_Customizer.Core.Contracts.Services.Navigation;
 
 /// <summary>

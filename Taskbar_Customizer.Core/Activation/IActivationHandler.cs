@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Activation;
+namespace Taskbar_Customizer.Core.Activation;
 
 /// <summary>
 /// Contract for activation handlers.

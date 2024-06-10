@@ -6,8 +6,9 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 using Taskbar_Customizer;
-using Taskbar_Customizer.Activation;
 using Taskbar_Customizer.Views;
+
+using Taskbar_Customizer.Core.Activation;
 
 using Taskbar_Customizer.Core.Contracts.Services.Configuration;
 using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
