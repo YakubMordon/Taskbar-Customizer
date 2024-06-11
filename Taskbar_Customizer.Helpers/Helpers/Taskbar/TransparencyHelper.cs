@@ -35,12 +35,10 @@ public static class TransparencyHelper
 
             if (isTransparent)
             {
-                // Restore border style
                 style |= User32Interop.WS_BORDER;
             }
             else
             {
-                // Remove border style
                 style &= ~User32Interop.WS_BORDER;
             }
 
