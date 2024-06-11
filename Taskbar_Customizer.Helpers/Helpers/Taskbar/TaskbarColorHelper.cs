@@ -35,9 +35,16 @@ public static class TaskbarColorHelper
 
         var taskbarHandle = User32Interop.FindWindow("Shell_TrayWnd", null);
 
+        var secondaryTaskbarHandle = User32Interop.FindWindow("Shell_SecondaryTrayWnd", null);
+
         if (taskbarHandle != nint.Zero)
         {
             User32Interop.SetWindowCompositionAttribute(taskbarHandle, ref data);
+        }
+
+        if (secondaryTaskbarHandle != nint.Zero)
+        {
+            User32Interop.SetWindowCompositionAttribute(secondaryTaskbarHandle, ref data);
         }
 
         Marshal.FreeHGlobal(data.Data);
