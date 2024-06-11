@@ -2,6 +2,7 @@
 
 namespace Taskbar_Customizer.Helpers.Helpers.Native;
 
+using System;
 using System.Runtime.InteropServices;
 
 /// <summary>
@@ -9,11 +10,16 @@ using System.Runtime.InteropServices;
 /// </summary>
 public static class User32Interop
 {
+    public const int GWL_STYLE = -16;
     public const int GWL_EXSTYLE = -20;
-    public const int WS_EX_LAYERED = 0x80000;
-    public const int LWA_ALPHA = 0x2;
-
-    public const uint TransparencyColor = 0x000000;
+    public const int WS_BORDER = 0x00800000;
+    public const int WS_CAPTION = 0x00C00000;
+    public const int WS_THICKFRAME = 0x00040000;
+    public const int SWP_FRAMECHANGED = 0x0020;
+    public const int SWP_NOSIZE = 0x0001;
+    public const int SWP_NOMOVE = 0x0002;
+    public const int SWP_NOZORDER = 0x0004;
+    public const int SWP_NOACTIVATE = 0x0010;
 
     public enum WindowCompositionAttribute
     {
@@ -29,8 +35,9 @@ public static class User32Interop
     [DllImport("user32.dll", SetLastError = true)]
     public static extern int GetWindowLong(nint hWnd, int nIndex);
 
-    [DllImport("user32.dll", SetLastError = true)]
-    public static extern int SetLayeredWindowAttributes(nint hWnd, uint crKey, byte bAlpha, uint dwFlags);
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     public static extern nint SendMessage(nint hWnd, int msg, int wParam, nint lParam);

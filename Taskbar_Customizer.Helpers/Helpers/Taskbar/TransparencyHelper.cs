@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-using System;
-
 namespace Taskbar_Customizer.Helpers.Helpers.Taskbar;
+
+using System;
 
 using Taskbar_Customizer.Helpers.Helpers.Native;
 
@@ -30,15 +30,23 @@ public static class TransparencyHelper
     {
         if (handle != nint.Zero)
         {
+            var style = User32Interop.GetWindowLong(handle, User32Interop.GWL_STYLE);
+            var exStyle = User32Interop.GetWindowLong(handle, User32Interop.GWL_EXSTYLE);
+
             if (isTransparent)
             {
-                User32Interop.SetWindowLong(handle, User32Interop.GWL_EXSTYLE, User32Interop.GetWindowLong(handle, User32Interop.GWL_EXSTYLE) | User32Interop.WS_EX_LAYERED);
-                User32Interop.SetLayeredWindowAttributes(handle, User32Interop.TransparencyColor, 128, User32Interop.LWA_ALPHA);
+                // Restore border style
+                style |= User32Interop.WS_BORDER;
             }
             else
             {
-                User32Interop.SetWindowLong(handle, User32Interop.GWL_EXSTYLE, User32Interop.GetWindowLong(handle, User32Interop.GWL_EXSTYLE) & ~User32Interop.WS_EX_LAYERED);
+                // Remove border style
+                style &= ~User32Interop.WS_BORDER;
             }
+
+            User32Interop.SetWindowLong(handle, User32Interop.GWL_STYLE, style);
+            User32Interop.SetWindowLong(handle, User32Interop.GWL_EXSTYLE, exStyle);
+            User32Interop.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0, User32Interop.SWP_NOMOVE | User32Interop.SWP_NOSIZE | User32Interop.SWP_NOZORDER | User32Interop.SWP_NOACTIVATE | User32Interop.SWP_FRAMECHANGED);
         }
     }
 }
