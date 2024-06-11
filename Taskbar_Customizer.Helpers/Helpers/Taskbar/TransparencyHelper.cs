@@ -32,13 +32,11 @@ public static class TransparencyHelper
         {
             if (isTransparent)
             {
-                // Set the alpha value to 0 to make the taskbar fully transparent
                 User32Interop.SetWindowLong(handle, User32Interop.GWL_EXSTYLE, User32Interop.GetWindowLong(handle, User32Interop.GWL_EXSTYLE) | User32Interop.WS_EX_LAYERED);
                 User32Interop.SetLayeredWindowAttributes(handle, User32Interop.TransparencyColor, 128, User32Interop.LWA_ALPHA);
             }
             else
             {
-                // Remove the layered attribute to restore the taskbar to its default appearance
                 User32Interop.SetWindowLong(handle, User32Interop.GWL_EXSTYLE, User32Interop.GetWindowLong(handle, User32Interop.GWL_EXSTYLE) & ~User32Interop.WS_EX_LAYERED);
             }
         }

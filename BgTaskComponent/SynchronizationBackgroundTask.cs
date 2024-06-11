@@ -27,7 +27,7 @@ public sealed class SynchronizationBackgroundTask : IBackgroundTask
         taskInstance.Canceled += OnTaskCanceled;
 
         var details = taskInstance.TriggerDetails as AppServiceTriggerDetails;
-        connection = details.AppServiceConnection;
+        connection = details?.AppServiceConnection ?? new AppServiceConnection();
         connection.RequestReceived += OnRequestReceived;
     }
 
