@@ -35,9 +35,6 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.61.3" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240428000">
-      <TreatAsUsed>true</TreatAsUsed>
-    </PackageReference>
     <PackageReference Include="Scrutor" Version="4.2.2" />
     <PackageReference Include="WinUIEx" Version="2.3.4" />
   </ItemGroup>
