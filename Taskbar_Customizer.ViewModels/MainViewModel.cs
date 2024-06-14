@@ -91,6 +91,8 @@ public class MainViewModel : ObservableRecipient
         {
             if (this.SetProperty(ref this.isTaskbarTransparent, value))
             {
+                this.ResetColor();
+
                 this.taskbarCustomizerService.SetTaskbarTransparent(this.isTaskbarTransparent);
 
                 this.synchronizationService.CallSyncService("Transparency", JsonConvert.SerializeObject(this.isTaskbarTransparent));
@@ -167,11 +169,21 @@ public class MainViewModel : ObservableRecipient
 
     private void ResetColorRelated()
     {
-        var color = SystemColors.MenuBar.ToUIColor();
+        this.ResetColor();
 
-        this.TaskbarColor = color;
+        this.ResetTransparency();
+    }
 
-        this.IsTaskbarTransparent = color.Transparent();
+    private void ResetColor()
+    {
+        this.TaskbarColor = SystemColors.MenuBar.ToUIColor();
+    }
+
+    private void ResetTransparency()
+    {
+        this.IsTaskbarTransparent = SystemColors.MenuBar
+                                        .ToUIColor()
+                                        .Transparent();
     }
 
     private void ResetStartButtons()
