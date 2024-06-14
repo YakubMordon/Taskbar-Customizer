@@ -13,8 +13,7 @@ public static class User32Interop
     public const int GWL_STYLE = -16;
     public const int GWL_EXSTYLE = -20;
     public const int WS_BORDER = 0x00800000;
-    public const int WS_CAPTION = 0x00C00000;
-    public const int WS_THICKFRAME = 0x00040000;
+
     public const int SWP_FRAMECHANGED = 0x0020;
     public const int SWP_NOSIZE = 0x0001;
     public const int SWP_NOMOVE = 0x0002;
