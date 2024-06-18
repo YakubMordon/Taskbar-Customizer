@@ -48,7 +48,7 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-          <desktop:Extension Category="windows.toastNotificationActivation">
+	      <desktop:Extension Category="windows.toastNotificationActivation">
               <desktop:ToastNotificationActivation ToastActivatorCLSID="c4b643d1-0035-452c-9f6a-2049d3eb0d62" />
           </desktop:Extension>
 
@@ -82,6 +82,7 @@
 	
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
+    <rescap:Capability Name="allowElevation" />
     <iot:Capability Name="systemManagement"/>
     <uap3:Capability Name="userNotificationListener"/>
     <uap:Capability Name="userAccountInformation"/>
