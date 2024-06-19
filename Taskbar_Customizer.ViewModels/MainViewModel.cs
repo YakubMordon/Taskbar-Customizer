@@ -2,6 +2,7 @@
 
 namespace Taskbar_Customizer.ViewModels;
 
+using System;
 using System.Drawing;
 using System.Windows.Input;
 
@@ -21,7 +22,6 @@ using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Helpers.Helpers.Taskbar;
 
 using Color = Windows.UI.Color;
-using System;
 
 /// <summary>
 /// ViewModel for Main Page.
@@ -176,12 +176,14 @@ public class MainViewModel : ObservableRecipient
 
     private void ResetColor()
     {
-        this.TaskbarColor = SystemColors.Window.ToUIColor();
+        var isLightThemeEnabled = Application.Current.RequestedTheme == ApplicationTheme.Light;
+
+        this.TaskbarColor = isLightThemeEnabled ? SystemColors.ControlLight.ToUIColor() : SystemColors.ControlDark.ToUIColor();
     }
 
-    private void ResetTransparency()
+    private void ResetTransparency() 
     {
-        this.IsTaskbarTransparent = SystemColors.Window
+        this.IsTaskbarTransparent = SystemColors.MenuBar
                                         .ToUIColor()
                                         .Transparent();
     }

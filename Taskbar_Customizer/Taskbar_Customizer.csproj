@@ -27,7 +27,7 @@
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
     <AppInstallerUri>D:\WorkProj</AppInstallerUri>
-    <PackageCertificateThumbprint>FAF999CA89D9810E689CB0C3E770B0B6594016B1</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>DD024EB35BAE27C74B9C627847F080014DBE587B</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="stylecop.json" />
