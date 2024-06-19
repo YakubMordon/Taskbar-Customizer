@@ -42,6 +42,9 @@ public static class User32Interop
     public static extern nint SendMessage(nint hWnd, int msg, int wParam, nint lParam);
 
     [DllImport("user32.dll")]
+    public static extern bool SetProcessDpiAwarenessContext(int dpiFlag);
+
+    [DllImport("user32.dll")]
     public static extern int SetWindowCompositionAttribute(nint hwnd, ref WINDOWCOMPOSITIONATTRIBDATA data);
 
     [DllImport("user32.dll")]

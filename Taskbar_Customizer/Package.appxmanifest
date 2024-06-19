@@ -15,7 +15,7 @@
   <Identity
     Name="52723aee-9784-4ec5-b3c4-8db2797d13e5"
     Publisher="CN=kuba0"
-    Version="1.0.2.0" />
+    Version="1.0.4.0" />
     
   <mp:PhoneIdentity PhoneProductId="52723aee-9784-4ec5-b3c4-8db2797d13e5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
     

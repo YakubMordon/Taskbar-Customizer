@@ -176,12 +176,12 @@ public class MainViewModel : ObservableRecipient
 
     private void ResetColor()
     {
-        this.TaskbarColor = SystemColors.MenuBar.ToUIColor();
+        this.TaskbarColor = SystemColors.Window.ToUIColor();
     }
 
     private void ResetTransparency()
     {
-        this.IsTaskbarTransparent = SystemColors.MenuBar
+        this.IsTaskbarTransparent = SystemColors.Window
                                         .ToUIColor()
                                         .Transparent();
     }

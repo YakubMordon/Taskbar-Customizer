@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using Taskbar_Customizer.Helpers.Helpers.Native;
+
 namespace Taskbar_Customizer;
 
 using System.Diagnostics;
@@ -25,6 +27,8 @@ public partial class App : Application
     /// </summary>
     public App()
     {
+        User32Interop.SetProcessDpiAwarenessContext(-4);
+
         this.InitializeComponent();
 
         NotificationManager.Initialize();
