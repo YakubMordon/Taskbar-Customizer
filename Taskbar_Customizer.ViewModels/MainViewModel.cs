@@ -74,7 +74,7 @@ public class MainViewModel : ObservableRecipient
         {
             if (this.SetProperty(ref this.taskbarColor, value))
             {
-                this.taskbarColor.A = (byte)(this.isTaskbarTransparent ? 128 : 255);
+                this.taskbarColor.A = (byte)(this.isTaskbarTransparent ? 1 : 255);
                 this.debounceTimer.Stop();
                 this.debounceTimer.Start();
             }

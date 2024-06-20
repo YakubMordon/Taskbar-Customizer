@@ -4,6 +4,8 @@ namespace Taskbar_Customizer.Helpers.Helpers.Taskbar;
 
 using System.Runtime.InteropServices;
 
+using Taskbar_Customizer.Helpers.Extensions.UI;
+
 using Taskbar_Customizer.Helpers.Helpers.Native;
 
 using Windows.UI;
@@ -21,7 +23,7 @@ public static class TaskbarColorHelper
     {
         var accentPolicy = default(User32Interop.ACCENT_POLICY);
 
-        accentPolicy.nColor = color.A << 24 | color.B << 16 | color.G << 8 | color.R;
+        accentPolicy.nColor = color.ToABGR();
         accentPolicy.nAccentState = 2;
         accentPolicy.nFlags = 2;
 

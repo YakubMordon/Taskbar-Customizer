@@ -71,4 +71,20 @@ public static class User32Interop
 
         public int SizeOfData;
     }
+
+    public const int WS_EX_LAYERED = 0x80000;
+    public const int LWA_ALPHA = 0x2;
+
+    public const uint TransparencyColor = 0x000000;
+
+    public const int ACCENT_DISABLED = 0;
+    public const int ACCENT_ENABLE_GRADIENT = 1;
+    public const int ACCENT_ENABLE_TRANSPARENTGRADIENT = 2;
+    public const int ACCENT_ENABLE_BLURBEHIND = 3;
+    public const int ACCENT_ENABLE_ACRYLICBLURBEHIND = 4;
+    public const int ACCENT_ENABLE_HOSTBACKDROP = 5;
+    public const int ACCENT_ENABLE_ACRYLIC = 6;
+
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern int SetLayeredWindowAttributes(IntPtr hWnd, uint crKey, byte bAlpha, uint dwFlags);
 }
