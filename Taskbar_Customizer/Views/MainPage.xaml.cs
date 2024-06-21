@@ -43,6 +43,8 @@ public sealed partial class MainPage : Page
     private void UpdateColorPicker()
     {
         this.ColorPickerTextBlock.Text = "ColorPicker".GetLocalized();
+
+        this.ColorPickerStateTextBlock.Text = "ColorPickerStateTextBlock".GetLocalized();
     }
 
     private void UpdateTransparency()

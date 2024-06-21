@@ -123,9 +123,6 @@
   <data name="AppDescription" xml:space="preserve">
     <value>Taskbar Customizer</value>
   </data>
-  <data name="Main" xml:space="preserve">
-    <value>Main</value>
-  </data>
   <data name="About" xml:space="preserve">
     <value>About this application</value>
   </data>
@@ -141,35 +138,17 @@ This program can:
   <data name="ColorPicker" xml:space="preserve">
     <value>Color of Taskbar</value>
   </data>
+  <data name="ColorPickerStateTextBlock" xml:space="preserve">
+    <value>Color Picker is disabled</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
   <data name="LanguageWarning" xml:space="preserve">
     <value>Restart application to update interface</value>
   </data>
-  <data name="Personalization" xml:space="preserve">
-    <value>Personalization</value>
-  </data>
-  <data name="PrivacyTerms" xml:space="preserve">
-    <value>Privacy Statement</value>
-  </data>
-  <data name="Reset" xml:space="preserve">
-    <value>Reset Taskbar settings to default</value>
-  </data>
-  <data name="ResetButton" xml:space="preserve">
-    <value>Reset</value>
-  </data>
-  <data name="Start" xml:space="preserve">
-    <value>Position of Windows Button</value>
-  </data>
-  <data name="StartCenter" xml:space="preserve">
-    <value>Center</value>
-  </data>
-  <data name="StartLeft" xml:space="preserve">
-    <value>Left</value>
-  </data>
-  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>https://YourPrivacyUrlGoesHere/</value>
+  <data name="Main" xml:space="preserve">
+    <value>Main</value>
   </data>
   <data name="NotificationAlignmentChanged" xml:space="preserve">
     <value>Alignment of the Windows button was changed</value>
@@ -185,6 +164,30 @@ This program can:
   </data>
   <data name="NotificationTransparencyChanged" xml:space="preserve">
     <value>Transparency of the taskbar was changed</value>
+  </data>
+  <data name="Personalization" xml:space="preserve">
+    <value>Personalization</value>
+  </data>
+  <data name="PrivacyTerms" xml:space="preserve">
+    <value>Privacy Statement</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset Taskbar settings to default</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
+    <value>https://YourPrivacyUrlGoesHere/</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Position of Windows Button</value>
+  </data>
+  <data name="StartCenter" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="StartLeft" xml:space="preserve">
+    <value>Left</value>
   </data>
   <data name="Synchronization" xml:space="preserve">
     <value>Synchronization of Data</value>

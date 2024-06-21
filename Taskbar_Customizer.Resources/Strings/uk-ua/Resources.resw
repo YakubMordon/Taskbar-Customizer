@@ -123,9 +123,6 @@
   <data name="AppDescription" xml:space="preserve">
     <value>Налаштовувач панелі завдань</value>
   </data>
-  <data name="Main" xml:space="preserve">
-    <value>Головна</value>
-  </data>
   <data name="About" xml:space="preserve">
     <value>Про аплікацію</value>
   </data>
@@ -140,37 +137,16 @@
   <data name="ColorPicker" xml:space="preserve">
     <value>Колір панелі задач</value>
   </data>
+  <data name="ColorPickerStateTextBlock" xml:space="preserve">
+    <value>Вибір кольору вимкнено</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Мова</value>
   </data>
   <data name="LanguageWarning" xml:space="preserve">
     <value>Перезапустіть програму, щоб оновити мову інтерфейсу</value>
   </data>
-  <data name="Personalization" xml:space="preserve">
-    <value>Персоналізація</value>
-  </data>
-  <data name="PrivacyTerms" xml:space="preserve">
-    <value>Заява про конфіденційність</value>
-  </data>
-  <data name="Reset" xml:space="preserve">
-    <value>Скинути параметри панелі задач до фабричних</value>
-  </data>
-  <data name="ResetButton" xml:space="preserve">
-    <value>Скинути</value>
-  </data>
-  <data name="Start" xml:space="preserve">
-    <value>Положення кнопки 'Пуск'</value>
-  </data>
-  <data name="StartCenter" xml:space="preserve">
-    <value>Центр</value>
-  </data>
-  <data name="StartLeft" xml:space="preserve">
-    <value>Ліворуч</value>
-  </data>
-  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>https://YourPrivacyUrlGoesHere/</value>
-  </data>
-  <data name="Shell_Main.Content" xml:space="preserve">
+  <data name="Main" xml:space="preserve">
     <value>Головна</value>
   </data>
   <data name="NotificationAlignmentChanged" xml:space="preserve">
@@ -187,6 +163,33 @@
   </data>
   <data name="NotificationTransparencyChanged" xml:space="preserve">
     <value>Прозорість панелі завдань було змінено</value>
+  </data>
+  <data name="Personalization" xml:space="preserve">
+    <value>Персоналізація</value>
+  </data>
+  <data name="PrivacyTerms" xml:space="preserve">
+    <value>Заява про конфіденційність</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Скинути параметри панелі задач до фабричних</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>Скинути</value>
+  </data>
+  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
+    <value>https://YourPrivacyUrlGoesHere/</value>
+  </data>
+  <data name="Shell_Main.Content" xml:space="preserve">
+    <value>Головна</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Положення кнопки 'Пуск'</value>
+  </data>
+  <data name="StartCenter" xml:space="preserve">
+    <value>Центр</value>
+  </data>
+  <data name="StartLeft" xml:space="preserve">
+    <value>Ліворуч</value>
   </data>
   <data name="Synchronization" xml:space="preserve">
     <value>Синхронізація даних</value>
