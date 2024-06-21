@@ -65,6 +65,8 @@ public sealed partial class SettingsPage : Page
     {
         this.Synchronization.Text = "Synchronization".GetLocalized();
 
+        this.SynchronizationDescription.Text = "SynchronizationDescription".GetLocalized();
+
         this.SynchronizationSwitch.OnContent = "SynchronizationSwitchOn".GetLocalized();
         this.SynchronizationSwitch.OffContent = "SynchronizationSwitchOff".GetLocalized();
     }
