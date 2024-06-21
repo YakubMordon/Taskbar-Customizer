@@ -74,7 +74,6 @@ public class MainViewModel : ObservableRecipient
         {
             if (this.SetProperty(ref this.taskbarColor, value))
             {
-                this.taskbarColor.A = (byte)(this.isTaskbarTransparent ? 1 : 255);
                 this.debounceTimer.Stop();
                 this.debounceTimer.Start();
             }
@@ -91,8 +90,6 @@ public class MainViewModel : ObservableRecipient
         {
             if (this.SetProperty(ref this.isTaskbarTransparent, value))
             {
-                this.ResetColor();
-
                 this.taskbarCustomizerService.SetTaskbarTransparent(this.isTaskbarTransparent);
 
                 this.synchronizationService.CallSyncService("Transparency", JsonConvert.SerializeObject(this.isTaskbarTransparent));
