@@ -179,9 +179,6 @@
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
   </data>
-  <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Головна</value>
-  </data>
   <data name="Start" xml:space="preserve">
     <value>Положення кнопки 'Пуск'</value>
   </data>
@@ -198,10 +195,10 @@
     <value>Ця функція дозволяє синхронізувати між пристроями опції панелі завдань.</value>
   </data>
   <data name="SynchronizationSwitchOff" xml:space="preserve">
-    <value>Викл.</value>
+    <value>Викл</value>
   </data>
   <data name="SynchronizationSwitchOn" xml:space="preserve">
-    <value>Вкл.</value>
+    <value>Вкл</value>
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Тема</value>
