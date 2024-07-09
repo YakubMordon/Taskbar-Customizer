@@ -11,9 +11,9 @@ using Microsoft.Win32;
 /// </summary>
 public static class TaskbarAlignmentHelper
 {
-    private const string REGISTRY_KEY_PATH = @"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+    private const string REGISTRYKEYPATH = @"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 
-    private const string REGISTRY_VALUE_NAME = "TaskbarAl";
+    private const string REGISTRYVALUENAME = "TaskbarAl";
 
     /// <summary>
     /// Method for setting taskbar alignment.
@@ -21,13 +21,13 @@ public static class TaskbarAlignmentHelper
     /// <param name="isCentered">Indicates whether taskbar alignment is center.</param>
     public static void SetTaskbarAlignment(bool isCentered)
     {
-        using var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY_PATH, true);
+        using var key = Registry.CurrentUser.OpenSubKey(REGISTRYKEYPATH, true);
 
         if (key is not null)
         {
             var value = isCentered ? 1 : 0;
 
-            key.SetValue(REGISTRY_VALUE_NAME, value, RegistryValueKind.DWord);
+            key.SetValue(REGISTRYVALUENAME, value, RegistryValueKind.DWord);
         }
     }
 }

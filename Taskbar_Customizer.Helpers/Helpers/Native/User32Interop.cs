@@ -106,8 +106,8 @@ public static class User32Interop
     /// </summary>
     /// <param name="hWnd">A handle to the window whose window procedure will receive the message.</param>
     /// <param name="msg">The message to be sent.</param>
-    /// <param name="wParam">Additional message-specific information.</param>
-    /// <param name="lParam">Additional message-specific information.</param>
+    /// <param name="wParam">Additional message-specific information (wParam).</param>
+    /// <param name="lParam">Additional message-specific information (lParam).</param>
     /// <returns>The result of the message processing; it depends on the message sent.</returns>
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     public static extern nint SendMessage(nint hWnd, int msg, int wParam, nint lParam);
@@ -148,22 +148,22 @@ public static class User32Interop
         /// <summary>
         /// The accent state.
         /// </summary>
-        public int nAccentState;
+        public int AccentState;
 
         /// <summary>
         /// Flags for the accent policy.
         /// </summary>
-        public int nFlags;
+        public int Flags;
 
         /// <summary>
         /// The color value.
         /// </summary>
-        public int nColor;
+        public int Color;
 
         /// <summary>
         /// The animation ID.
         /// </summary>
-        public int nAnimationId;
+        public int AnimationId;
     }
 
     /// <summary>

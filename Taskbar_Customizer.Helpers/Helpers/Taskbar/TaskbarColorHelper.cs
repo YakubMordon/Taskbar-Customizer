@@ -23,9 +23,9 @@ public static class TaskbarColorHelper
     {
         var accentPolicy = default(User32Interop.AccentPolicy);
 
-        accentPolicy.nColor = color.ToABGR();
-        accentPolicy.nAccentState = 2;
-        accentPolicy.nFlags = 2;
+        accentPolicy.Color = color.ToABGR();
+        accentPolicy.AccentState = 2;
+        accentPolicy.Flags = 2;
 
         var data = default(User32Interop.Windowcompositionattribdata);
 
@@ -34,7 +34,7 @@ public static class TaskbarColorHelper
         data.Data = Marshal.AllocHGlobal(data.SizeOfData);
 
         Marshal.StructureToPtr(accentPolicy, data.Data, false);
-        
+
         var taskbarHandle = User32Interop.FindWindow("Shell_TrayWnd", null);
 
         var secondaryTaskbarHandle = User32Interop.FindWindow("Shell_SecondaryTrayWnd", null);

@@ -16,7 +16,7 @@ using Windows.Storage.Streams;
 /// </summary>
 public static class SettingsStorageExtensions
 {
-    private const string FILE_EXTENSION = ".json";
+    private const string FILEEXTENSION = ".json";
 
     /// <summary>
     /// Method, which checks if roaming storage is available based on the roaming storage quota.
@@ -161,21 +161,20 @@ public static class SettingsStorageExtensions
     /// <returns>A Task representing the asynchronous operation. The byte array content of the file, or null if the file does not exist or is not accessible.</returns>
     public static async Task<byte[]> ReadBytesAsync(this StorageFile file)
     {
-        using (IRandomAccessStream stream = await file.OpenReadAsync())
-        using (var reader = new DataReader(stream.GetInputStreamAt(0)))
-        {
-            await reader.LoadAsync((uint)stream.Size);
+        using IRandomAccessStream stream = await file.OpenReadAsync();
+        using var reader = new DataReader(stream.GetInputStreamAt(0));
 
-            var bytes = new byte[stream.Size];
+        await reader.LoadAsync((uint)stream.Size);
 
-            reader.ReadBytes(bytes);
+        var bytes = new byte[stream.Size];
 
-            return bytes;
-        }
+        reader.ReadBytes(bytes);
+
+        return bytes;
     }
 
     private static string GetFileName(string name)
     {
-        return string.Concat(name, FILE_EXTENSION);
+        return string.Concat(name, FILEEXTENSION);
     }
 }

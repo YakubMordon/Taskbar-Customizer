@@ -32,7 +32,7 @@ public partial class MainViewModel : ObservableRecipient
 
     private readonly SynchronizationService synchronizationService;
 
-    private readonly DispatcherTimer debounceTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300), };
+    private readonly DispatcherTimer debounceTimer = new () { Interval = TimeSpan.FromMilliseconds(300), };
 
     [ObservableProperty]
     private Color taskbarColor;
