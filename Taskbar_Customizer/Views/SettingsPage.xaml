@@ -10,72 +10,74 @@
     <Page.Resources>
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </Page.Resources>
-    <Grid>
-        <StackPanel x:Name="ContentArea">
-            <TextBlock x:Name="Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
-                <TextBlock x:Name="Theme" />
+    <Grid Margin="0 0 0 20">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="ContentArea">
+                <TextBlock x:Name="Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                    <TextBlock x:Name="Theme" />
+
+                    <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                        <RadioButton
+                            x:Name="ThemeLight"
+                            Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="AppTheme">
+                            <RadioButton.CommandParameter>
+                                <xaml:ElementTheme>Light</xaml:ElementTheme>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        <RadioButton
+                            x:Name="ThemeDark"
+                            Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="AppTheme">
+                            <RadioButton.CommandParameter>
+                                <xaml:ElementTheme>Dark</xaml:ElementTheme>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        <RadioButton
+                            x:Name="ThemeDefault"
+                            Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="AppTheme">
+                            <RadioButton.CommandParameter>
+                                <xaml:ElementTheme>Default</xaml:ElementTheme>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock x:Name="Synchronization" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                <StackPanel Orientation="Vertical" Margin="{StaticResource SmallTopBottomMargin}">
+                    <TextBlock x:Name="SynchronizationDescription" Style="{ThemeResource BodyTextBlockStyle}"/>
+                    <ToggleSwitch x:Name="SynchronizationSwitch" IsOn="{x:Bind ViewModel.IsSynchronizationOn, Mode=TwoWay}" Margin="0,10,0,0" />
+                </StackPanel>
+
+                <TextBlock x:Name="Language" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                <StackPanel Orientation="Vertical" Margin="{StaticResource SmallTopBottomMargin}">
+                    <TextBlock x:Name="LanguageWarning" TextWrapping="Wrap"
+                               Style="{ThemeResource ErrorTextBlockStyle}" />
+
+                    <ComboBox Width="150" ItemsSource="{x:Bind ViewModel.Languages}"
+                              SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}" />
+                </StackPanel>
+
+                <TextBlock x:Name="About" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                    <RadioButton
-                        x:Name="ThemeLight"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Light</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                    <RadioButton
-                        x:Name="ThemeDark"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Dark</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                    <RadioButton
-                        x:Name="ThemeDefault"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Default</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
+                    <TextBlock x:Name="AboutVersion" Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" Style="{ThemeResource BodyTextBlockStyle}" />
+
+                    <TextBlock
+                        x:Name="AboutDescription"
+                        Margin="{StaticResource XSmallTopMargin}"
+                        Style="{ThemeResource BodyTextBlockStyle}" />
+                    <HyperlinkButton x:Name="PrivacyTerms" x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
                 </StackPanel>
             </StackPanel>
-
-            <TextBlock x:Name="Synchronization" Style="{ThemeResource SubtitleTextBlockStyle}"/>
-            <StackPanel Orientation="Vertical" Margin="{StaticResource SmallTopBottomMargin}">
-                <TextBlock x:Name="SynchronizationDescription" Style="{ThemeResource BodyTextBlockStyle}"/>
-                <ToggleSwitch x:Name="SynchronizationSwitch" IsOn="{x:Bind ViewModel.IsSynchronizationOn, Mode=TwoWay}" Margin="0,10,0,0" />
-            </StackPanel>
-
-            <TextBlock x:Name="Language" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Orientation="Horizontal" Margin="{StaticResource SmallTopBottomMargin}">
-                <ComboBox Width="200" ItemsSource="{x:Bind ViewModel.Languages}"
-                          SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}" />
-
-                <TextBlock x:Name="LanguageWarning" 
-                           Style="{ThemeResource ErrorTextBlockStyle}" />
-            </StackPanel>
-
-            <TextBlock x:Name="About" Style="{ThemeResource SubtitleTextBlockStyle}" />
-
-            <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                <TextBlock x:Name="AboutVersion" Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" Style="{ThemeResource BodyTextBlockStyle}" />
-
-                <TextBlock
-                    x:Name="AboutDescription"
-                    Margin="{StaticResource XSmallTopMargin}"
-                    Style="{ThemeResource BodyTextBlockStyle}" />
-                <HyperlinkButton x:Name="PrivacyTerms" x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
-            </StackPanel>
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
