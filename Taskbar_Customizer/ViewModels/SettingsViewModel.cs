@@ -5,7 +5,6 @@ namespace Taskbar_Customizer.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Reflection;
-using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -35,8 +34,10 @@ public partial class SettingsViewModel : ObservableRecipient
     [ObservableProperty]
     private string versionDescription;
 
+    [ObservableProperty]
     private string selectedLanguage;
 
+    [ObservableProperty]
     private bool isSynchronizationOn;
 
     /// <summary>
@@ -57,63 +58,12 @@ public partial class SettingsViewModel : ObservableRecipient
         this.IsSynchronizationOn = SynchronizationService.IsSynchronizable;
 
         this.selectedLanguage = LanguageHelper.GetCurrentLanguage();
-
-        this.SwitchThemeCommand = new RelayCommand<ElementTheme>(this.SwitchTheme);
     }
 
     /// <summary>
     /// Gets collection of available languages in app.
     /// </summary>
     public ObservableCollection<string> Languages { get; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether indicates whether synchronization is on.
-    /// </summary>
-    public bool IsSynchronizationOn
-    {
-        get => this.isSynchronizationOn;
-        set
-        {
-            if (this.SetProperty(ref this.isSynchronizationOn, value))
-            {
-                this.taskbarCustomizerService.SetSynchronization(value);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets selected language of the app.
-    /// </summary>
-    public string SelectedLanguage
-    {
-        get => this.selectedLanguage;
-        set
-        {
-            if (this.SetProperty(ref this.selectedLanguage, value))
-            {
-                this.UpdateLanguage();
-                NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationLanguageChanged".GetLocalized());
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets the command to switch the app theme.
-    /// </summary>
-    public ICommand SwitchThemeCommand
-    {
-        get;
-    }
-
-    /// <summary>
-    /// Method for updating language in application.
-    /// </summary>
-    public void UpdateLanguage()
-    {
-        LanguageHelper.SetCurrentLanguage(this.selectedLanguage);
-
-        ((MainWindow)App.MainWindow).OnLanguageChanged();
-    }
 
     /// <summary>
     /// Method for updating version description.
@@ -134,7 +84,8 @@ public partial class SettingsViewModel : ObservableRecipient
         return $"{"AppDisplayName".GetLocalized()} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
     }
 
-    private async void SwitchTheme(ElementTheme theme)
+    [RelayCommand]
+    private async Task SwitchTheme(ElementTheme theme)
     {
         if (this.ElementTheme != theme)
         {
@@ -144,5 +95,27 @@ public partial class SettingsViewModel : ObservableRecipient
 
             NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationThemeChanged".GetLocalized());
         }
+    }
+
+    /// <summary>
+    /// Method, which executes when <see cref="IsSynchronizationOn"/> is changed.
+    /// </summary>
+    /// <param name="value">Value, on which it's changed to.</param>
+    partial void OnIsSynchronizationOnChanged(bool value)
+    {
+        this.taskbarCustomizerService.SetSynchronization(value);
+    }
+
+    /// <summary>
+    /// Method, which executes when <see cref="SelectedLanguage"/> is changed.
+    /// </summary>
+    /// <param name="value">Value, on which it's changed to.</param>
+    partial void OnSelectedLanguageChanging(string value)
+    {
+        LanguageHelper.SetCurrentLanguage(value);
+
+        ((MainWindow)App.MainWindow).OnLanguageChanged();
+
+        NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationLanguageChanged".GetLocalized());
     }
 }
