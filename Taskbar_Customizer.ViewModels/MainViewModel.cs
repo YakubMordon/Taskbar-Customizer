@@ -4,7 +4,6 @@ namespace Taskbar_Customizer.ViewModels;
 
 using System;
 using System.Drawing;
-using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -26,20 +25,24 @@ using Color = Windows.UI.Color;
 /// <summary>
 /// ViewModel for Main Page.
 /// </summary>
-public class MainViewModel : ObservableRecipient
+public partial class MainViewModel : ObservableRecipient
 {
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
     private readonly SynchronizationService synchronizationService;
 
-    private DispatcherTimer debounceTimer;
+    private readonly DispatcherTimer debounceTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300), };
 
+    [ObservableProperty]
     private Color taskbarColor;
 
+    [ObservableProperty]
     private bool isTaskbarTransparent;
 
+    [ObservableProperty]
     private bool isStartButtonLeft;
 
+    [ObservableProperty]
     private bool isStartButtonCenter;
 
     /// <summary>
@@ -55,82 +58,8 @@ public class MainViewModel : ObservableRecipient
 
         this.UpdateProperties();
 
-        this.ResetToDefaultCommand = new RelayCommand(this.ResetToDefault);
-
-        this.debounceTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMilliseconds(300)
-        };
         this.debounceTimer.Tick += (sender, e) => this.OnDebounceTimerTick();
     }
-
-    /// <summary>
-    /// Gets or sets color of the taskbar.
-    /// </summary>
-    public Color TaskbarColor
-    {
-        get => this.taskbarColor;
-        set
-        {
-            if (this.SetProperty(ref this.taskbarColor, value))
-            {
-                this.debounceTimer.Stop();
-                this.debounceTimer.Start();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the taskbar is transparent.
-    /// </summary>
-    public bool IsTaskbarTransparent
-    {
-        get => this.isTaskbarTransparent;
-        set
-        {
-            if (this.SetProperty(ref this.isTaskbarTransparent, value))
-            {
-                this.taskbarCustomizerService.SetTaskbarTransparent(this.isTaskbarTransparent);
-
-                this.synchronizationService.CallSyncService("Transparency", JsonConvert.SerializeObject(this.isTaskbarTransparent));
-
-                NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationTransparencyChanged".GetLocalized());
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the Start button is positioned on the left.
-    /// </summary>
-    public bool IsStartButtonLeft
-    {
-        get => this.isStartButtonLeft;
-        set => this.SetProperty(ref this.isStartButtonLeft, value);
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the Start button is positioned in the center.
-    /// </summary>
-    public bool IsStartButtonCenter
-    {
-        get => this.isStartButtonCenter;
-        set
-        {
-            if (this.SetProperty(ref this.isStartButtonCenter, value))
-            {
-                this.taskbarCustomizerService.SetStartButtonPosition(!this.isStartButtonCenter);
-
-                this.synchronizationService.CallSyncService("Alignment", JsonConvert.SerializeObject(this.isStartButtonCenter));
-
-                NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationAlignmentChanged".GetLocalized());
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets command for reseting taskbar settings to default.
-    /// </summary>
-    public ICommand ResetToDefaultCommand { get; }
 
     private void UpdateProperties()
     {
@@ -151,12 +80,13 @@ public class MainViewModel : ObservableRecipient
 
     private void UpdateStartButtons()
     {
-        var isStartButtonLeft = this.taskbarCustomizerService.IsStartButtonLeft;
+        var startButtonLeftState = this.taskbarCustomizerService.IsStartButtonLeft;
 
-        this.isStartButtonLeft = isStartButtonLeft;
-        this.isStartButtonCenter = !isStartButtonLeft;
+        this.isStartButtonLeft = startButtonLeftState;
+        this.isStartButtonCenter = !startButtonLeftState;
     }
 
+    [RelayCommand]
     private void ResetToDefault()
     {
         this.ResetColorRelated();
@@ -178,7 +108,7 @@ public class MainViewModel : ObservableRecipient
         this.TaskbarColor = isLightThemeEnabled ? SystemColors.ControlLight.ToUIColor() : SystemColors.ControlDark.ToUIColor();
     }
 
-    private void ResetTransparency() 
+    private void ResetTransparency()
     {
         this.IsTaskbarTransparent = SystemColors.MenuBar
                                         .ToUIColor()
@@ -200,8 +130,32 @@ public class MainViewModel : ObservableRecipient
 
     private void ApplyDebouncedChanges()
     {
-        this.taskbarCustomizerService.SetTaskbarColor(this.taskbarColor);
-        this.synchronizationService.CallSyncService("Color", JsonConvert.SerializeObject(this.taskbarColor));
+        this.taskbarCustomizerService.SetTaskbarColor(this.TaskbarColor);
+        this.synchronizationService.CallSyncService("Color", JsonConvert.SerializeObject(this.TaskbarColor));
         NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationColorChanged".GetLocalized());
+    }
+
+    partial void OnTaskbarColorChanged(Color value)
+    {
+        this.debounceTimer.Stop();
+        this.debounceTimer.Start();
+    }
+
+    partial void OnIsStartButtonCenterChanged(bool value)
+    {
+        this.taskbarCustomizerService.SetStartButtonPosition(!value);
+
+        this.synchronizationService.CallSyncService("Alignment", JsonConvert.SerializeObject(value));
+
+        NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationAlignmentChanged".GetLocalized());
+    }
+
+    partial void OnIsTaskbarTransparentChanged(bool value)
+    {
+        this.taskbarCustomizerService.SetTaskbarTransparent(value);
+
+        this.synchronizationService.CallSyncService("Transparency", JsonConvert.SerializeObject(value));
+
+        NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationTransparencyChanged".GetLocalized());
     }
 }

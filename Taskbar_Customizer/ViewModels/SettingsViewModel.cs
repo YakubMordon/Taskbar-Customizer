@@ -97,19 +97,11 @@ public partial class SettingsViewModel : ObservableRecipient
         }
     }
 
-    /// <summary>
-    /// Method, which executes when <see cref="IsSynchronizationOn"/> is changed.
-    /// </summary>
-    /// <param name="value">Value, on which it's changed to.</param>
     partial void OnIsSynchronizationOnChanged(bool value)
     {
         this.taskbarCustomizerService.SetSynchronization(value);
     }
 
-    /// <summary>
-    /// Method, which executes when <see cref="SelectedLanguage"/> is changed.
-    /// </summary>
-    /// <param name="value">Value, on which it's changed to.</param>
     partial void OnSelectedLanguageChanging(string value)
     {
         LanguageHelper.SetCurrentLanguage(value);
