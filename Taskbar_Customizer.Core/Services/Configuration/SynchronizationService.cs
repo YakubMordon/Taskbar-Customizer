@@ -16,11 +16,6 @@ using Windows.UI;
 /// </summary>
 public class SynchronizationService
 {
-    /// <summary>
-    /// Indicates whether service should synchronize data.
-    /// </summary>
-    public static bool IsSynchronizable = true;
-
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
     /// <summary>
@@ -31,6 +26,11 @@ public class SynchronizationService
     {
         this.taskbarCustomizerService = taskbarCustomizerService;
     }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether indicates whether service should synchronize data.
+    /// </summary>
+    public static bool IsSynchronizable { get; set; } = true;
 
     /// <summary>
     /// Method for calling async service synchronization.

@@ -21,20 +21,20 @@ public static class TaskbarColorHelper
     /// <param name="color">Color in argb format.</param>
     public static void SetTaskbarColor(Color color)
     {
-        var accentPolicy = default(User32Interop.ACCENT_POLICY);
+        var accentPolicy = default(User32Interop.AccentPolicy);
 
         accentPolicy.nColor = color.ToABGR();
         accentPolicy.nAccentState = 2;
         accentPolicy.nFlags = 2;
 
-        var data = default(User32Interop.WINDOWCOMPOSITIONATTRIBDATA);
+        var data = default(User32Interop.Windowcompositionattribdata);
 
-        data.Attribute = User32Interop.WindowCompositionAttribute.WCA_ACCENT_POLICY;
-        data.SizeOfData = Marshal.SizeOf(typeof(User32Interop.ACCENT_POLICY));
+        data.Attribute = User32Interop.WindowCompositionAttribute.WcaAccentPolicy;
+        data.SizeOfData = Marshal.SizeOf(typeof(User32Interop.AccentPolicy));
         data.Data = Marshal.AllocHGlobal(data.SizeOfData);
 
         Marshal.StructureToPtr(accentPolicy, data.Data, false);
-
+        
         var taskbarHandle = User32Interop.FindWindow("Shell_TrayWnd", null);
 
         var secondaryTaskbarHandle = User32Interop.FindWindow("Shell_SecondaryTrayWnd", null);

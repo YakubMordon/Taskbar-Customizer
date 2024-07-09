@@ -34,12 +34,12 @@ public sealed partial class MainWindow : WindowEx
         this.AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/WindowIcon.ico"));
         this.Content = null;
 
-        this.EventHandler += (sender, args) => this.UpdateUI();
+        this.EventHandler += (sender, args) => this.UpdateUi();
 
-        this.UpdateUI();
+        this.UpdateUi();
 
         this.dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-        this.ConfigureUISettings();
+        this.ConfigureUiSettings();
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public sealed partial class MainWindow : WindowEx
         this.EventHandler.Invoke(this, EventArgs.Empty);
     }
 
-    private void ConfigureUISettings()
+    private void ConfigureUiSettings()
     {
         this.settings = new UISettings();
 
@@ -66,7 +66,7 @@ public sealed partial class MainWindow : WindowEx
         });
     }
 
-    private void UpdateUI()
+    private void UpdateUi()
     {
         this.Title = "AppDisplayName".GetLocalized();
     }

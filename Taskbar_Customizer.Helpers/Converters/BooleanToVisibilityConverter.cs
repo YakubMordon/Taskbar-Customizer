@@ -2,10 +2,6 @@
 
 namespace Taskbar_Customizer.Helpers.Converters;
 
-// Copyright (c) Digital Cloud Technologies. All rights reserved.
-// 
-// namespace DataTableProj.Services.Converters
-// {
 using System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
@@ -50,4 +46,3 @@ public class BooleanToVisibilityConverter : IValueConverter
         throw new NotImplementedException("ConvertBack method is not supported in BooleanToVisibilityConverter.");
     }
 }
-// }

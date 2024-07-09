@@ -1,7 +1,5 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-using System;
-
 namespace Taskbar_Customizer.Helpers.Helpers.Application;
 
 using CommunityToolkit.WinUI.Notifications;

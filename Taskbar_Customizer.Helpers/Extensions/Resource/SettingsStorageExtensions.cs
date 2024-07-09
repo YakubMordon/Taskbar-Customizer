@@ -16,7 +16,7 @@ using Windows.Storage.Streams;
 /// </summary>
 public static class SettingsStorageExtensions
 {
-    private const string FileExtension = ".json";
+    private const string FILE_EXTENSION = ".json";
 
     /// <summary>
     /// Method, which checks if roaming storage is available based on the roaming storage quota.
@@ -40,7 +40,7 @@ public static class SettingsStorageExtensions
     {
         var file = await folder.CreateFileAsync(GetFileName(name), CreationCollisionOption.ReplaceExisting);
 
-        var fileContent = await Json.StringifyAsync(content);
+        var fileContent = await Json.StringifyAsync(content!);
 
         await FileIO.WriteTextAsync(file, fileContent);
     }
@@ -60,6 +60,7 @@ public static class SettingsStorageExtensions
         }
 
         var file = await folder.GetFileAsync($"{name}.json");
+
         var fileContent = await FileIO.ReadTextAsync(file);
 
         return await Json.ToObjectAsync<T>(fileContent);
@@ -73,9 +74,14 @@ public static class SettingsStorageExtensions
     /// <param name="key">The key under which the value will be saved.</param>
     /// <param name="value">The value to save.</param>
     /// <returns>A Task representing the asynchronous save operation.</returns>
-    public static async Task SaveAsync<T>(this ApplicationDataContainer settings, string key, T value)
+    public static async Task SaveAsync<T>(this ApplicationDataContainer settings, string key, T? value)
     {
-        settings.SaveString(key, await Json.StringifyAsync(value));
+        if (value is not null)
+        {
+            var stringifiedValue = await Json.StringifyAsync(value);
+
+            settings.SaveString(key, stringifiedValue);
+        }
     }
 
     /// <summary>
@@ -98,9 +104,7 @@ public static class SettingsStorageExtensions
     /// <returns>The deserialized value read from the settings.</returns>
     public static async Task<T?> ReadAsync<T>(this ApplicationDataContainer settings, string key)
     {
-        object? obj;
-
-        if (settings.Values.TryGetValue(key, out obj))
+        if (settings.Values.TryGetValue(key, out var obj))
         {
             return await Json.ToObjectAsync<T>((string)obj);
         }
@@ -131,7 +135,9 @@ public static class SettingsStorageExtensions
         }
 
         var storageFile = await folder.CreateFileAsync(fileName, options);
+
         await FileIO.WriteBytesAsync(storageFile, content);
+
         return storageFile;
     }
 
@@ -141,18 +147,11 @@ public static class SettingsStorageExtensions
     /// <param name="folder">The StorageFolder where the file is located.</param>
     /// <param name="fileName">The name of the file to read.</param>
     /// <returns>A Task representing the asynchronous operation. The byte array content of the file, or null if the file does not exist or is not accessible.</returns>
-    public static async Task<byte[]?> ReadFileAsync(this StorageFolder folder, string fileName)
+    public static async Task<byte[]> ReadFileAsync(this StorageFolder folder, string fileName)
     {
-        var item = await folder.TryGetItemAsync(fileName).AsTask().ConfigureAwait(false);
-
-        if (item is not null && item.IsOfType(StorageItemTypes.File))
-        {
-            var storageFile = await folder.GetFileAsync(fileName);
-            var content = await storageFile.ReadBytesAsync();
-            return content;
-        }
-
-        return null;
+        var storageFile = await folder.GetFileAsync(fileName);
+        var content = await storageFile.ReadBytesAsync();
+        return content;
     }
 
     /// <summary>
@@ -160,23 +159,23 @@ public static class SettingsStorageExtensions
     /// </summary>
     /// <param name="file">The StorageFile to read.</param>
     /// <returns>A Task representing the asynchronous operation. The byte array content of the file, or null if the file does not exist or is not accessible.</returns>
-    public static async Task<byte[]?> ReadBytesAsync(this StorageFile file)
+    public static async Task<byte[]> ReadBytesAsync(this StorageFile file)
     {
-        if (file is not null)
+        using (IRandomAccessStream stream = await file.OpenReadAsync())
+        using (var reader = new DataReader(stream.GetInputStreamAt(0)))
         {
-            using IRandomAccessStream stream = await file.OpenReadAsync();
-            using var reader = new DataReader(stream.GetInputStreamAt(0));
             await reader.LoadAsync((uint)stream.Size);
+
             var bytes = new byte[stream.Size];
+
             reader.ReadBytes(bytes);
+
             return bytes;
         }
-
-        return null;
     }
 
     private static string GetFileName(string name)
     {
-        return string.Concat(name, FileExtension);
+        return string.Concat(name, FILE_EXTENSION);
     }
 }

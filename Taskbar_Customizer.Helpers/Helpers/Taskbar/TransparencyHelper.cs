@@ -30,21 +30,21 @@ public static class TransparencyHelper
     {
         if (handle != nint.Zero)
         {
-            var style = User32Interop.GetWindowLong(handle, User32Interop.GWL_STYLE);
-            var exStyle = User32Interop.GetWindowLong(handle, User32Interop.GWL_EXSTYLE);
+            var style = User32Interop.GetWindowLong(handle, User32Interop.GwlStyle);
+            var exStyle = User32Interop.GetWindowLong(handle, User32Interop.GwlExstyle);
 
             if (isTransparent)
             {
-                style |= User32Interop.WS_BORDER;
+                style |= User32Interop.WsBorder;
             }
             else
             {
-                style &= ~User32Interop.WS_BORDER;
+                style &= ~User32Interop.WsBorder;
             }
 
-            User32Interop.SetWindowLong(handle, User32Interop.GWL_STYLE, style);
-            User32Interop.SetWindowLong(handle, User32Interop.GWL_EXSTYLE, exStyle);
-            User32Interop.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0, User32Interop.SWP_NOMOVE | User32Interop.SWP_NOSIZE | User32Interop.SWP_NOZORDER | User32Interop.SWP_NOACTIVATE | User32Interop.SWP_FRAMECHANGED);
+            User32Interop.SetWindowLong(handle, User32Interop.GwlStyle, style);
+            User32Interop.SetWindowLong(handle, User32Interop.GwlExstyle, exStyle);
+            User32Interop.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0, User32Interop.SwpNomove | User32Interop.SwpNosize | User32Interop.SwpNozorder | User32Interop.SwpNoactivate | User32Interop.SwpFramechanged);
         }
     }
 }

@@ -9,7 +9,7 @@ using Windows.ApplicationModel.Background;
 /// </summary>
 public static class BackgroundTaskRegistrationService
 {
-    private const string SynchronizationTaskName = "SynchronizationBackgroundTask";
+    private const string SYNCHRONIZATION_TASK_NAME = "SynchronizationBackgroundTask";
 
     private static bool isSynchronizationTaskRegistered = false;
 
@@ -20,7 +20,7 @@ public static class BackgroundTaskRegistrationService
     {
         foreach (var task in BackgroundTaskRegistration.AllTasks)
         {
-            if (task.Value.Name == SynchronizationTaskName)
+            if (task.Value.Name == SYNCHRONIZATION_TASK_NAME)
             {
                 isSynchronizationTaskRegistered = true;
                 break;
@@ -31,8 +31,8 @@ public static class BackgroundTaskRegistrationService
         {
             var builder = new BackgroundTaskBuilder
             {
-                Name = SynchronizationTaskName,
-                TaskEntryPoint = $"BgTaskComponent.{SynchronizationTaskName}",
+                Name = SYNCHRONIZATION_TASK_NAME,
+                TaskEntryPoint = $"BgTaskComponent.{SYNCHRONIZATION_TASK_NAME}",
             };
 
             builder.SetTrigger(new TimeTrigger(15, false)); // Runs every 15 minutes

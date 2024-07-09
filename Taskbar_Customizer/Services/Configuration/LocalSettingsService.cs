@@ -18,9 +18,9 @@ using Taskbar_Customizer.Helpers.Helpers.Application;
 /// </summary>
 public class LocalSettingsService : ILocalSettingsService
 {
-    private const string DefaultApplicationDataFolder = "Taskbar Customizer/ApplicationData";
+    private const string DEFAULT_APPLICATION_DATA_FOLDER = "Taskbar Customizer/ApplicationData";
 
-    private const string DefaultLocalSettingsFile = "LocalSettings.json";
+    private const string DEFAULT_LOCAL_SETTINGS_FILE = "LocalSettings.json";
 
     private readonly IFileService fileService;
 
@@ -46,8 +46,8 @@ public class LocalSettingsService : ILocalSettingsService
         this.fileService = fileService;
         this.options = options.Value;
 
-        this.applicationDataFolder = Path.Combine(this.localApplicationData, this.options.ApplicationDataFolder ?? DefaultApplicationDataFolder);
-        this.localsettingsFile = this.options.LocalSettingsFile ?? DefaultLocalSettingsFile;
+        this.applicationDataFolder = Path.Combine(this.localApplicationData, this.options.ApplicationDataFolder ?? DEFAULT_APPLICATION_DATA_FOLDER);
+        this.localsettingsFile = this.options.LocalSettingsFile ?? DEFAULT_LOCAL_SETTINGS_FILE;
 
         this.settings = new Dictionary<string, object>();
     }

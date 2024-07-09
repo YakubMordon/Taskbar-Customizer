@@ -15,7 +15,7 @@ using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
 /// </summary>
 public class ThemeSelectorService : IThemeSelectorService
 {
-    private const string SettingsKey = "AppBackgroundRequestedTheme";
+    private const string SETTINGS_KEY = "AppBackgroundRequestedTheme";
 
     private readonly ILocalSettingsService localSettingsService;
 
@@ -65,7 +65,7 @@ public class ThemeSelectorService : IThemeSelectorService
 
     private async Task<ElementTheme> LoadThemeFromSettingsAsync()
     {
-        var themeName = await this.localSettingsService.ReadSettingAsync<string>(SettingsKey);
+        var themeName = await this.localSettingsService.ReadSettingAsync<string>(SETTINGS_KEY);
 
         if (Enum.TryParse(themeName, out ElementTheme cacheTheme))
         {
@@ -77,6 +77,6 @@ public class ThemeSelectorService : IThemeSelectorService
 
     private async Task SaveThemeInSettingsAsync(ElementTheme theme)
     {
-        await this.localSettingsService.SaveSettingAsync(SettingsKey, theme.ToString());
+        await this.localSettingsService.SaveSettingAsync(SETTINGS_KEY, theme.ToString());
     }
 }

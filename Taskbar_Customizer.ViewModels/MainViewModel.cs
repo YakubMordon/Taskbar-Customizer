@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+#pragma warning disable MVVMTK0034
 namespace Taskbar_Customizer.ViewModels;
 
 using System;
