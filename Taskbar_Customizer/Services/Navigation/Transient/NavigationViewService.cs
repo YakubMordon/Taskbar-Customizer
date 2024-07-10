@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Services.Navigation;
+namespace Taskbar_Customizer.Services.Navigation.Transient;
 
 using System.Diagnostics.CodeAnalysis;
 
@@ -37,50 +37,50 @@ public class NavigationViewService : INavigationViewService
     /// <summary>
     /// Gets the collection of menu items associated with the NavigationView control.
     /// </summary>
-    public IList<object>? MenuItems => this.navigationView?.MenuItems;
+    public IList<object>? MenuItems => navigationView?.MenuItems;
 
     /// <summary>
     /// Gets the settings item associated with the NavigationView control.
     /// </summary>
-    public object? SettingsItem => this.navigationView?.SettingsItem;
+    public object? SettingsItem => navigationView?.SettingsItem;
 
     /// <inheritdoc />
     [MemberNotNull(nameof(NavigationViewService.navigationView))]
     public void Initialize(NavigationView navigationView)
     {
         this.navigationView = navigationView;
-        this.navigationView.BackRequested += this.OnBackRequested;
-        this.navigationView.ItemInvoked += this.OnItemInvoked;
+        this.navigationView.BackRequested += OnBackRequested;
+        this.navigationView.ItemInvoked += OnItemInvoked;
     }
 
     /// <inheritdoc />
     public void UnregisterEvents()
     {
-        if (this.navigationView is not null)
+        if (navigationView is not null)
         {
-            this.navigationView.BackRequested -= this.OnBackRequested;
-            this.navigationView.ItemInvoked -= this.OnItemInvoked;
+            navigationView.BackRequested -= OnBackRequested;
+            navigationView.ItemInvoked -= OnItemInvoked;
         }
     }
 
     /// <inheritdoc />
     public NavigationViewItem? GetSelectedItem(Type pageType)
     {
-        if (this.navigationView is not null)
+        if (navigationView is not null)
         {
-            return this.GetSelectedItem(this.navigationView.MenuItems, pageType) ?? this.GetSelectedItem(this.navigationView.FooterMenuItems, pageType);
+            return GetSelectedItem(navigationView.MenuItems, pageType) ?? GetSelectedItem(navigationView.FooterMenuItems, pageType);
         }
 
         return null;
     }
 
-    private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args) => this.navigationService.GoBack();
+    private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args) => navigationService.GoBack();
 
     private void OnItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
     {
         if (args.IsSettingsInvoked)
         {
-            this.navigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
+            navigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
         }
         else
         {
@@ -88,7 +88,7 @@ public class NavigationViewService : INavigationViewService
 
             if (selectedItem?.GetValue(NavigationHelper.NavigateToProperty) is string pageKey)
             {
-                this.navigationService.NavigateTo(pageKey);
+                navigationService.NavigateTo(pageKey);
             }
         }
     }
@@ -97,12 +97,12 @@ public class NavigationViewService : INavigationViewService
     {
         foreach (var item in menuItems.OfType<NavigationViewItem>())
         {
-            if (this.IsMenuItemForPageType(item, pageType))
+            if (IsMenuItemForPageType(item, pageType))
             {
                 return item;
             }
 
-            var selectedChild = this.GetSelectedItem(item.MenuItems, pageType);
+            var selectedChild = GetSelectedItem(item.MenuItems, pageType);
 
             if (selectedChild is not null)
             {
@@ -117,7 +117,7 @@ public class NavigationViewService : INavigationViewService
     {
         if (menuItem.GetValue(NavigationHelper.NavigateToProperty) is string pageKey)
         {
-            return this.pageService.GetPageType(pageKey) == sourcePageType;
+            return pageService.GetPageType(pageKey) == sourcePageType;
         }
 
         return false;

@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Core.Services.Configuration;
+namespace Taskbar_Customizer.Helpers.Helpers.Application;
 
 using Windows.ApplicationModel.Background;
 
 /// <summary>
 /// Static class for registration of background tasks.
 /// </summary>
-public static class BackgroundTaskRegistrationService
+public static class BackgroundTaskRegistrationHelper
 {
-    private const string SYNCHRONIZATION_TASK_NAME = "SynchronizationBackgroundTask";
+    private const string SYNCHRONIZATIONTASKNAME = "SynchronizationBackgroundTask";
 
     private static bool isSynchronizationTaskRegistered = false;
 
@@ -20,7 +20,7 @@ public static class BackgroundTaskRegistrationService
     {
         foreach (var task in BackgroundTaskRegistration.AllTasks)
         {
-            if (task.Value.Name == SYNCHRONIZATION_TASK_NAME)
+            if (task.Value.Name == SYNCHRONIZATIONTASKNAME)
             {
                 isSynchronizationTaskRegistered = true;
                 break;
@@ -31,8 +31,8 @@ public static class BackgroundTaskRegistrationService
         {
             var builder = new BackgroundTaskBuilder
             {
-                Name = SYNCHRONIZATION_TASK_NAME,
-                TaskEntryPoint = $"BgTaskComponent.{SYNCHRONIZATION_TASK_NAME}",
+                Name = SYNCHRONIZATIONTASKNAME,
+                TaskEntryPoint = $"BgTaskComponent.{SYNCHRONIZATIONTASKNAME}",
             };
 
             builder.SetTrigger(new TimeTrigger(15, false)); // Runs every 15 minutes

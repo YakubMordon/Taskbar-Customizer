@@ -13,7 +13,7 @@ using Microsoft.UI.Xaml;
 
 using Newtonsoft.Json;
 
-using Taskbar_Customizer.Core.Services.Configuration;
+using Taskbar_Customizer.Core.Contracts.Services.Configuration;
 using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
 
 using Taskbar_Customizer.Helpers.Extensions.Resource;
@@ -30,7 +30,7 @@ public partial class MainViewModel : ObservableRecipient
 {
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
-    private readonly SynchronizationService synchronizationService;
+    private readonly ISynchronizationService synchronizationService;
 
     private readonly DispatcherTimer debounceTimer = new () { Interval = TimeSpan.FromMilliseconds(300), };
 
@@ -51,7 +51,7 @@ public partial class MainViewModel : ObservableRecipient
     /// </summary>
     /// <param name="taskbarCustomizerService">The taskbar customizer service.</param>
     /// <param name="synchronizationService">Synchronization service.</param>
-    public MainViewModel(ITaskbarCustomizerService taskbarCustomizerService, SynchronizationService synchronizationService)
+    public MainViewModel(ITaskbarCustomizerService taskbarCustomizerService, ISynchronizationService synchronizationService)
     {
         this.taskbarCustomizerService = taskbarCustomizerService;
 

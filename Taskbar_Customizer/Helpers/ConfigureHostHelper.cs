@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-using Taskbar_Customizer.Core.Services.Configuration;
-
-namespace Taskbar_Customizer.Services.Configuration;
+namespace Taskbar_Customizer.Helpers;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,21 +10,25 @@ using Microsoft.UI.Xaml;
 using Taskbar_Customizer.Activation;
 using Taskbar_Customizer.ViewModels;
 using Taskbar_Customizer.Views;
+
+using Taskbar_Customizer.Services.Configuration;
 using Taskbar_Customizer.Services.Taskbar;
-using Taskbar_Customizer.Services.Navigation;
 
 using Taskbar_Customizer.Core.Activation;
 
-using Taskbar_Customizer.Core.Contracts.Services.Navigation;
 using Taskbar_Customizer.Core.Contracts.Services.Configuration;
+
+using Taskbar_Customizer.Core.Services.Configuration;
 using Taskbar_Customizer.Core.Services.Files;
 
 using Taskbar_Customizer.Models;
+using Taskbar_Customizer.Services.Navigation.Transient;
+using Taskbar_Customizer.Services.Navigation.Singleton;
 
 /// <summary>
 /// Static service for configurating host of application.
 /// </summary>
-public static class ConfigureHostService
+public static class ConfigureHostHelper
 {
     /// <summary>
     /// Method for configuration host of application.
@@ -61,20 +63,32 @@ public static class ConfigureHostService
     {
         services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
 
-        services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
+        services.Scan(scan => scan
+            .FromCallingAssembly()
+            .AddClasses(classes => classes.InNamespaceOf<ActivationService>())
+            .AsImplementedInterfaces()
+            .WithSingletonLifetime());
 
-        services.AddSingleton<IActivationService, ActivationService>();
-
-        services.AddTransient<SynchronizationService>();
+        services.Scan(scan => scan
+            .FromAssemblyOf<SynchronizationService>()
+            .AddClasses(classes => classes.InNamespaceOf<SynchronizationService>())
+            .AsImplementedInterfaces()
+            .WithTransientLifetime());
     }
 
     private static void AddNavigationServices(IServiceCollection services)
     {
-        services.AddTransient<INavigationViewService, NavigationViewService>();
+        services.Scan(scan => scan
+            .FromCallingAssembly()
+            .AddClasses(classes => classes.InNamespaceOf<NavigationService>())
+            .AsImplementedInterfaces()
+            .WithSingletonLifetime());
 
-        services.AddSingleton<IPageService, PageService>();
-
-        services.AddSingleton<INavigationService, NavigationService>();
+        services.Scan(scan => scan
+            .FromCallingAssembly()
+            .AddClasses(classes => classes.InNamespaceOf<NavigationViewService>())
+            .AsImplementedInterfaces()
+            .WithTransientLifetime());
     }
 
     private static void AddTaskbarServices(IServiceCollection services)

@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Services.Navigation;
+namespace Taskbar_Customizer.Services.Navigation.Singleton;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -16,24 +16,24 @@ using Taskbar_Customizer.Views;
 /// </summary>
 public class PageService : IPageService
 {
-    private readonly Dictionary<string, Type> pages = new ();
+    private readonly Dictionary<string, Type> pages = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PageService"/> class.
     /// </summary>
     public PageService()
     {
-        this.Configure<MainViewModel, MainPage>();
-        this.Configure<SettingsViewModel, SettingsPage>();
+        Configure<MainViewModel, MainPage>();
+        Configure<SettingsViewModel, SettingsPage>();
     }
 
     /// <inheritdoc />
     public Type GetPageType(string key)
     {
         Type? pageType;
-        lock (this.pages)
+        lock (pages)
         {
-            if (!this.pages.TryGetValue(key, out pageType))
+            if (!pages.TryGetValue(key, out pageType))
             {
                 throw new ArgumentException($"Page not found: {key}. Did you forget to call PageService.Configure?");
             }
@@ -46,21 +46,21 @@ public class PageService : IPageService
         where TVm : ObservableObject
         where TV : Page
     {
-        lock (this.pages)
+        lock (pages)
         {
             var key = typeof(TVm).FullName!;
-            if (this.pages.ContainsKey(key))
+            if (pages.ContainsKey(key))
             {
                 throw new ArgumentException($"The key {key} is already configured in PageService");
             }
 
             var type = typeof(TV);
-            if (this.pages.ContainsValue(type))
+            if (pages.ContainsValue(type))
             {
-                throw new ArgumentException($"This type is already configured with key {this.pages.First(p => p.Value == type).Key}");
+                throw new ArgumentException($"This type is already configured with key {pages.First(p => p.Value == type).Key}");
             }
 
-            this.pages.Add(key, type);
+            pages.Add(key, type);
         }
     }
 }

@@ -4,6 +4,7 @@ namespace Taskbar_Customizer.Core.Services.Configuration;
 
 using Newtonsoft.Json;
 
+using Taskbar_Customizer.Core.Contracts.Services.Configuration;
 using Taskbar_Customizer.Core.Contracts.Services.Taskbar;
 
 using Windows.ApplicationModel.AppService;
@@ -14,7 +15,7 @@ using Windows.UI;
 /// <summary>
 /// Static class for handling actions with synchronization.
 /// </summary>
-public class SynchronizationService
+public class SynchronizationService : ISynchronizationService
 {
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
 
@@ -32,11 +33,7 @@ public class SynchronizationService
     /// </summary>
     public static bool IsSynchronizable { get; set; } = true;
 
-    /// <summary>
-    /// Method for calling async service synchronization.
-    /// </summary>
-    /// <param name="key">Key for synchronization.</param>
-    /// <param name="value">Value for synchronization.</param>
+    /// <inheritdoc />
     public async void CallSyncService(string? key, string? value)
     {
         if (IsSynchronizable)

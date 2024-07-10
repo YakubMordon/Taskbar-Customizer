@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Services.Navigation;
+namespace Taskbar_Customizer.Services.Navigation.Singleton;
 
 using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-
+using Taskbar_Customizer;
 using Taskbar_Customizer.Core.Contracts.Services.Navigation;
 
 using Taskbar_Customizer.Helpers.Extensions.UI;
@@ -43,20 +43,20 @@ public class NavigationService : INavigationService
     {
         get
         {
-            if (this.frame is null)
+            if (frame is null)
             {
-                this.frame = App.MainWindow.Content as Frame;
-                this.RegisterFrameEvents();
+                frame = App.MainWindow.Content as Frame;
+                RegisterFrameEvents();
             }
 
-            return this.frame;
+            return frame;
         }
 
         set
         {
-            this.UnregisterFrameEvents();
-            this.frame = value;
-            this.RegisterFrameEvents();
+            UnregisterFrameEvents();
+            frame = value;
+            RegisterFrameEvents();
         }
     }
 
@@ -64,16 +64,16 @@ public class NavigationService : INavigationService
     /// Gets a value indicating whether it's possible to navigate back to the previous page.
     /// </summary>
     [MemberNotNullWhen(true, nameof(Frame), nameof(frame))]
-    public bool CanGoBack => this.Frame is not null && this.Frame.CanGoBack;
+    public bool CanGoBack => Frame is not null && Frame.CanGoBack;
 
     /// <inheritdoc />
     public bool GoBack()
     {
-        if (this.CanGoBack)
+        if (CanGoBack)
         {
-            var vmBeforeNavigation = this.frame.GetPageViewModel();
+            var vmBeforeNavigation = frame.GetPageViewModel();
 
-            this.frame.GoBack();
+            frame.GoBack();
 
             if (vmBeforeNavigation is INavigationAware navigationAware)
             {
@@ -89,16 +89,16 @@ public class NavigationService : INavigationService
     /// <inheritdoc />
     public bool NavigateTo(string pageKey, object? parameter = null, bool clearNavigation = false)
     {
-        var pageType = this.pageService.GetPageType(pageKey);
+        var pageType = pageService.GetPageType(pageKey);
 
-        if (this.frame is not null && (this.frame.Content?.GetType() != pageType || (parameter is not null && !parameter.Equals(this.lastParameterUsed))))
+        if (frame is not null && (frame.Content?.GetType() != pageType || parameter is not null && !parameter.Equals(lastParameterUsed)))
         {
-            this.frame.Tag = clearNavigation;
-            var vmBeforeNavigation = this.frame.GetPageViewModel();
-            var navigated = this.frame.Navigate(pageType, parameter);
+            frame.Tag = clearNavigation;
+            var vmBeforeNavigation = frame.GetPageViewModel();
+            var navigated = frame.Navigate(pageType, parameter);
             if (navigated)
             {
-                this.lastParameterUsed = parameter;
+                lastParameterUsed = parameter;
                 if (vmBeforeNavigation is INavigationAware navigationAware)
                 {
                     navigationAware.OnNavigatedFrom();
@@ -113,17 +113,17 @@ public class NavigationService : INavigationService
 
     private void RegisterFrameEvents()
     {
-        if (this.frame is not null)
+        if (frame is not null)
         {
-            this.frame.Navigated += this.OnNavigated;
+            frame.Navigated += OnNavigated;
         }
     }
 
     private void UnregisterFrameEvents()
     {
-        if (this.frame is not null)
+        if (frame is not null)
         {
-            this.frame.Navigated -= this.OnNavigated;
+            frame.Navigated -= OnNavigated;
         }
     }
 
@@ -142,7 +142,7 @@ public class NavigationService : INavigationService
                 navigationAware.OnNavigatedTo(e.Parameter);
             }
 
-            this.Navigated?.Invoke(sender, e);
+            Navigated?.Invoke(sender, e);
         }
     }
 }

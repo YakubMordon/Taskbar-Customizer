@@ -9,13 +9,10 @@ using System.Diagnostics;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 
-using Taskbar_Customizer.Core.Services.Configuration;
-
-using Taskbar_Customizer.Services.Configuration;
-
 using Taskbar_Customizer.Core.Contracts.Services.Configuration;
 
 using Taskbar_Customizer.Helpers.Helpers.Application;
+using Taskbar_Customizer.Helpers;
 
 /// <summary>
 /// Code-Behind for App.xaml.
@@ -33,9 +30,9 @@ public partial class App : Application
 
         NotificationManager.Initialize();
 
-        BackgroundTaskRegistrationService.RegisterBackgroundTasks();
+        BackgroundTaskRegistrationHelper.RegisterBackgroundTasks();
 
-        this.Host = ConfigureHostService.Configure();
+        this.Host = ConfigureHostHelper.Configure();
 
         this.UnhandledException += this.App_UnhandledException;
     }
