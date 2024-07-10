@@ -2,6 +2,8 @@
 
 namespace Taskbar_Customizer.Helpers;
 
+using CommunityToolkit.Mvvm.Messaging;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -16,14 +18,11 @@ using Taskbar_Customizer.Services.Taskbar;
 
 using Taskbar_Customizer.Core.Activation;
 
-using Taskbar_Customizer.Core.Contracts.Services.Configuration;
-
 using Taskbar_Customizer.Core.Services.Configuration;
 using Taskbar_Customizer.Core.Services.Files;
-
-using Taskbar_Customizer.Models;
 using Taskbar_Customizer.Services.Navigation.Transient;
 using Taskbar_Customizer.Services.Navigation.Singleton;
+using Taskbar_Customizer.Models.Models;
 
 /// <summary>
 /// Static service for configurating host of application.
@@ -111,6 +110,8 @@ public static class ConfigureHostHelper
 
     private static void AddViewModels(IServiceCollection services)
     {
+        services.AddSingleton<IMessenger, StrongReferenceMessenger>();
+
         services.Scan(scan => scan
             .FromAssembliesOf(typeof(MainViewModel), typeof(App))
             .AddClasses(classes => classes.InNamespaceOf<MainViewModel>())

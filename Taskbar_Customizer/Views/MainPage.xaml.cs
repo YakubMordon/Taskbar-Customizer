@@ -1,22 +1,29 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using CommunityToolkit.Mvvm.Messaging;
+
 namespace Taskbar_Customizer.Views;
 
 using Microsoft.UI.Xaml.Controls;
 using Taskbar_Customizer.ViewModels;
 using Taskbar_Customizer.Helpers.Extensions.Resource;
+using Taskbar_Customizer.Models.Messages;
 
 /// <summary>
 /// Code-Behind for MainPage.xaml.
 /// </summary>
 public sealed partial class MainPage : Page
 {
+    private readonly IMessenger messenger;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MainPage"/> class.
     /// </summary>
     public MainPage()
     {
-        ((MainWindow)App.MainWindow).EventHandler += (sender, e) => this.UpdateUI();
+        this.messenger = App.GetService<IMessenger>();
+
+        this.messenger.Register<LanguageChangedMessage>(this, (r, m) => this.UpdateUI());
 
         this.ViewModel = App.GetService<MainViewModel>();
         this.InitializeComponent();

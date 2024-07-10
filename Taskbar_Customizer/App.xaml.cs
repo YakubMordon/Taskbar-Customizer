@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using CommunityToolkit.Mvvm.Messaging;
 using Taskbar_Customizer.Helpers.Helpers.Native;
 
 namespace Taskbar_Customizer;
@@ -24,15 +25,15 @@ public partial class App : Application
     /// </summary>
     public App()
     {
-        User32Interop.SetProcessDpiAwarenessContext(-4);
-
-        this.InitializeComponent();
-
         NotificationManager.Initialize();
 
         BackgroundTaskRegistrationHelper.RegisterBackgroundTasks();
 
         this.Host = ConfigureHostHelper.Configure();
+
+        User32Interop.SetProcessDpiAwarenessContext(-4);
+
+        this.InitializeComponent();
 
         this.UnhandledException += this.App_UnhandledException;
     }
@@ -84,6 +85,8 @@ public partial class App : Application
 
     private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
+        e.Handled = true;
+
         Debug.WriteLine(e.ToString());
     }
 }

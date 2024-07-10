@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using CommunityToolkit.Mvvm.Messaging;
+
 namespace Taskbar_Customizer.Views;
 
 using Microsoft.UI.Xaml;
@@ -15,21 +17,27 @@ using Taskbar_Customizer.Core.Contracts.Services.Navigation;
 using Taskbar_Customizer.Helpers.Extensions.Resource;
 
 using Windows.System;
+using Taskbar_Customizer.Models.Messages;
 
 /// <summary>
 /// Code-Behind for ShellPage.xaml.
 /// </summary>
 public sealed partial class ShellPage : Page
 {
+    private readonly IMessenger messenger;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="ShellPage"/> class.
     /// </summary>
     /// <param name="viewModel">View Model.</param>
     public ShellPage(ShellViewModel viewModel)
     {
-        ((MainWindow)App.MainWindow).EventHandler += (sender, e) => this.UpdateUI();
+        this.messenger = App.GetService<IMessenger>();
+
+        this.messenger.Register<LanguageChangedMessage>(this, (r, m) => this.UpdateUI());
 
         this.ViewModel = viewModel;
+
         this.InitializeComponent();
 
         this.UpdateUI();

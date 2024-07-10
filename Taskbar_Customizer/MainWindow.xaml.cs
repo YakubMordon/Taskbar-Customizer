@@ -1,6 +1,10 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
+using Taskbar_Customizer.Models.Messages;
+
 namespace Taskbar_Customizer;
+
+using CommunityToolkit.Mvvm.Messaging;
 
 using Microsoft.UI.Dispatching;
 
@@ -15,10 +19,7 @@ using Windows.UI.ViewManagement;
 /// </summary>
 public sealed partial class MainWindow : WindowEx
 {
-    /// <summary>
-    /// Language change event handler.
-    /// </summary>
-    public event EventHandler EventHandler;
+    private readonly IMessenger messenger;
 
     private readonly DispatcherQueue dispatcherQueue;
 
@@ -29,28 +30,22 @@ public sealed partial class MainWindow : WindowEx
     /// </summary>
     public MainWindow()
     {
+        this.messenger = App.GetService<IMessenger>();
+
         this.InitializeComponent();
 
         this.AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/WindowIcon.ico"));
         this.Content = null;
 
-        this.EventHandler += (sender, args) => this.UpdateUi();
+        this.messenger.Register<LanguageChangedMessage>(this, (r, m) => this.UpdateUI());
 
-        this.UpdateUi();
+        this.UpdateUI();
 
         this.dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-        this.ConfigureUiSettings();
+        this.ConfigureUISettings();
     }
 
-    /// <summary>
-    /// Method for firing event of <see cref="EventHandler"/>.
-    /// </summary>
-    public void OnLanguageChanged()
-    {
-        this.EventHandler.Invoke(this, EventArgs.Empty);
-    }
-
-    private void ConfigureUiSettings()
+    private void ConfigureUISettings()
     {
         this.settings = new UISettings();
 
@@ -66,7 +61,7 @@ public sealed partial class MainWindow : WindowEx
         });
     }
 
-    private void UpdateUi()
+    private void UpdateUI()
     {
         this.Title = "AppDisplayName".GetLocalized();
     }

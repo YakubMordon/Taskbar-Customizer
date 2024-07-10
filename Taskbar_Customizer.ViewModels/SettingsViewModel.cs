@@ -4,9 +4,11 @@ namespace Taskbar_Customizer.ViewModels;
 
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Reflection;
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.UI.Xaml;
@@ -19,6 +21,8 @@ using Taskbar_Customizer.Core.Services.Configuration;
 using Taskbar_Customizer.Helpers.Helpers.Application;
 using Taskbar_Customizer.Helpers.Extensions.Resource;
 
+using Taskbar_Customizer.Models.Messages;
+
 /// <summary>
 /// ViewModel for Settings Page.
 /// </summary>
@@ -27,6 +31,8 @@ public partial class SettingsViewModel : ObservableRecipient
     private readonly IThemeSelectorService themeSelectorService;
 
     private readonly ITaskbarCustomizerService taskbarCustomizerService;
+
+    private readonly IMessenger messenger;
 
     [ObservableProperty]
     private ElementTheme elementTheme;
@@ -45,13 +51,16 @@ public partial class SettingsViewModel : ObservableRecipient
     /// </summary>
     /// <param name="themeSelectorService">The theme selector service used to manage app themes.</param>
     /// <param name="taskbarCustomizerService">The taskbar customizer service.</param>
-    public SettingsViewModel(IThemeSelectorService themeSelectorService, ITaskbarCustomizerService taskbarCustomizerService)
+    public SettingsViewModel(IThemeSelectorService themeSelectorService, ITaskbarCustomizerService taskbarCustomizerService, IMessenger messenger)
     {
-        this.themeSelectorService = themeSelectorService;
-        this.elementTheme = this.themeSelectorService.Theme;
-        this.versionDescription = GetVersionDescription();
+        this.messenger = messenger;
 
         this.taskbarCustomizerService = taskbarCustomizerService;
+
+        this.themeSelectorService = themeSelectorService;
+        this.elementTheme = this.themeSelectorService.Theme;
+
+        this.versionDescription = GetVersionDescription();
 
         this.Languages = new ObservableCollection<string>(LanguageHelper.AvailableLanguages);
 
@@ -106,7 +115,7 @@ public partial class SettingsViewModel : ObservableRecipient
     {
         LanguageHelper.SetCurrentLanguage(value);
 
-        ((MainWindow)App.MainWindow).OnLanguageChanged();
+        this.messenger.Send<LanguageChangedMessage>();
 
         NotificationManager.ShowNotification("AppDisplayName".GetLocalized(), "NotificationLanguageChanged".GetLocalized());
     }

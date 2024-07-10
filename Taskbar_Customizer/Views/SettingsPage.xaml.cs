@@ -2,22 +2,30 @@
 
 namespace Taskbar_Customizer.Views;
 
+using CommunityToolkit.Mvvm.Messaging;
+
 using Microsoft.UI.Xaml.Controls;
+
 using Taskbar_Customizer.ViewModels;
 
 using Taskbar_Customizer.Helpers.Extensions.Resource;
+using Taskbar_Customizer.Models.Messages;
 
 /// <summary>
 /// Code-Behind for SettingsPage.xaml.
 /// </summary>
 public sealed partial class SettingsPage : Page
 {
+    private readonly IMessenger messenger;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsPage"/> class.
     /// </summary>
     public SettingsPage()
     {
-        ((MainWindow)App.MainWindow).EventHandler += (sender, e) => this.UpdateUI();
+        this.messenger = App.GetService<IMessenger>();
+
+        this.messenger.Register<LanguageChangedMessage>(this, (r, m) => this.UpdateUI());
 
         this.ViewModel = App.GetService<SettingsViewModel>();
         this.InitializeComponent();

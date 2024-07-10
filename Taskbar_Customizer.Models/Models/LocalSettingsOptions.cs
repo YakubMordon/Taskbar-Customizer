@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Digital Cloud Technologies. All rights reserved.
 
-namespace Taskbar_Customizer.Models;
+namespace Taskbar_Customizer.Models.Models;
 
 /// <summary>
 /// Options for configuring local settings storage.
